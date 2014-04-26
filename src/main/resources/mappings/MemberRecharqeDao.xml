@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.MemberRecharqeDao">
+	<resultMap id="MemberRecharqeResultMap" type="com.ssc.demo.model.MemberRecharqe">
+		<id property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="rechargeid" column="rechargeId" />
+		<result property="username" column="username" />
+		<result property="amount" column="amount" />
+		<result property="rechargeamount" column="rechargeAmount" />
+		<result property="coin" column="coin" />
+		<result property="fcoin" column="fcoin" />
+		<result property="actionuid" column="actionUid" />
+		<result property="bankid" column="BankId" />
+		<result property="mbankid" column="mBankId" />
+		<result property="actionip" column="actionIP" />
+		<result property="actiontime" column="actionTime" />
+		<result property="rechargetime" column="rechargeTime" />
+		<result property="state" column="state" />
+		<result property="isdelete" column="isDelete" />
+		<result property="info" column="info" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,uid
+		 ,rechargeId
+		 ,username
+		 ,amount
+		 ,rechargeAmount
+		 ,coin
+		 ,fcoin
+		 ,actionUid
+		 ,BankId
+		 ,mBankId
+		 ,actionIP
+		 ,actionTime
+		 ,rechargeTime
+		 ,state
+		 ,isDelete
+		 ,info
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null and uid != ''">
+			AND uid = #{uid,jdbcType=INTEGER}
+		</if>
+		<if test="rechargeid != null and rechargeid != ''">
+			AND rechargeId = #{rechargeid,jdbcType=BIGINT}
+		</if>
+		<if test="username != null and username != ''">
+			AND username = #{username,jdbcType=VARCHAR}
+		</if>
+		<if test="amount != null and amount != ''">
+			AND amount = #{amount,jdbcType=FLOAT}
+		</if>
+		<if test="rechargeamount != null and rechargeamount != ''">
+			AND rechargeAmount = #{rechargeamount,jdbcType=FLOAT}
+		</if>
+		<if test="coin != null and coin != ''">
+			AND coin = #{coin,jdbcType=FLOAT}
+		</if>
+		<if test="fcoin != null and fcoin != ''">
+			AND fcoin = #{fcoin,jdbcType=FLOAT}
+		</if>
+		<if test="actionuid != null and actionuid != ''">
+			AND actionUid = #{actionuid,jdbcType=INTEGER}
+		</if>
+		<if test="bankid != null and bankid != ''">
+			AND BankId = #{bankid,jdbcType=VARCHAR}
+		</if>
+		<if test="mbankid != null and mbankid != ''">
+			AND mBankId = #{mbankid,jdbcType=TINYINT}
+		</if>
+		<if test="actionip != null and actionip != ''">
+			AND actionIP = #{actionip,jdbcType=INTEGER}
+		</if>
+		<if test="actiontime != null and actiontime != ''">
+			AND actionTime = #{actiontime,jdbcType=INTEGER}
+		</if>
+		<if test="rechargetime != null and rechargetime != ''">
+			AND rechargeTime = #{rechargetime,jdbcType=INTEGER}
+		</if>
+		<if test="state != null and state != ''">
+			AND state = #{state,jdbcType=BIT}
+		</if>
+		<if test="isdelete != null and isdelete != ''">
+			AND isDelete = #{isdelete,jdbcType=BIT}
+		</if>
+		<if test="info != null and info != ''">
+			AND info = #{info,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="MemberRecharqeResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_recharge
+		WHERE	id=#{id,jdbcType=INTEGER}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="MemberRecharqeResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_recharge
+		WHERE	id=#{id,jdbcType=INTEGER}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="MemberRecharqeResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_recharge
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.MemberRecharqe">
+	
+		INSERT INTO ssc_member_recharge
+				(id
+				,uid
+				,rechargeId
+				,username
+				,amount
+				,rechargeAmount
+				,coin
+				,fcoin
+				,actionUid
+				,BankId
+				,mBankId
+				,actionIP
+				,actionTime
+				,rechargeTime
+				,state
+				,isDelete
+				,info
+				)
+		VALUES	(#{id,jdbcType=INTEGER}
+				,#{uid}
+				,#{rechargeid}
+				,#{username}
+				,#{amount}
+				,#{rechargeamount}
+				,#{coin}
+				,#{fcoin}
+				,#{actionuid}
+				,#{bankid}
+				,#{mbankid}
+				,#{actionip}
+				,#{actiontime}
+				,#{rechargetime}
+				,#{state}
+				,#{isdelete}
+				,#{info}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.MemberRecharqe">
+	
+		UPDATE	ssc_member_recharge
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null and uid != ''">
+				uid = #{uid,jdbcType=INTEGER},
+			</if>
+			<if test="rechargeid != null and rechargeid != ''">
+				rechargeId = #{rechargeid,jdbcType=BIGINT},
+			</if>
+			<if test="username != null and username != ''">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null and amount != ''">
+				amount = #{amount,jdbcType=FLOAT},
+			</if>
+			<if test="rechargeamount != null and rechargeamount != ''">
+				rechargeAmount = #{rechargeamount,jdbcType=FLOAT},
+			</if>
+			<if test="coin != null and coin != ''">
+				coin = #{coin,jdbcType=FLOAT},
+			</if>
+			<if test="fcoin != null and fcoin != ''">
+				fcoin = #{fcoin,jdbcType=FLOAT},
+			</if>
+			<if test="actionuid != null and actionuid != ''">
+				actionUid = #{actionuid,jdbcType=INTEGER},
+			</if>
+			<if test="bankid != null and bankid != ''">
+				BankId = #{bankid,jdbcType=VARCHAR},
+			</if>
+			<if test="mbankid != null and mbankid != ''">
+				mBankId = #{mbankid,jdbcType=TINYINT},
+			</if>
+			<if test="actionip != null and actionip != ''">
+				actionIP = #{actionip,jdbcType=INTEGER},
+			</if>
+			<if test="actiontime != null and actiontime != ''">
+				actionTime = #{actiontime,jdbcType=INTEGER},
+			</if>
+			<if test="rechargetime != null and rechargetime != ''">
+				rechargeTime = #{rechargetime,jdbcType=INTEGER},
+			</if>
+			<if test="state != null and state != ''">
+				state = #{state,jdbcType=BIT},
+			</if>
+			<if test="isdelete != null and isdelete != ''">
+				isDelete = #{isdelete,jdbcType=BIT},
+			</if>
+			<if test="info != null and info != ''">
+				info = #{info,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_member_recharge
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_member_recharge
+		WHERE	id
+		   IN
+    	<foreach item="memberRecharqeId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{memberRecharqeId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

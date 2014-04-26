@@ -1,0 +1,113 @@
+@charset "utf-8";
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote {
+	padding:0;
+	margin:0;
+}
+fieldset,img {
+	border:0;
+}
+*{-webkit-user-drag: none;}
+img {
+	vertical-align:middle;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-weight:normal;
+	font-style:normal;
+}
+.code {
+	width:400px;
+	margin:0px 5px 10px 10px;
+}
+strong {
+	font-weight:bold;
+}
+ol,ul,li {
+	list-style:none;
+}
+h3,h4,h5,h6 {
+	font-weight:bold;
+	font-size:100%;
+}
+q:before,q:after {
+	content:?17;
+}
+abbr,acronym {
+	border:0;
+}
+a {
+	text-decoration:none;
+}
+*{
+	padding:0px;
+	margin:0px;
+}
+.floatR {float:right;}
+.floatL {float:left;}
+.marginb5px {margin-bottom:5px;}
+#logo, #headBt .exit, #headBt .online, #headInfo, #headInfo .name, #headInfo .money, #headInfo .addMoney, #headInfo .decMoney, #headInfo .money, #headInfo .email, #mainNavBg, #banner, #ad, #ad img, #adContainer .prev, #adContainer .next, #subContent, #subNav,#subNav .bg ,#lottery ,#lottery .one,#lottery2 .one span ,#lottery2 .two .dot,#winNum,#winNum .two span,#lotteryType span{}
+
+html,body{
+	background:#c5c5c5;
+}
+
+body{
+	font-size:12px;
+	font: 12px/24px Microsoft YaHei,Tahoma,Helvetica,Arial,'SimSun',sans-serif;
+}
+
+
+/*------------------------------------------*/
+
+ul, ol, dl, dd, form, input, select, button, textarea {
+    margin: 0;
+    padding: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+ul, ol {
+    list-style: none outside none;
+}
+
+/*------------------------------------------*/
+
+
+
+
+
+
+
+
+ul{
+	list-style:none;
+}
+
+ul li{
+	list-style:none;
+}
+.bold { font-weight:bold;}
+
+.lottery_frame {width:784px; margin:5px auto;}
+.lottery_area { width:784px; height:154px; overflow:hidden;}
+.lottery_area .lottery_table{ width:767px; height:136px; margin:8px;}
+.lottery_area .lottery_table .lottery_num{ float:left;width:430px; height:126px; margin:5px 20px 5px 32px;overflow:hidden;}
+
+.lottery_area .lottery_table .lottery_num .lo_title ul { margin:0px 25px;}
+.lottery_area .lottery_table .lottery_num .lo_title ul li { float:left;}
+
+.lottery_area .lottery_table .lottery_num .lo_title .lo_date{ padding-top:5px; font-size:15px; width:264px; text-align:center;}
+
+.lottery_area .lottery_table .lottery_num .num_open { clear:both; margin:48px 20px;}
+.lottery_area .lottery_table .lottery_num .num_open li{ float:left;}
+.lottery_area .lottery_table .lottery_num .num_open .each{ float:left;width:43px; height:57px; line-height:57px; font-size:36px; margin:0 17px;}
+
+
+.lottery_area .lottery_table .lottery_next{ float:left; width:222px; margin-left:20px; margin-top:10px;}
+.lottery_area .lottery_table .lottery_next ul li { height:26px; line-height:26px;}
+.lottery_area .lottery_table .lottery_next ul li label{ padding-left:5px;}
+.lottery_area .lottery_table .lottery_next .countdown{ margin-top:5px;width:222px; height:49px; line-height:49px;  font-weight:none; text-align:center;}
+.lottery_area .lottery_table .lottery_next .countdown span{ margin-left:12px;letter-spacing:2px;}
+

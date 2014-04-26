@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="    		
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd                
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath*:memcache.properties" />
+
+	<bean id="memCache" class="framework.generic.memcached.MemCacheImpl" init-method="init">
+		<property name="serverList">
+			<value>${memcache.serverList}</value>
+		</property>
+		<property name="weights">
+			<value>${memcache.weights}</value>
+		</property>
+		<property name="failover">
+			<value>${memcache.failover}</value>
+		</property>
+		<property name="initConn">
+			<value>${memcache.initConn}</value>
+		</property>
+		<property name="minConn">
+			<value>${memcache.minConn}</value>
+		</property>
+		<property name="maxConn">
+			<value>${memcache.maxConn}</value>
+		</property>
+		<property name="maintSleep">
+			<value>${memcache.maintSleep}</value>
+		</property>
+		<property name="nagle">
+			<value>${memcache.nagle}</value>
+		</property>
+		<property name="socketTO">
+			<value>${memcache.socketTO}</value>
+		</property>
+	</bean>
+
+</beans>
+
+<!-- 
+memcached为了减少单个memcached的负载，可以在一台机器上运行多个实例，如果把多个memcached
+注册为服务呢，通过SC命令我们可以创建服务
+ 
+建立服务器1：
+sc create memcached1 binPath= "D:\Develop\memcached-1.2.1-win32\memcached.exe -d runservice  -m 128 -c 512 -p 11211" start= auto DisplayName= "memcached1"
+ 
+建立服务器2：
+ 
+sc create memcached2 binPath= "D:\Develop\memcached-1.2.1-win32\memcached.exe -d runservice  -m 128 -c 512 -p 11212" start= auto DisplayName= "memcached2"
+
+删除服务也很简单
+sc delete memcached2
+
+
+memcached –m 200来调整最大内存占用之后会发现没有起作用，总是默认的64MB的内存，原因是注册表中并没有写入信息，可以这样来修改。
+1. memcached –d shutdown 首先关闭memcached服务。
+2.进入注册表，找到HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/memcached Server， 在其中有一个ImagePath项，值为
+ 
+"d:/memcached/memcached.exe" -d runservice，在后面加上-l 127.0.0.1 -m 3000 -c 2048。
+
+3.memcached –d start 启动memcached服务，这样就将memcached的最大内存修改为了3000MB最大连接数为2048。
+
+ -->

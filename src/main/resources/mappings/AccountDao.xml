@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.AccountDao">
+	<resultMap id="AccountResultMap" type="com.ssc.demo.model.Account">
+		<id property="uid" column="uid" />
+		<result property="uname" column="uname" />
+		<result property="ualias" column="ualias" />
+		<result property="upwd" column="upwd" />
+		<result property="isEnable" column="is_enable" />
+		<result property="isAdmin" column="is_admin" />
+		<result property="lastLoginDate" column="last_login_date" />
+		<result property="createName" column="create_name" />
+		<result property="createDate" column="create_date" />
+		<result property="modifyName" column="modify_name" />
+		<result property="modifyDate" column="modify_date" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 uid
+		 ,uname
+		 ,ualias
+		 ,upwd
+		 ,is_enable
+		 ,is_admin
+		 ,last_login_date
+		 ,create_name
+		 ,create_date
+		 ,modify_name
+		 ,modify_date
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="uid != null and uid != ''">
+			AND uid = #{uid,jdbcType=INT UNSIGNED}
+		</if>
+		<if test="uname != null and uname != ''">
+			AND uname = #{uname,jdbcType=VARCHAR}
+		</if>
+		<if test="ualias != null and ualias != ''">
+			AND ualias = #{ualias,jdbcType=VARCHAR}
+		</if>
+		<if test="upwd != null and upwd != ''">
+			AND upwd = #{upwd,jdbcType=VARCHAR}
+		</if>
+		<if test="isEnable != null and isEnable != ''">
+			AND is_enable = #{isEnable,jdbcType=BIT}
+		</if>
+		<if test="isAdmin != null and isAdmin != ''">
+			AND is_admin = #{isAdmin,jdbcType=BIT}
+		</if>
+		<if test="lastLoginDate != null and lastLoginDate != ''">
+			AND last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="createName != null and createName != ''">
+			AND create_name = #{createName,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and createDate != ''">
+			AND create_date = #{createDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="modifyName != null and modifyName != ''">
+			AND modify_name = #{modifyName,jdbcType=VARCHAR}
+		</if>
+		<if test="modifyDate != null and modifyDate != ''">
+			AND modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="AccountResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_account
+		WHERE	uid=#{uid,jdbcType=INT UNSIGNED}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="AccountResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_account
+		WHERE	uid=#{uid,jdbcType=INT UNSIGNED}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="AccountResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_account
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.Account">
+	
+		INSERT INTO ssc_account
+				(uid
+				,uname
+				,ualias
+				,upwd
+				,is_enable
+				,is_admin
+				,last_login_date
+				,create_name
+				,create_date
+				,modify_name
+				,modify_date
+				)
+		VALUES	(#{uid,jdbcType=INT UNSIGNED}
+				,#{uname}
+				,#{ualias}
+				,#{upwd}
+				,#{isEnable}
+				,#{isAdmin}
+				,#{lastLoginDate}
+				,#{createName}
+				,#{createDate}
+				,#{modifyName}
+				,#{modifyDate}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.Account">
+	
+		UPDATE	ssc_account
+		<set>
+			<if test="uid != null and uid != ''">
+				uid = #{uid,jdbcType=INT UNSIGNED},
+			</if>
+			<if test="uname != null and uname != ''">
+				uname = #{uname,jdbcType=VARCHAR},
+			</if>
+			<if test="ualias != null and ualias != ''">
+				ualias = #{ualias,jdbcType=VARCHAR},
+			</if>
+			<if test="upwd != null and upwd != ''">
+				upwd = #{upwd,jdbcType=VARCHAR},
+			</if>
+			<if test="isEnable != null and isEnable != ''">
+				is_enable = #{isEnable,jdbcType=BIT},
+			</if>
+			<if test="isAdmin != null and isAdmin != ''">
+				is_admin = #{isAdmin,jdbcType=BIT},
+			</if>
+			<if test="lastLoginDate != null and lastLoginDate != ''">
+				last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createName != null and createName != ''">
+				create_name = #{createName,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyName != null and modifyName != ''">
+				modify_name = #{modifyName,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		WHERE	uid = #{uid,jdbcType=INT UNSIGNED}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_account
+		WHERE	uid = #{uid,jdbcType=INT UNSIGNED}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_account
+		WHERE	uid
+		   IN
+    	<foreach item="accountId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{accountId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

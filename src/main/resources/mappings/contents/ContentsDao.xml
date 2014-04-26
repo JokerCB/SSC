@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.contents.ContentsDao">
+	<resultMap id="ContentsResultMap" type="com.ssc.demo.model.contents.Contents">
+		<id property="contentsId" column="CONTENTS_ID" />
+		<result property="title" column="TITLE" />
+		<result property="describes" column="DESCRIBES" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 CONTENTS_ID
+		 ,TITLE
+		 ,DESCRIBES
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="contentsId != null and contentsId != ''">
+			AND CONTENTS_ID = #{contentsId,jdbcType=VARCHAR}
+		</if>
+		<if test="title != null and title != ''">
+			AND TITLE = #{title,jdbcType=VARCHAR}
+		</if>
+		<if test="describes != null and describes != ''">
+			AND DESCRIBES = #{describes,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="ContentsResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	t_contents
+		WHERE	CONTENTS_ID=#{contentsId,jdbcType=VARCHAR}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="ContentsResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	t_contents
+		WHERE	CONTENTS_ID=#{contentsId,jdbcType=VARCHAR}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="ContentsResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	t_contents
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.contents.Contents">
+	
+		INSERT INTO t_contents
+				(CONTENTS_ID
+				,TITLE
+				,DESCRIBES
+				)
+		VALUES	(#{contentsId}
+				,#{title}
+				,#{describes}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.contents.Contents">
+	
+		UPDATE	t_contents
+		<set>
+			<if test="contentsId != null and contentsId != ''">
+				CONTENTS_ID = #{contentsId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null and title != ''">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="describes != null and describes != ''">
+				DESCRIBES = #{describes,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE	CONTENTS_ID = #{contentsId,jdbcType=VARCHAR}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM t_contents
+		WHERE	CONTENTS_ID = #{contentsId,jdbcType=VARCHAR}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM t_contents
+		WHERE	CONTENTS_ID
+		   IN
+    	<foreach item="contentsId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{contentsId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

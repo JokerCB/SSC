@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.MemberSessionDao">
+	<resultMap id="MemberSessionResultMap" type="com.ssc.demo.model.MemberSession">
+		<id property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="username" column="username" />
+		<result property="sessionKey" column="session_key" />
+		<result property="logintime" column="loginTime" />
+		<result property="accesstime" column="accessTime" />
+		<result property="isonline" column="isOnLine" />
+		<result property="loginip" column="loginIP" />
+		<result property="browser" column="browser" />
+		<result property="os" column="os" />
+		<result property="ismobiledevices" column="isMobileDevices" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,uid
+		 ,username
+		 ,session_key
+		 ,loginTime
+		 ,accessTime
+		 ,isOnLine
+		 ,loginIP
+		 ,browser
+		 ,os
+		 ,isMobileDevices
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null and uid != ''">
+			AND uid = #{uid,jdbcType=INTEGER}
+		</if>
+		<if test="username != null and username != ''">
+			AND username = #{username,jdbcType=VARCHAR}
+		</if>
+		<if test="sessionKey != null and sessionKey != ''">
+			AND session_key = #{sessionKey,jdbcType=VARCHAR}
+		</if>
+		<if test="logintime != null and logintime != ''">
+			AND loginTime = #{logintime,jdbcType=INTEGER}
+		</if>
+		<if test="accesstime != null and accesstime != ''">
+			AND accessTime = #{accesstime,jdbcType=INTEGER}
+		</if>
+		<if test="isonline != null and isonline != ''">
+			AND isOnLine = #{isonline,jdbcType=BIT}
+		</if>
+		<if test="loginip != null and loginip != ''">
+			AND loginIP = #{loginip,jdbcType=INTEGER}
+		</if>
+		<if test="browser != null and browser != ''">
+			AND browser = #{browser,jdbcType=VARCHAR}
+		</if>
+		<if test="os != null and os != ''">
+			AND os = #{os,jdbcType=VARCHAR}
+		</if>
+		<if test="ismobiledevices != null and ismobiledevices != ''">
+			AND isMobileDevices = #{ismobiledevices,jdbcType=BIT}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="MemberSessionResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_session
+		WHERE	id=#{id,jdbcType=INTEGER}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="MemberSessionResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_session
+		WHERE	id=#{id,jdbcType=INTEGER}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="MemberSessionResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_session
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.MemberSession">
+	
+		INSERT INTO ssc_member_session
+				(id
+				,uid
+				,username
+				,session_key
+				,loginTime
+				,accessTime
+				,isOnLine
+				,loginIP
+				,browser
+				,os
+				,isMobileDevices
+				)
+		VALUES	(#{id,jdbcType=INTEGER}
+				,#{uid}
+				,#{username}
+				,#{sessionKey}
+				,#{logintime}
+				,#{accesstime}
+				,#{isonline}
+				,#{loginip}
+				,#{browser}
+				,#{os}
+				,#{ismobiledevices}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.MemberSession">
+	
+		UPDATE	ssc_member_session
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null and uid != ''">
+				uid = #{uid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null and username != ''">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="sessionKey != null and sessionKey != ''">
+				session_key = #{sessionKey,jdbcType=VARCHAR},
+			</if>
+			<if test="logintime != null and logintime != ''">
+				loginTime = #{logintime,jdbcType=INTEGER},
+			</if>
+			<if test="accesstime != null and accesstime != ''">
+				accessTime = #{accesstime,jdbcType=INTEGER},
+			</if>
+			<if test="isonline != null and isonline != ''">
+				isOnLine = #{isonline,jdbcType=BIT},
+			</if>
+			<if test="loginip != null and loginip != ''">
+				loginIP = #{loginip,jdbcType=INTEGER},
+			</if>
+			<if test="browser != null and browser != ''">
+				browser = #{browser,jdbcType=VARCHAR},
+			</if>
+			<if test="os != null and os != ''">
+				os = #{os,jdbcType=VARCHAR},
+			</if>
+			<if test="ismobiledevices != null and ismobiledevices != ''">
+				isMobileDevices = #{ismobiledevices,jdbcType=BIT},
+			</if>
+		</set>
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_member_session
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_member_session
+		WHERE	id
+		   IN
+    	<foreach item="memberSessionId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{memberSessionId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

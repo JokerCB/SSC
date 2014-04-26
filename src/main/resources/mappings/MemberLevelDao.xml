@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.MemberLevelDao">
+	<resultMap id="MemberLevelResultMap" type="com.ssc.demo.model.MemberLevel">
+		<id property="id" column="id" />
+		<result property="level" column="level" />
+		<result property="levelname" column="levelName" />
+		<result property="minscore" column="minScore" />
+		<result property="maxtocashcount" column="maxToCashCount" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,level
+		 ,levelName
+		 ,minScore
+		 ,maxToCashCount
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=TINYINT UNSIGNED}
+		</if>
+		<if test="level != null and level != ''">
+			AND level = #{level,jdbcType=TINYINT UNSIGNED}
+		</if>
+		<if test="levelname != null and levelname != ''">
+			AND levelName = #{levelname,jdbcType=VARCHAR}
+		</if>
+		<if test="minscore != null and minscore != ''">
+			AND minScore = #{minscore,jdbcType=INT UNSIGNED}
+		</if>
+		<if test="maxtocashcount != null and maxtocashcount != ''">
+			AND maxToCashCount = #{maxtocashcount,jdbcType=TINYINT UNSIGNED}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="MemberLevelResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_level
+		WHERE	id=#{id,jdbcType=TINYINT UNSIGNED}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="MemberLevelResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_level
+		WHERE	id=#{id,jdbcType=TINYINT UNSIGNED}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="MemberLevelResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_level
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.MemberLevel">
+	
+		INSERT INTO ssc_member_level
+				(id
+				,level
+				,levelName
+				,minScore
+				,maxToCashCount
+				)
+		VALUES	(#{id,jdbcType=TINYINT UNSIGNED}
+				,#{level}
+				,#{levelname}
+				,#{minscore}
+				,#{maxtocashcount}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.MemberLevel">
+	
+		UPDATE	ssc_member_level
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=TINYINT UNSIGNED},
+			</if>
+			<if test="level != null and level != ''">
+				level = #{level,jdbcType=TINYINT UNSIGNED},
+			</if>
+			<if test="levelname != null and levelname != ''">
+				levelName = #{levelname,jdbcType=VARCHAR},
+			</if>
+			<if test="minscore != null and minscore != ''">
+				minScore = #{minscore,jdbcType=INT UNSIGNED},
+			</if>
+			<if test="maxtocashcount != null and maxtocashcount != ''">
+				maxToCashCount = #{maxtocashcount,jdbcType=TINYINT UNSIGNED},
+			</if>
+		</set>
+		WHERE	id = #{id,jdbcType=TINYINT UNSIGNED}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_member_level
+		WHERE	id = #{id,jdbcType=TINYINT UNSIGNED}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_member_level
+		WHERE	id
+		   IN
+    	<foreach item="memberLevelId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{memberLevelId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

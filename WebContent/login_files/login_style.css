@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+body{font: 12px/24px  Microsoft YaHei,Tahoma,Helvetica,Arial,'SimSun',sans-serif; background:#1a1a1a url(../images/sincai/login_bg.jpg)}
+body,ul,li,img,input,div,form{border:none; padding:0; margin:0;vertical-align:middle;}
+ul,li{list-style:none;}
+h1,h2,h3,h4,h5{margin:0; padding:0;}
+*{-webkit-user-drag: none;}
+#wrap{}
+#login_box_top{width:223px; height:90px; background:url(../images/sincai/login_logo.jpg) no-repeat ; margin:10px auto 2px auto;}
+#login_box{width:602px; height:364px; background:url(../images/sincai/login_boxbg.jpg) no-repeat ; margin:0px auto;}
+#login_box ul{float:left; margin:80px 0 20px 130px; color:#5e5e5e; font-size:16px;}
+#login_box li{margin-bottom:18px;}
+#login_box li label{ margin-right:10px; vertical-align:middle}
+.login_un{width:277px; height:39px; line-height:39px; background:url(../images/sincai/login_un.jpg) no-repeat; color:#000; text-indent:5px;}
+.login_ps{width:277px; height:39px; line-height:39px; background:url(../images/sincai/login_ps.jpg) no-repeat; color:#000; text-indent:5px;}
+.login_code{width:192px; height:39px; line-height:39px; background:url(../images/sincai/login_code.jpg) no-repeat; color:#000; text-indent:5px;}
+.code_img{margin-left:0px;}
+.login_btn{width:178px; height:49px; background:url(../images/sincai/login_btn.jpg) no-repeat; background-position:left top; cursor:pointer; float:left; margin-top:0px; margin-left:210px;}
+.forget_ps{float:left; color:#858585; background:url(../images/sincai/forget_ps.gif) 1px 8px no-repeat;text-indent:13px; margin:15px 0 0 15px;}
+
+.s_bin {height:45px;float:left;}
+.bottom_text { width:614px; margin:10px auto; line-height:18px; color:#444444; text-align:center;}
+
+
+
+

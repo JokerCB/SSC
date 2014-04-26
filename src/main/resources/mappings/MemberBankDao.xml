@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.MemberBankDao">
+	<resultMap id="MemberBankResultMap" type="com.ssc.demo.model.MemberBank">
+		<id property="id" column="id" />
+		<result property="uid" column="uid" />
+		<result property="admin" column="admin" />
+		<result property="enable" column="enable" />
+		<result property="bankid" column="bankId" />
+		<result property="username" column="username" />
+		<result property="account" column="account" />
+		<result property="rechargedemo" column="rechargeDemo" />
+		<result property="editenable" column="editEnable" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,uid
+		 ,admin
+		 ,enable
+		 ,bankId
+		 ,username
+		 ,account
+		 ,rechargeDemo
+		 ,editEnable
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="uid != null and uid != ''">
+			AND uid = #{uid,jdbcType=INTEGER}
+		</if>
+		<if test="admin != null and admin != ''">
+			AND admin = #{admin,jdbcType=BIT}
+		</if>
+		<if test="enable != null and enable != ''">
+			AND enable = #{enable,jdbcType=BIT}
+		</if>
+		<if test="bankid != null and bankid != ''">
+			AND bankId = #{bankid,jdbcType=INTEGER}
+		</if>
+		<if test="username != null and username != ''">
+			AND username = #{username,jdbcType=VARCHAR}
+		</if>
+		<if test="account != null and account != ''">
+			AND account = #{account,jdbcType=VARCHAR}
+		</if>
+		<if test="rechargedemo != null and rechargedemo != ''">
+			AND rechargeDemo = #{rechargedemo,jdbcType=VARCHAR}
+		</if>
+		<if test="editenable != null and editenable != ''">
+			AND editEnable = #{editenable,jdbcType=BIT}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="MemberBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_bank
+		WHERE	id=#{id,jdbcType=INTEGER}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="MemberBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_bank
+		WHERE	id=#{id,jdbcType=INTEGER}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="MemberBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_bank
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.MemberBank">
+	
+		INSERT INTO ssc_member_bank
+				(id
+				,uid
+				,admin
+				,enable
+				,bankId
+				,username
+				,account
+				,rechargeDemo
+				,editEnable
+				)
+		VALUES	(#{id,jdbcType=INTEGER}
+				,#{uid}
+				,#{admin}
+				,#{enable}
+				,#{bankid}
+				,#{username}
+				,#{account}
+				,#{rechargedemo}
+				,#{editenable}
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.MemberBank">
+	
+		UPDATE	ssc_member_bank
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="uid != null and uid != ''">
+				uid = #{uid,jdbcType=INTEGER},
+			</if>
+			<if test="admin != null and admin != ''">
+				admin = #{admin,jdbcType=BIT},
+			</if>
+			<if test="enable != null and enable != ''">
+				enable = #{enable,jdbcType=BIT},
+			</if>
+			<if test="bankid != null and bankid != ''">
+				bankId = #{bankid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null and username != ''">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null and account != ''">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargedemo != null and rechargedemo != ''">
+				rechargeDemo = #{rechargedemo,jdbcType=VARCHAR},
+			</if>
+			<if test="editenable != null and editenable != ''">
+				editEnable = #{editenable,jdbcType=BIT},
+			</if>
+		</set>
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_member_bank
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_member_bank
+		WHERE	id
+		   IN
+    	<foreach item="memberBankId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{memberBankId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

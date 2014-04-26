@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssc.demo.dao.common.CommonDao">
+
+	<resultMap id="HighQueryResultMap" type="com.ssc.demo.model.common.HighQuery">
+		<id property="highQueryId" column="HIGH_QUERY_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="conditions" column="CONDITIONS" />
+		<result property="conditionAlias" column="CONDITION_ALIAS" />
+		<result property="conditionSort" column="CONDITION_SORT" />
+		<result property="conditionSortAlias" column="CONDITION_SORT_ALIAS" />
+		<result property="createTime" column="CREATE_TIME" />
+	</resultMap>
+
+	<select id="findByPage" resultMap="HighQueryResultMap">
+		SELECT
+		HIGH_QUERY_ID,USER_ID,CONDITIONS,CONDITION_ALIAS,CONDITION_SORT,CONDITION_SORT_ALIAS,CREATE_TIME
+		FROM COM_HIGHQUERY
+	</select>
+	<insert id="insertHighQuerys" >
+		INSERT INTO COM_HIGHQUERY VALUES  
+		<foreach collection="list" open="(" close=")" item="highQuery" index="index">
+			USER_ID=#{userId,jdbcType=VARCHAR},
+			CONDITIONS=#{highQuery.conditions,jdbcType=VARCHAR},
+			CONDITION_ALIAS=#{highQuery.conditionAlias,jdbcType=VARCHAR},
+			CONDITION_SORT=#{highQuery.conditionSort,jdbcType=VARCHAR},
+			CONDITION_SORT_ALIAS=#{highQuery.conditionSortAlias,jdbcType=VARCHAR},
+		</foreach>
+	</insert>
+</mapper> 

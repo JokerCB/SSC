@@ -1,0 +1,261 @@
+@charset "utf-8";
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote {
+	padding:0;
+	margin:0;
+}
+fieldset,img {
+	border:0;
+}
+img {
+	vertical-align:middle;
+}
+*{-webkit-user-drag: none;}
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-weight:normal;
+	font-style:normal;
+}
+.code {
+	width:400px;
+	margin:0px 5px 10px 10px;
+}
+strong {
+	font-weight:bold;
+}
+ol,ul,li {
+	list-style:none;
+}
+h3,h4,h5,h6 {
+	font-weight:bold;
+	font-size:100%;
+}
+q:before,q:after {
+	content:?17;
+}
+abbr,acronym {
+	border:0;
+}
+a {
+	text-decoration:none;
+	cursor:pointer;
+}
+}
+*{
+	padding:0px;
+	margin:0px;
+}
+#logo, #headBt .exit, #headBt .online, #headInfo, #headInfo .name, #headInfo .money, #headInfo .addMoney, #headInfo .decMoney, #headInfo .money, #headInfo .email, #mainNavBg, #banner, #ad, #ad img, #adContainer .prev, #adContainer .next, #subContent, #subNav,#subNav .bg ,#lottery ,#lottery .one,#lottery2 .one span ,#lottery2 .two .dot,#winNum,#winNum .two span,#lotteryType span{ behavior:url("js/sincai/png/iepngfix.htc") }
+
+html,body{
+	background:#000;
+	width:100%;
+	height:100%;
+}
+
+body{
+	height:100%;
+	font-size:12px;
+	font: 12px/24px  Microsoft YaHei,Tahoma,Helvetica,'SimSun',sans-serif;
+	overflow: hidden;
+}
+
+
+body.showmenu{
+	
+}
+
+body.hidemenu{
+	background:none;
+}
+
+
+ul{
+	list-style:none;
+}
+
+.head{
+	width:100%;
+	height:80px;
+	overflow:hidden;
+	z-index:8;
+	position:relative;
+}
+
+.top{
+	height:80px;
+	width:100%;
+	overflow:hidden;
+	clear:both;
+}
+.top .top_logo{
+	width:224px;
+	height:90px;
+	float:left;
+}
+.top .top_link{
+	float:right;
+	margin-top:10px;
+	padding:0px 10px 0px 0px;
+}
+.top .top_link ul{
+	float:left;
+	padding:8px 0px 0px 0px;
+	line-height:20px;
+	overflow:hidden;
+}
+.top .top_link ul li.welcome{
+	border-right:none;
+	color:#A8C280;
+	padding-right:6px;
+}
+.top .top_link ul li{
+	float:left;
+
+
+	padding-left:15px;
+	margin-right:10px;
+}
+.top .top_link ul li a{
+	padding-left:11px;
+	padding-right:11px;
+	font-size:16px;
+	text-decoration:none;
+}
+
+.top .top_link_us{
+	float:right;
+	margin-top:10px;
+	padding:0px 10px 0px 0px;
+}
+.top .top_link_us ul{
+	float:left;
+	padding:8px 0px 0px 0px;
+	line-height:20px;
+	overflow:hidden;
+}
+.top .top_link_us ul li.welcome{
+	border-right:none;
+	color:#A8C280;
+	padding-right:6px;
+}
+.top .top_link_us ul li{
+	margin:0px;
+
+	padding-left:15px;
+	margin-right:10px;
+}
+.top .top_link_us ul li a{
+	padding-left:11px;
+	padding-right:11px;
+	font-size:16px;
+	text-decoration:none;
+}
+
+.top .quick{
+	width:51px;
+	height:28px;
+	float:right;
+	text-align:center;
+	
+}
+.top .quick a{
+	display:block;
+	text-decoration:none;
+	line-height:25px;
+	height:25px;
+	overflow:hidden;
+}
+
+
+body.showmenu .left{
+	display:block;
+}
+body.hidemenu .left{
+	display:none;
+}
+
+
+.left{
+	position:absolute;
+	top:80px;
+	width:224px;
+	left:0px;
+	bottom:0px;
+}
+
+
+	.left .left_msg { height:37px;overflow: hidden;}
+	
+	.left .left_detail { height:95px; }
+	
+	.left .left_menu .menu_title { height:32px; line-height:32px;}
+	
+
+	.left .left_menu .menu_list {
+			list-style: none;
+			padding:0;
+			margin:0;
+			width: 224px;
+		}
+		
+	.left .left_menu .menu_list li {
+			line-height: 20px;
+			float: left;
+			width: 60px;
+			height: 60px;
+			text-align: center;
+			margin:10px 7px 15px 7px;
+			border-radius: 5px;
+			padding: 0px;
+			
+		}
+		
+		.left .left_menu .menu_list li p{
+		}
+		
+	.left .left_menu .menu_list li img{
+			width: 60px;
+			height: 60px;			
+			border-radius: 3px;
+			padding: 0px;
+		}			
+
+.menu{
+	height:100%;
+}
+.menu iframe{
+	height:100%;
+	width:99.99%;
+	z-index:20;
+}
+
+body.showmenu .right{
+	left:226px;
+}
+body.hidemenu .right{
+	left:0px;
+}
+
+.right{
+	position:absolute;
+	right:0;
+	top:80px;
+	bottom:0px;
+
+}
+
+.right{
+	*height:100%;
+	*top:0;
+	*bottom:0;
+	*border-top:80px solid #FFF;
+	*border-bottom:0px solid #FFF;
+
+}
+.main{
+	height:100%;
+}
+.main iframe{
+	height:100%;
+	width:99.99%;
+	z-index:20;
+}

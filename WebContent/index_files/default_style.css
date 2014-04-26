@@ -1,0 +1,285 @@
+@charset "utf-8";
+/* CSS Document */
+.white { color:#fff; }
+.top{
+	background:url(../images/sincai/top_bg.jpg) left top repeat-x;
+}
+*{-webkit-user-drag: none;}
+.top .top_link ul li{
+	color:#CBDAB3;
+	background:url(../images/sincai/top_menuico.jpg) left no-repeat;
+}
+
+.top .top_link_us ul li.ser_ico{
+	background:url(../images/sincai/ser_ico.jpg) left no-repeat;
+}
+
+.top .top_link ul li a{
+	color:#ffffff;
+}
+.top .top_link ul li a:hover{
+	color:#f59316;
+}
+
+.top .top_link .quick{
+	background:url(../images/sincai/top_sbtn.jpg) center no-repeat;
+}
+.top .top_link .quick a{
+	color:#c5c5c5;
+}
+
+.top .top_link .quick a:hover{
+	color:#f59316;
+}
+
+.quick{
+	background:url(../images/sincai/top_sbtn.jpg) center no-repeat;
+	float:right;
+}
+.quick a{
+	color:#c5c5c5;
+}
+
+.quick a:hover{
+	color:#f59316;
+}
+body.showmenu .menuact { width:12px; height:76px; left:226px; margin-top:4px; position:absolute; z-index:1; background:#999999}
+body.hidemenu .menuact{
+	width:12px; height:76px; margin-top:4px; left:0px;  position:absolute; z-index:1; background:#999999
+}
+
+.left{
+	border-right:2px solid #ffffff;
+	}
+
+	.left .left_msg { height:37px; background:#333333;background:url(../images/sincai/left_msg_bg.jpg) left repeat-x;}
+	
+	.left .left_msg .left_ico { background:url(../images/sincai/left_msg_ico.jpg) left no-repeat; margin-left:10px; height:37px; line-height:37px; padding-left:38px; color:#FFFFFF;}
+	
+	#TT_news_g { overflow:hidden; height:37px;line-height:37px;}	
+	#TT_news_g li{ overflow:hidden; height:37px;line-height:37px;}	
+	.left .left_msg .left_ico  a{ color:#FFFFFF;}
+	.left .left_msg .left_ico  a:hover{ color:#f2df84;}
+	
+	.left .left_detail { background:#232323;}
+	
+		.left .left_detail .detail_left { width:51px; float:left; margin:10px 9px;}
+		
+			.left .left_detail .detail_left p{ text-align:center; color:#757575; margin-top:2px;}
+			
+				.left .left_detail .detail_left p a{ color:#757575;}
+				.left .left_detail .detail_left p a:hover{ color:#ff0000;}
+	
+	.left .left_detail .detail_right {width:155px; float:left; margin-top:4px;}
+	
+	.left .left_detail .detail_right li{ height:28px;}	
+	.left .left_detail .detail_right label{ color:#767676; font-weight:bold; font-size:14px;}
+	.left .left_detail .detail_right span{ color:#ffffff; font-weight:bold; font-size:14px;}
+	.left .left_detail .detail_right .mail{ color:#ffffff; font-size:12px;}
+	.left .left_detail .detail_right .mail a{ color:#ffffff; font-size:12px;}
+	.left .left_detail .detail_right .bal{ color:#c87000; font-weight:bold; font-size:14px; font-style:italic;}
+	.left .left_detail .detail_right .bal a{ color:#c87000; font-weight:bold; font-size:13px; font-style:italic;}
+	
+	.addMoney { margin-left:5px;}
+	.addMoney a{
+		padding:2px 7px;
+		font-size:12px;
+		text-align:center;
+		background:url(../images/sincai/left_msg_input.jpg) no-repeat;
+		color:#ffffff;	
+	}
+	.addMoney a:hover{ color:#f2df84}	
+	
+	.decMoney { margin-left:3px;font-weight:none;}
+	.decMoney a{
+		padding:2px 7px;
+		font-size:12px;
+		text-align:center;
+		background:url(../images/sincai/left_msg_output.jpg) no-repeat;
+		color:#222222;
+		
+	}
+	.decMoney a:hover{ color:#595959}	
+	
+	.left .left_menu .menu_title { width:214px; padding-left:10px;text-align:left;background:url(../images/sincai/left_listbg.jpg) left repeat-x; font-size:16px; font-weight:bold; color:#f4e287; letter-spacing:5px;}
+	
+	.left .left_menu .menu_list {
+			display:block;
+			list-style: none;
+			padding:0;
+			margin:0;
+			width: 224px;
+		}
+	.left .left_menu .menu_list li { position:relative;}
+	.left .left_menu .menu_list li em{
+			background:url(../images/sincai/lo_new.gif) no-repeat;width:35px;height:21px;position:absolute;top:-4px;left:13px;
+		}
+		
+		.lhover { color:#FF0000;}
+		
+		.left_menu{
+			background-color:#282828;
+			display:block;
+			position:absolute;
+			left:0;
+			padding-bottom:13px;
+			border-radius: 5px;
+			}
+	.left .left_menu .menu_list li {
+			color: #FFF;
+		
+		}
+
+	.left .left_menu .menu_list li img{
+			color: #FFF;
+			
+		}
+		
+		.left .left_menu .menu_list li a{
+			color:#FFFFFF;			
+		}
+		.left .left_menu .menu_list li a:hover{
+			color:#f2df84;
+			background-color:#666666;
+		}
+		
+	.online_service { margin-top:5px;clear:both; background:url(../images/sincai/left_os_ico.gif) left no-repeat; padding-left:20px;display:inline-block;position:relative; margin-right:10px; float:right;}
+	.online_service a{ color:#ffffff; font-size:14px;}
+	.online_service a:hover{ color:#f2df84}
+	
+/* Navigation */
+.nav_style_style, .nav_style ul { 
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.nav_style {
+  z-index: 100;
+  position: relative;
+}
+.nav_style li {
+  border-left: 1px solid #000;
+  float: left;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.nav_style li a, .nav_style li a:link, .nav_style li a:active, .nav_style li a:visited {
+  display: block;
+  padding: 0 12px;
+  text-transform: lowercase;
+  text-decoration: none;
+}
+
+.nav_style li a:hover {
+
+
+}
+#nav-one li:hover a, 
+#nav-one li.sfHover a {
+
+}
+#nav-one li:hover ul a, 
+#nav-one li.sfHover ul a {
+
+  background: #565656;
+  color: #ffffff;	
+}
+#nav-one li:hover ul a:hover, 
+#nav-one li.sfHover ul a:hover {
+  background: #ccc;
+  color: #000;	
+}
+
+.nav_style ul {
+  background: #565656;
+  border-bottom: 1px solid #000;
+  list-style: none;
+  margin: 0;
+  width: 80px;
+  position: absolute;
+  top: -999em;
+  left: -30px;background:url(../images/sincai/left_msg_output.jpg);
+}
+.nav_style li:hover ul,
+.nav_style li.sfHover ul {
+  top: 25px;
+}
+.nav_style ul li {
+
+  border: 0;
+  float: none;
+}
+.nav_style ul a {
+  border: 1px solid #000;
+  border-bottom: 0;
+  padding-right: 20px;
+  white-space: nowrap;
+}
+.nav_style ul a:hover {
+  background: #ccc;
+  color: #000;
+}
+
+ .lottery_04 { height:26px;width:738px;background:url(../images/sincai/con_bg.jpg) no-repeat center; margin-right:8px;color:#FFF; float:right;overflow:hidden;}
+	.lottery_04 ul {  height:24px;overflow:hidden;width:738px;}
+		.lottery_04 ul li{ padding-left:10px; color:#FFF; float:left;width:358px;}
+			.lottery_04 ul li .sp00{ width:363px;display:block; float:left;height:24px;}
+			.lottery_04 ul li .sp01{ color:#ae1656;}
+			.lottery_04 ul li .sp02{ color:#e5a316;}
+			.lottery_04 ul li .sp03{ color:#da9131;}
+			.lottery_04 ul li .sp04{ padding-left:10px;}
+			
+			
+#nav { 
+z-index:9999;
+} 
+#nav a { 
+display: block; text-align:center;color:#FFFFFF; 
+} 
+#nav a:link { 
+ text-decoration:none; 
+} 
+#nav a:visited { text-decoration:none; 
+} 
+#nav a:hover {text-decoration:none; 
+} 
+#nav li {
+
+} 
+#nav li a:hover{ 
+color:#f59316;
+} 
+#nav li ul {  list-style-type: none;text-align:center; 
+left: -999em;  position: absolute; margin-left:10px;
+} 
+#nav li ul li{
+margin-left:-15px;
+height:20px;
+line-height:20px;
+background-color: #555555;
+list-style:none;
+} 
+#nav li ul a{font-size:12px; wedisplay: block; text-align:left; color:#ffffff ;
+} 
+#nav li ul a:link { text-decoration:none; 
+} 
+#nav li ul a:visited { text-decoration:none; 
+} 
+#nav li ul a:hover {color:#ffffff; text-decoration:none;font-weight:normal; 
+background:#C00;
+} 
+#nav li:hover ul { 
+left: auto; 
+} 
+#nav li.sfhover ul { 
+left: auto; 
+} 
+#content { 
+clear: left; 
+} 
+
+#lotty_type {margin-left: 0px; float: left;}
+.down_ad {position:absolute; top:440px;}
+--> 

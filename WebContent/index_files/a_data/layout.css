@@ -1,0 +1,1273 @@
+@charset "utf-8";
+/* CSS Document */
+.red {color:red;}
+.red1 {color:#ffffff; font-size:16px; font-weight:bold;}
+.red2 {color:red; font-size:20px; font-weight:bold; font-style:italic;}
+.yellow2 {color:#f59316; font-size:18px; font-weight:none; font-style:italic;}
+.red3 {color:red; font-size:14px; font-weight:bold; font-style:italic;}
+.red4 {color:red; font-size:14px; font-weight:bold;}
+	*{-webkit-user-drag: none;}
+
+#subContent_bet {
+	clear:both;
+	width:784px; margin:5px auto;
+	min-height:296px;
+	_height:296px;
+	background-color:#f3f3f3;border-radius: 5px;
+	overflow:hidden;
+}
+#subContent_bet .bg {
+	padding:8px;
+	width:769px;
+}
+
+#subContent_bet_re {
+	clear:both;
+	width:98%;
+	margin:0 auto;
+	min-height:336px;
+	_height:336;
+	padding-top:5px;
+}
+
+
+
+#siderbar {
+	_display:inline;
+	overflow:hidden;
+}
+
+#siderbar .list {
+	padding:5px;
+}
+#siderbar .list li {
+	float:left;
+	width:90px;
+}
+#siderbar .list li a {
+	float:left;
+	width:90px;
+	background:url(../../images/sincai/siderbarlink01.gif) no-repeat;
+	height:33px;
+	line-height:33px;
+	text-indent:22px;
+	blr:expression(this.onFocus=this.blur());
+	font-size:14px;
+	outline:none;
+	color:#ffffff;
+}
+#siderbar .list a:focus { -moz-outline-style: none; }
+#siderbar .list a:hover {
+	background:url(../../images/sincai/siderbarlink02.gif) no-repeat;
+	text-decoration:none;
+	color:#ff6d00;
+}
+#siderbar .list .current a, #siderbar .list .current a:hover {
+	background:url(../../images/sincai/siderbarFocus.png) no-repeat;
+	color:#ffffff;
+}
+
+#mainContent {
+	background:#d5d8de;
+	width:100%;
+	_display:inline;
+	color:#000;
+	position:relative;
+	padding-bottom:20px;
+	border:1px solid #9F9F9F;
+}
+#mainContent a {color:#ffffff;}
+#mainContent .topName {
+	background:url(../../images/sincai/mainContentTitle.png) repeat-x;
+	height:44px;
+	line-height:44px;
+	font-size:15px;
+	color:#FFFFFF;
+	text-indent:50px;
+	overflow:hidden;
+	margin-bottom:10px;
+}
+
+
+
+#address {
+	top:0;
+	position:absolute;
+	top:10px;
+	right:20px;
+}
+#contentBox {
+	width:98%;
+	margin:0 auto;
+}
+.formTable {
+	border:1px solid #A7ADBB;
+	color:#FFFFFF;
+}
+.formTable th ,
+.formTable td {
+	border-top:1px solid #fff;
+	border-bottom:1px solid #ddd;
+	border-right:1px solid #ddd;
+	padding:4px 10px;
+	vertical-align:middle;
+}
+.formTable th {
+	text-align:right;
+}
+.formTable .odd th ,
+.formTable .odd td {
+	background-color:#EFEFEF;
+}
+.formTable .even th ,
+.formTable .even td {
+	background-color:#F6F6F6;
+}
+
+.formCheck ,
+.formNext ,
+.formBack ,
+.formSubmit ,
+.formReset ,
+.formChange ,
+.formLibd ,
+.formZjbd ,
+.formSame ,
+.formWord ,
+.formCancel {
+	/* background:url(../../images/sincai/bt.gif) no-repeat; */
+	background:url(bt.gif) no-repeat;
+	width:91px;
+	height:28px;
+	color:#F09610;
+	border:0;
+	cursor:pointer;
+	font-size: 0px;/*IE hack*/
+	display:inline-block;/*IE hack*/
+	line-height: 0px;/*IE hack*/
+	margin:15px 20px;
+	overflow:hidden;
+	_text-indent:0;
+}
+.formNext {background-position:0 -28px;}
+.formBack {background-position:0 -56px;}
+.formSubmit {background-position:0 -84px;}
+.formReset {background-position:0 -112px;}
+.formChange {background-position:0 -140px;}
+.formLibd {background-position:0 -202px;}
+.formZjbd {background-position:0 -230px;}
+.formSame {background-position:0 -258px;}
+.formCancel {background-position:0 -314px;}
+.formWord {text-align:center; background-position:0 -286px; text-indent:0; line-height:29px; font-size:12px; color:#784208; font-weight:bold; width:81px; margin:0 5px;}
+.formOk {
+	background:url(../../images/sincai/xhl.gif) no-repeat;
+	width:111px;
+	height:28px;
+	margin:5px;
+	border:0;
+	color:#EEF1F2;
+	cursor:pointer;
+	font-size: 0px;/*IE hack*/
+	display:inline-block;/*IE hack*/
+	line-height: 0px;/*IE hack*/
+	overflow:hidden;
+
+	_text-indent:0;
+}
+.bt_cancel {
+	float:right;
+	background:url(../../images/sincai/bt_cancel.gif) no-repeat;
+	width:91px;
+	height:28px;
+	margin:0 5px;
+	border:0;
+	color:#EEF1F2;
+	cursor:pointer;
+	font-size: 0px;/*IE hack*/
+	display:inline-block;/*IE hack*/
+	line-height: 0px;/*IE hack*/
+	overflow:hidden;
+	text-indent:-9999px;
+	_text-indent:0;
+}
+.grayTable {
+	border:1px solid #828A97;
+	margin-bottom:10px;
+}
+.grayTable th {
+	background-color:#8F98A3;
+	border:1px solid #D5D8DE;
+	text-align:center;
+	padding:2px;
+	border-left:0;
+}
+.grayTable td {
+	border:1px solid #8F98A3;
+	background-color:#EFEFEF;
+	text-align:center;
+	padding:2px;
+	border-left:0;
+	border-bottom:0;
+}
+.grayTable .left {text-align:left; text-indent:20px;}
+.grayTable .left_noindent {text-align:left;}
+
+#point {
+	background:url(../../images/sincai/point.gif) no-repeat 8px 0;
+	line-height:27px;
+	padding-left:50px;
+	margin-bottom:12px;
+}
+
+#error {
+	background:url(../../images/sincai/attention.gif) no-repeat 0 0;
+	_height:64px;
+	min-height:64px;
+	width:400px;
+	margin:0 auto;
+	line-height:22px;
+	padding:16px 0 0 74px;
+}
+#error .title {
+	color:#E45E00;
+	margin-bottom:20px;
+}
+
+.dotTitle { font-size:12px;margin:10px 0; font-size:14px;}
+
+#newsList {color:#000;}
+#newsList li {
+	line-height:28px;
+	height:28px;
+	padding:0 20px;
+	width:670px;
+	float:left;
+}
+#newsList .even {
+	background-color:#EFEFEF;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #ddd;
+}
+#newsList .odd {
+	background-color:#F6F6F6;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #ddd;
+}
+#newsList a {float:left; color:#000;}
+#newsList .date {float:right; color:#666;font-family:"\5b8b\4f53";}
+
+
+#appraise {text-align:left; color:#000;}
+#appraise .question {
+	background:url(../../images/sincai/dot12.gif) no-repeat 15px 4px;
+	padding-left:50px;
+	padding:5px 0 0 50px;
+	margin-bottom:5px;
+	font-weight:bold;
+}
+#appraise .answer {
+	background:url(../../images/sincai/dot13.gif) no-repeat;
+	padding:5px 0 0;
+	margin-bottom:10px;
+	line-height:18px;
+}
+#appraise .answer .border {padding:8px 15px;border:1px solid #FF6A00;border-top:0; background-color:#fff;}
+
+#newsDetail .title{
+	border-top:1px solid #fff;
+	background-color:#EFEFEF;
+	text-align:center;
+	padding:8px 0 0;
+	line-height:20px;
+}
+#newsDetail .date{
+	border-bottom:1px solid #fff;
+	background-color:#EFEFEF;
+	text-align:center;
+	color:#666;
+	padding:0 0 8px 0;
+	line-height:20px;
+	font-family:"\5b8b\4f53";
+}
+#newsDetail .detail {
+	padding:10px ;
+	border-bottom:1px solid #fff;
+	line-height:30px;
+}
+#newsDetail .back {
+	text-align:right;
+	padding:10px;
+}
+#newsDetail .back a {
+	display:inline-block;
+	background:url(../../images/sincai/back.gif) no-repeat;
+	width:46px;
+	height:15px;
+	line-height:5000px;
+	overflow:hidden;	
+}
+
+
+#one1 {width:102px;}
+#one2 {width:104px;}
+#one3 {width:104px;}
+#one4 {width:103px;}
+#one1.hover ,
+#one2.hover ,
+#one3.hover ,
+#one4.hover { background:url(../../images/sincai/gameMethod02.gif) no-repeat;}
+#one1.hover {background-position:0 0;}
+#one2.hover {background-position:-102px 0;}
+#one3.hover {background-position:-206px 0;}
+#one4.hover {background-position:-310px 0;}
+
+#playinfo_menu0 {width:102px;}
+#playinfo_menu1 {width:104px;}
+#playinfo_menu2 {width:104px;}
+#playinfo_menu3 {width:103px;}
+#playinfo_menu0.hover ,
+#playinfo_menu1.hover ,
+#playinfo_menu2.hover ,
+#playinfo_menu3.hover {background:url(../../images/sincai/gameMethod02.gif) no-repeat;}
+#playinfo_menu0.hover {background-position:0 0;}
+#playinfo_menu1.hover {background-position:-102px 0;}
+#playinfo_menu2.hover {background-position:-206px 0;}
+#playinfo_menu3.hover {background-position:-310px 0;}
+
+
+
+.gameMethod ,
+.gameMethod th ,
+.gameMethod td {
+	border:1px solid #fff;
+	border-collapse:collapse;
+	padding:5px;
+}
+
+#subNav {
+	background:url(../../images/sincai/subNav.png) no-repeat right -27px;
+	padding-right:13px;
+	height:27px;
+	float:left;
+	display:inline;
+	margin:-8px 0 0;
+	position:relative;
+}
+#subNav .bg {
+	background:url(../../images/sincai/subNav.png) no-repeat;
+	height:27px;
+	line-height:32px;
+	overflow:hidden;
+	padding:0 10px 0 23px;
+	float:left;
+}
+#subNav .current {
+	color:#B5ED58;
+	font-weight:bold;
+}
+
+
+/*------------------------------------*/
+#lottery {
+	background:url(../../images/sincai/bg01.png) no-repeat;
+	width:360px;
+	height:83px;
+	float:left;
+	_display:inline;
+	overflow:hidden;
+	margin-bottom:10px;
+}
+#lottery .one {
+	background:url(../../images/sincai/ssclogo.png) no-repeat;
+	width:75px;
+	height:83px;
+	float:left;
+	_display:inline;
+	margin:0 4px 0 10px;
+	text-indent:-9999px;
+	overflow:hidden;
+}
+#lottery .ico_CQSSC {background-position:0 0;}
+#lottery .ico_HLJSSC {background-position:0 -83px;}
+#lottery .ico_JX-SSC {background-position:0 -166px;}
+#lottery .ico_XJSSC {background-position:0 -249px;}
+#lottery .ico_SSL {background-position:0 -332px;}
+#lottery .ico_SD11Y {background-position:0 -664px;}
+#lottery .ico_JX11-5 {background-position:0 -582px;}
+#lottery .ico_GD11-5 {background-position:0 -747px;}
+#lottery .ico_CQ11-5 {background-position:0 -830px;}
+#lottery .ico_BJKL8 {background-position:0 -498px;}
+#lottery .ico_fucai3d {background-position:0 -498px;}
+#lottery .ico_ticaip3 {background-position:0 -498px;}
+
+#lottery .two {
+	float:left;
+	text-align:center;
+	width:144px;
+	line-height:20px;
+	padding:10px 0 0;
+}
+#lottery .three {
+	float:right;
+	width:126px;
+	text-align:center;
+	padding:10px 0 0;
+	position:relative;
+}
+#lottery .time {
+	position:absolute;
+	left:10px;
+	top:41px;
+	width:104px;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:18px;
+	color:#b5ed58;
+}
+/*----------------------------------------*/
+#lottery2 {
+	background:url(../../images/sincai/lottery1.gif) no-repeat;
+	width:930px;
+	height:83px;
+	margin-bottom:10px;
+	overflow:hidden;
+}
+#lottery2 .one {
+	float:left;
+	width:98px;
+	height:83px;
+	text-align:center;
+	_display:inline;
+	overflow:hidden;
+	background:url(../../images/sincai/lottery2.gif) no-repeat right top;
+}
+#lottery2 .one span {
+	width:75px;
+	height:83px;
+	float:left;
+	background:url(../../images/sincai/ssclogo.png) no-repeat;
+	margin:0 11px;
+	_display:inline;
+	text-indent:-999px;
+	overflow:hidden;
+}
+#lottery2 .one .ico_CQSSC {background-position:0 0;}
+#lottery2 .one .ico_HLJSSC {background-position:0 -83px;}
+#lottery2 .one .ico_JX-SSC {background-position:0 -166px;}
+#lottery2 .one .ico_XJSSC {background-position:0 -249px;}
+#lottery2 .one .ico_SSL {background-position:0 -332px;}
+#lottery2 .one .ico_SD11Y {background-position:0 -664px;}
+#lottery2 .one .ico_JX11-5 {background-position:0 -582px;}
+#lottery2 .one .ico_GD11-5 {background-position:0 -747px;}
+#lottery2 .one .ico_CQ11-5 {background-position:0 -830px;}
+#lottery2 .one .ico_BJKL8 {background-position:0 -498px;}
+#lottery2 .one .ico_fucai3d {background-position:0 -995px;}
+#lottery2 .one .ico_ticaip3 {background-position:0 -915px;}
+
+#lottery2 .two {
+	float:left;
+	height:83px;
+	_display:inline;
+	overflow:hidden;
+	background:url(../../images/sincai/lottery2.gif) no-repeat right top;
+	padding:0 15px;
+	width:308px;
+}
+#lottery2 .two .title {
+	width:308px;
+	text-align:center;
+	height:35px;
+	line-height:35px;
+	overflow:hidden;
+}
+#lottery2 .two .num ,
+#lottery2 .two .num2 {
+	background:url(../../images/sincai/lottery3.gif) no-repeat;
+	width:308px;
+	height:40px;
+	overflow:hidden;
+}
+#lottery2 .two .num ul {
+	float:left;
+}
+#lottery2 .two .num li {
+	background:url(../../images/sincai/lottery4.gif) no-repeat left top;
+	margin-left:-2px;
+	_display:inline;
+	float:left;
+	padding: 0 8px 0 10px;
+}
+#lottery2 .two .link {
+	float:right;
+	width:68px;
+	_display:inline;
+	line-height:18px;
+	color:#000;
+	padding:3px 0 0;
+}
+#lottery2 .two .ssl li {
+	padding: 0 22px 0 24px;
+}
+#lottery2 .two .num .each {
+	display:inline-block;
+	background:url(../../images/sincai/lottery5.gif) no-repeat;
+	width:32px;
+	height:32px;
+	text-align:center;
+	line-height:23px;
+	color:#fff;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:24px;
+	margin:4px 0;
+}
+#lottery2 .two .eachRow {
+	color:#000;
+	height:18px;
+	overflow:hidden;
+	padding:1px 0 1px 5px;
+	line-height:18px;
+}
+#lottery2 .two .dot {
+	float:left;
+	background:url(../../images/sincai/dot.png) no-repeat;
+	width:18px;
+	height:18px;
+	text-align:center;
+	color:#fff;
+	margin:0 1px;
+}
+#lottery2 .two .info {float:left; padding-left:10px; white-space:nowrap; width:93px; overflow:hidden;}
+#lottery2 .three {
+	float:right;
+	width:200px;
+	overflow:hidden;
+	height:66px;
+	_display:inline;
+	overflow:hidden;
+	background:url(../../images/sincai/lottery2.gif) no-repeat right top;
+	padding:17px 20px ;
+}
+#lottery2 .four {
+	text-align:center;
+	width:128px;
+	float:right;
+	overflow:hidden;
+}
+#lottery2 .four .title {
+	height:42px;
+	line-height:42px;
+	font-size:18px;
+}
+#lottery2 .four .time {
+	background:url(../../images/sincai/lottery8.gif) no-repeat;
+	width:106px;
+	height:26px;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:18px;
+	margin:0 auto;
+	color:#B5ED58;
+}
+#lottery2 .five {
+	float:left;
+	background:url(../../images/sincai/lottery2.gif) no-repeat right top;
+	width:106px;
+	overflow:hidden;
+	text-align:center;
+	padding:17px 10px;
+}
+/*----------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+#winNum {
+	float:right;
+	_display:inline;
+	background:url(../../images/sincai/bg02.png) no-repeat;
+	width:560px;
+	height:83px;
+	overflow:hidden;
+	margin-bottom:10px;
+}
+#winNum.bjkl8 {background:url(../../images/sincai/bg14.png) no-repeat;}
+#winNum .one {
+	float:left;
+	_display:inline;
+	width:144px;
+	text-align:center;
+	margin-left:12px;
+}
+#winNum .one .num {
+	padding:10px 0 0;
+	height:35px;
+	line-height:16px;
+}
+#winNum .bt {
+	display:inline-block;
+	width:64px;
+	height:26px;
+	margin:0 4px;
+	color:#B5ED58;
+	line-height:26px;
+	overflow:hidden;
+}
+#winNum .bt:hover {text-decoration:none;}
+#winNum .two {
+	width:355px;
+	float:right;
+	_display:inline;
+	margin:18px 25px 0 0;
+}
+#winNum .two .each {
+	width:59px;
+	float:left;
+	padding:0 6px;
+}
+#winNum .two .blueBox ,
+#winNum .two .orangeBox ,
+#winNum .two .redBox ,
+#winNum .two .greenBox ,
+#winNum .two .grayBox {
+	float:left;
+	background:url(../../images/sincai/ball.png) no-repeat;
+	width:44px;
+	height:46px;
+	text-align:center;
+	line-height:36px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:18px;
+	color:#000;
+	font-weight:bold;
+	overflow:hidden;
+}
+#winNum .two .orangeBox {background-position:0 -46px;}
+#winNum .two .redBox {background-position:0 -92px;}
+#winNum .two .greenBox {background-position:0 -138px;}
+#winNum .two .grayBox {background-position:0 -184px;}
+#winNum .two .word {
+	width:1em;
+	color:#000;
+	float:right;
+	overflow:hidden;
+	font-weight:bold;
+}
+#winNum .two .eachRow {
+	color:#000;
+	height:20px;
+	overflow:hidden;
+	padding:2px 0 2px 10px;
+}
+#winNum .two .dot {
+	display:inline-block;
+	background:url(../../images/sincai/dot.png) no-repeat;
+	width:20px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+	color:#fff;
+	margin:0 2px;
+}
+
+.box{
+	clear:both;
+	width:769px;
+	color:#FFFFFF;
+}
+.box .title {
+	height:38px;
+	width:769px;
+	overflow:hidden;
+	background:url(../../images/sincai/body_menubg.jpg) repeat-x;
+	border-bottom:1px solid #FFFFFF;
+}
+.box .title li {
+	float:left;
+}
+
+#lotteryType {padding:0px; margin-left:3px; font-size:12px; }
+#lotteryType .shuoming {}
+#lotteryType li { position:relative; font-size:13px; font-weight:bold; float:left;height:32px; line-height:32px; width:63px; margin-top:6px; text-align:center; text-shadow:#000000 1px 1px 0px}
+#lotteryType li.current,#lotteryType li.hover {text-align:center; font-size:14px;background:url(../../images/sincai/body_menubtn.jpg) no-repeat;}
+#lotteryType .m {float:left; height:32px;line-height:32px; width:63px;color:#fff; cursor:pointer; text-align:center;}
+#lotteryType em{background:url(../../images/sincai/bid_new.gif) no-repeat;width:28px;height:11px;position:absolute;top:-5px;left:19px;}
+#lotteryType .current span ,
+#lotteryType .hover span {color:#fff;}
+#lotteryType a:hover {text-decoration:none;}
+#lotteryType .current .m ,#lotteryType .hover .m {background-position:left 0;}
+
+
+#lotteryDetail {
+	clear:both;
+	padding:0px;
+	width:769px;
+	color:#000;
+	font-size:14px;
+}
+.margin0 { margin-left:0px;color:#fff;font-size:14px;}
+.margin10 { margin-left:10px;color:#fff;font-size:14px;}
+.minitype { background-color:#1a1b1c;color:#fff;font-size:14px; padding:5px 20px}
+#lotteryDetail a {color:#000;}
+#lotteryDetail .grayTop {
+	height:10px;
+	overflow:hidden;
+	background-color:#5c5c5c;
+}
+#lotteryDetail .grayBottom {
+	background-color:#5c5c5c;
+	height:5px;
+	overflow:hidden;
+	line-height:5px;
+}
+#lotteryDetail .grayContent {
+	background-color:#5c5c5c;
+	padding:0px 11px;
+}
+#lotteryDetail .grayBet {
+
+	background-color:#2d363b;
+	height:35px;
+	/*overflow:hidden;*/
+	line-height:35px;
+	color:#FFFFFF;
+	padding:0 5px 5px 10px;
+}
+.num_input {
+	background:url(../../images/sincai/input_01.jpg) no-repeat;
+	width:59px; 
+	height:26px;
+	border:none;
+	color:#FFF;
+	line-height:26px;
+	text-align:center;
+	font-size:16px;
+	font-weight:bold;
+	}
+.input03 {
+	background:url(../../images/sincai/input_02.gif) no-repeat;
+	width:100px; 
+	height:20px;
+	border:none;
+	color:#FFF;
+	line-height:20px;
+	text-align:center;
+	font-size:12px;
+	font-weight:bold;
+	margin-right:3px;
+	}
+	
+.inputdesc {background-color:#5c5c5c; padding-left:10px;}
+#lotteryDetail .each {
+	clear:both;
+	font-weight:bold;
+	text-align:center;
+	padding:4px 0;
+}
+
+
+
+
+
+
+
+
+
+
+#lotteryDetail .each .name {
+	float:left;
+	width:60px;
+	height:32px;
+	line-height:32px;
+	font-size:13px;
+	color:#fff;
+	_display:inline;
+	margin-top:6px;
+	background:url(../../images/sincai/bg06.gif) no-repeat;
+}
+#lotteryDetail .each .numList li {
+	cursor:pointer;
+	float:left;
+	_display:inline;
+	margin:5px 5px;
+	background:url(../../images/sincai/bg06.gif) no-repeat 0 -40px;
+	width:36px;
+	height:36px;
+	line-height:36px;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:22px;
+	overflow:hidden;
+}
+#lotteryDetail .each .bigBt li {
+	background:url(../../images/sincai/bg06.gif) no-repeat 0 -172px;
+	width:80px;
+	height:38px;
+	line-height:38px;
+}
+#lotteryDetail .each .twoRow li {
+	height:35px;
+	overflow:hidden;
+	padding:3px 0 0;
+	line-height:16px;
+	font-size:14px;
+}
+#lotteryDetail .each .numList .selected {
+	cursor:pointer;
+	float:left;
+	_display:inline;
+	margin:5px 5px;
+	background:url(../../images/sincai/bg06.gif) no-repeat 0 -84px;
+	width:36px;
+	height:36px;
+	line-height:36px;
+	text-align:center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:22px;
+	color:#fff;
+}
+#lotteryDetail .each .bigBt .selected {
+	background:url(../../images/sincai/bg06.gif) no-repeat 0 -220px;
+	width:80px;
+	height:38px;
+	line-height:38px;
+}
+#lotteryDetail .each .twoRow .selected {
+	height:35px;
+	overflow:hidden;
+	padding:3px 0 0;
+	line-height:16px;
+	font-size:14px;
+}
+#lotteryDetail .each .selectType {
+	cursor:pointer;
+	float:left;
+	_display:inline;
+	margin:8px 2px 8px 3px;
+	background:url(../../images/sincai/bg06.gif) no-repeat 0 -128px;
+	width:30px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	font-size:15px;
+	color:#b2b2b2;
+	font-weight:normal;
+}
+
+.btnList { margin-left:10px; float:left;}
+
+.grayTitle {
+	background:url(../../images/sincai/bg08.gif) repeat-x;
+	height:30px;
+	padding:0 10px 0 20px;
+	line-height:30px;
+	margin:10px 0 0;
+}
+.grayTitle .qk {
+	background:url(../../images/sincai/bg09.gif) no-repeat;
+	width:50px;
+	height:20px;
+	line-height:20px;
+	float:right;
+	text-align:center;
+	margin:4px 0 0;
+}
+.grayTitle .qk:hover {text-decoration:none;}
+.lottery_list {	background-color:#2d363b;
+	padding-bottom:5px;}
+.whiteDetail {
+	clear:both;
+	border:2px solid #1e1e1e;
+	background-color:#9d9d9d;
+	width:746px;
+	height:77px;
+	overflow-y:scroll;
+	margin:0 auto;
+	color:#2d363b;
+}
+.table_line {
+	margin-top:5px;
+	width:870px;
+	height:25px;
+	line-height:25px;
+	color:#FFF;
+	font-size:12px;
+	}	
+.table_line th a{
+	color:#FFF;
+	}	
+	.table_line th{
+		color:#FFF;
+		vertical-align:middle;
+		height:25px;
+		line-height:25px;
+		text-align:left;
+		background:url(../../images/sincai/bodyBg11.png);
+	}
+	.table_line td{
+		color:#FFF;
+		vertical-align:middle;
+		height:25px;
+		line-height:25px;
+		text-align:center;
+		background:url(../../images/sincai/bodyBg11.png);
+	}
+
+.tjBox {
+	color:#FFF;
+	padding:0 10px;
+	height:45px;
+	background:#2d363b;
+}
+.choose {
+	font-size:16px;
+	font-weight:none;
+	color:#ffb042;
+}
+
+.tjBt {
+	background:url(../../images/sincai/bg07.gif) no-repeat;
+	width:119px;
+	height:37px;
+	line-height:37px;
+
+	font-size: 0px;/*IE hack*/
+	display:inline-block;/*IE hack*/
+	line-height: 0px;/*IE hack*/
+	overflow:hidden;
+}
+.blackTitle {
+	clear:both;
+	background:url(../../images/sincai/bg10.gif) no-repeat;
+	height:29px;
+	line-height:29px;
+	padding:6px 13px;
+	color:#fff;
+}
+.wyzhBt {
+	background:url(../../images/sincai/bg11.gif) no-repeat;
+	width:73px;
+	height:29px;
+	line-height:2000px;
+	float:left;
+	_display:inline;
+	overflow:hidden;
+	margin-right:10px;
+}
+
+.wyzhContent {
+	border:1px solid #f4952b;
+	background-color:#0b0b0b;
+	width:767px;
+}
+.wyzhContent .threeTab  {
+
+	height:45px;
+	color:#fff;
+	line-height:32px;
+}
+.wyzhContent .threeTab li {float:left; text-align:center; height:45px; cursor:pointer;}
+.wyzhContent .threeTab a {float:left; text-align:center; height:45px; cursor:pointer; color:#fff; font-size:14px;}
+#lotteryDetail .wyzhContent .threeTab a {color:#fff}
+.wyzhContent .threeTab a:hover {text-decoration:none;}
+.wyzhContent .threeTab .one a {width:82px;}
+.wyzhContent .threeTab .two a{width:69px;}
+.wyzhContent .threeTab .three a{width:74px;}
+.wyzhContent .threeTab .current {background:url(../../images/sincai/zhTab.gif) no-repeat;}
+.wyzhContent .threeTab .one .current {background-position:0 -45px;}
+.wyzhContent .threeTab .two .current {background-position:-82px -45px;}
+.wyzhContent .threeTab .three .current {background-position:-151px -45px;}
+
+.wyzhContent .twoTab  {
+
+	height:45px;
+	color:#fff;
+	line-height:32px;
+}
+.wyzhContent .twoTab li {float:left; text-align:center; height:45px; cursor:pointer;}
+.wyzhContent .twoTab a {float:left; text-align:center; height:45px; cursor:pointer; color:#fff; font-size:14px;}
+#lotteryDetail .wyzhContent .twoTab a {color:#fff}
+.wyzhContent .twoTab a:hover {text-decoration:none;}
+.wyzhContent .twoTab .one a {width:81px;}
+.wyzhContent .twoTab .two a{width:74px;}
+.wyzhContent .twoTab .current {background:url(../../images/sincai/zhTab2.gif) no-repeat;}
+.wyzhContent .twoTab .one .current {background-position:0 -45px;}
+.wyzhContent .twoTab .two .current {background-position:-81px -45px;}
+
+.wyzhContent .head {
+	background-color:#0b0b0b;
+	padding:5px 10px;
+	line-height:30px;
+	margin-bottom:1px;
+	color:#e1ad26;
+}
+.wyzhContent .head .headContent {
+	float:left;
+	width:750px;
+}
+.wyzhContent .head .formSC {
+	float:right;
+	background:url(../../images/sincai/bg12.gif) no-repeat;
+	width:120px;
+	height:33px;
+	text-indent:-9999px;
+	overflow:hidden;
+	border:0;
+	cursor:pointer;
+	_display:inline;
+	margin:5px 0 0;
+}
+.tableBox {
+    width: 870px;
+    height: 300px;
+	overflow-x:hidden;
+    overflow-y: scroll;
+}
+.tableBox th ,
+.tableBox td {border:1px solid #fff; border-collapse:collapse; text-align:center;}
+.tableBox th {
+	background-color:#AEAEAE;
+}
+.tableBox td {
+	background-color:#DAD9D9;
+}
+
+#zjjl10  {color:#000;}
+#zjjl10  a {color:#000;}
+#zjjl10 .titleBt {
+	display:block;
+	text-indent:-9999px;
+	overflow:hidden;
+	background:url(../../images/sincai/bg13.gif) no-repeat;
+	width:143px;
+	height:29px;
+	margin:8px 0 0 32px;
+
+}
+
+.textareaLong {
+	width:650px;
+	height:90px;
+	margin-right:4px;
+}
+
+/*
+<<<<<<< .mine
+������CLIVE����
+=======
+CLIVE
+>>>>>>> .r588
+*/
+.methodgroupname{
+    font-weight: bold;
+}
+
+
+	#log {
+	background-color:#000000;
+	width:982px;
+	height:202px;
+	margin:10px auto 0px auto;
+	padding-top:0px;
+	}
+.table_banner {
+	width:982px;
+	height:202px;
+	margin-left:0px;
+	color:#FFFFFF;
+	float:left;
+	}
+	.table_log {
+	width:730px;
+	height:250px;
+	border:1px solid #4d4d4d;
+	margin-left:19px;
+	color:#FFFFFF;
+	float:left;
+	}
+	.table_my {
+	background:url(../../images/sincai/bodyBg13.gif) no-repeat;
+	vertical-align:top;
+	vertical-align:text-top;
+	}
+	.table_my td{
+	height:20px;
+	padding-top:1px;
+	text-align:center;
+	background:url(../../images/sincai/bodyBg14.png);
+	}
+	.table_my td a{
+	color:#00CC00;
+	}
+	.tx {
+	float:left;
+	width:208px;
+	height:252px;
+	background:url(../../images/sincai/bodyBg15.jpg) no-repeat;
+	margin-left:7px;
+	color:#FFFFFF;
+	}
+	.txlb {
+	width:190px;
+	height:128px;
+	background-color:#340039;
+	margin:61px 9px 5px 9px;
+	color:#FFFFFF;
+	}
+	.txlb ul li { margin:2px 4px 2px 4px;}
+	.txlb ul li h4 {float:right; color:#b98730;}
+	 txan {height:63px; width:190;5px 9px 0px 9px;}
+	.txan ul li { float:left;}
+	.txan_01 { padding-left:9px;}
+	.txan_01 p{ text-align:right; font-size:16px;}
+	.txan_02 { height:46px; width:115px; margin:3px;}
+
+.task_div {
+  background-color: #57114f;
+  border: 1px double #57114f;
+  color: #FFFFFF;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  z-index: 01;
+}
+.code {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-color: #1B5C84 #1B5C84 #1B5C84 -moz-use-text-color;
+  border-style: double double double none;
+  border-width: 1px 1px 1px 0;
+  color: #000000;
+  height: 150px;
+  overflow-y: auto;
+  text-align: left;
+  width: 290px !important;
+}
+TEXTAREA {
+  font: 12px "courier new";
+  vertical-align: middle;
+}
+.zhlist {
+						height: 175px;
+						overflow: scroll;
+						overflow-x: hidden;
+						background-color: #272727;
+						border-left: #2B2B2B 1px solid;
+						border-right: #2B2B2B 1px solid;
+}
+
+.white { color:#fff; }
+.yellow {color:#ffb400;}
+
+
+.lottery_area {  background-color:#f3f3f3;border-radius: 5px;}
+.lottery_area .lottery_table{ background:url(../../images/sincai/lottery_table_bg.jpg) repeat-x; border:1px #7c7c7c solid;}
+.lottery_area .lottery_table .lottery_num{  background:url(../../images/sincai/lottery_num.jpg) no-repeat;}
+
+.lottery_area .lottery_table .lottery_num .lo_title ul li { color:#d5d5d5;}
+
+.lottery_area .lottery_table .lottery_num .lo_title ul li a{ color:#d5d5d5;}
+.lottery_area .lottery_table .lottery_num .lo_title ul li a:hover{ color:#f59316;}
+
+.lottery_area .lottery_table .lottery_num .lo_title .lo_date{ font-size:15px; color:#FFFFFF;}
+
+.lottery_area .lottery_table .lottery_num .num_open {color:#ffffff;}
+.lottery_area .lottery_table .lottery_num .num_open .each{ color:#ffffff; text-align:center; }
+
+
+.lottery_area .lottery_table .lottery_next{ color:#eeeeee; font-size:13px;}
+
+.lottery_area .lottery_table .lottery_next ul li label{ color:#ffffff; font-size:15px;}
+.lottery_area .lottery_table .lottery_next .countdown{ background:url(../../images/sincai/lottery_time.jpg) no-repeat; color:#FFFFFF; font-size:20px;}
+.lottery_area .lottery_table .lottery_next .countdown label{ float:left; font-size:20px; margin-left:10px;margin-right:14px; color:#FFFFFF;}
+#count_down { margin-left:12px; font-size:24px;}
+#count_down div { float:left;}
+
+#footer {
+	clear:both;
+	width:784px;
+	height:70px;
+	margin:5px auto;
+	text-align:center;
+	color:#2d363b;
+	line-height:20px;
+	padding:3px 0 0;
+	position:relative;
+}
+
+#footer a{
+	color:#b80b0b;
+}
+#footer a:hover{
+	border-bottom:1px solid #b80b0b;
+}
+
+/*-----------------玩法说明样式---------------------*/
+.minitype .help_label {font-weight:bold;color:#ff4364;}
+.minitype .help_con { color:#FFFFFF;}
+.minitype .help_exp { color:#fce578; font-weight: bold; cursor:pointer}
+.minitype .help_help { color:#ff91a2; font-weight:bold; cursor:pointer}
+.minitype .help_count { color:#a8beff; font-weight:bold; cursor:pointer}
+#lt_example_div {
+    background: none repeat scroll 0 0 #2d363b;
+    border: 1px solid #D5D8DE;
+    color: #FFFFFF;
+    display: none;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 3px 5px;
+    position: absolute;
+    text-align: left;
+    width: 308px;
+}  
+
+#lt_count_div {
+    background: none repeat scroll 0 0 #2d363b;
+    border: 1px solid #D5D8DE;
+    color: #FFFFFF;
+    display: none;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 3px 5px;
+    position: absolute;
+    text-align: left;
+    width: 308px;
+} 
+
+#lt_help_div {
+    background: none repeat scroll 0 0 #2d363b;
+    border: 1px solid #D5D8DE;
+    color: #FFFFFF;
+    display: none;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0 0;
+    overflow: hidden;
+    padding: 3px 5px;
+    position: absolute;
+    text-align: left;
+    width: 308px;
+} 
+
+/*------------追号按钮配色--------------*/
+#lt_trace_label {  }
+#lt_trace_label .current {background:url(../../images/sincai/zh_bg.jpg) no-repeat;}
+#lt_trace_label #button111,#button12,#button13{color: #ffffff;float: left;cursor: pointer; margin:5px 0px; width:91px; height:38px; line-height:28px; text-align:center;}
+
