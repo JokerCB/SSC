@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>杏彩游戏平台 </title>
 <link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/layout.css" rel="stylesheet" type="text/css" media="all">
 <link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
 <script src="../index_files/a_data/tab.js" type="text/javascript"></script>
 
@@ -16,7 +17,7 @@
 <script src="../index_files/a_data/main.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body style="background: none repeat scroll 0 0 #D5D8DE">
 <script type="text/javascript">
 //删除遮罩
 if($("#laybox",parent.parent.document).length){
@@ -40,6 +41,63 @@ if($("#laybox",parent.parent.document).length){
         }
     }
 </script>
+<div id="mainContent">
+	<table width="100%" class="topName"><tbody><tr><td>
+	        <div class="bg clearfix">
+	        	<div id="siderbar">
+	                <ul class="list clearfix">
+	                   	<li><a href="">用户列表</a></li>
+	                   	<li><a href="">注册管理</a></li>
+	                   	<li><a href="">绑定卡号</a></li>
+	                   	<li><a href="">完善资料</a></li>
+	                   	<li><a href="">消息管理</a></li>
+	                   	<li><a href="">团队余额</a></li>
+	                   	<li><a href="">密码修改</a></li>
+	                   	<li><a href="">密保设定</a></li>
+					</ul>
+<script type="text/javascript">
+$("#siderbar li").click(function(){
+	$("#siderbar li").removeClass("current");
+	$(this).addClass("current");
+	//$("#subtitle").html($(this).text());
+});
+</script>
+	            </div>
+	
+	</div></td><td align="right">
+	<script>
+	var setCookie=function(name,value,expire,path){
+		//expire=expire||30*24*60*60*1000;
+		var curdate=new Date();
+		var cookie=name+"="+encodeURIComponent(value)+"; ";
+		if(expire!=undefined||expire==0){
+			if(expire==-1){
+				expire=366*86400*1000;//保存一年
+			}else{
+				expire=parseInt(expire);
+			}
+			curdate.setTime(curdate.getTime()+expire);
+			cookie+="expires="+curdate.toUTCString()+"; ";
+		}
+		path=path||"/";
+		cookie+="path="+path;
+		//alert(cookie);
+		document.cookie=cookie;
+		//alert(document.cookie);
+	};
+	var getCookie=function(name) {
+		var re = "(?:; )?" + encodeURIComponent(name) + "=([^;]*);?";
+		re = new RegExp(re);
+		if (re.test(document.cookie)) {
+			return decodeURIComponent(RegExp.$1);
+		}
+		return '';
+	};
+	//*url=getCookie('last_lottery_url');
+	//*udocument.write("&lt;a href='"+url+"'&gt;返回游戏&lt;/a&gt;");
+	</script>
+	</td></tr></tbody></table>
+</div>
 <form action="" method="get" name="search" onsubmit="return checkForm(this)">
     <input name="controller" value="user" type="hidden">
     <input name="action" value="list" type="hidden">
