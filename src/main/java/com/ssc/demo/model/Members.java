@@ -1,5 +1,7 @@
 package com.ssc.demo.model;
 
+import java.math.BigDecimal;
+
 import framework.generic.annotation.Column;
 import framework.generic.annotation.Table;
 import framework.generic.model.PersistentModel;
@@ -7,15 +9,12 @@ import framework.generic.model.PersistentModel;
 @Table(name = "ssc_members")
 public class Members implements PersistentModel {
 	
-	/**
-	 * 会员ID
-	 */
-	@Column(name = "mid", pk = true, order = 0)
-	private Integer mid;
+	private static final long serialVersionUID = -9218985453073185112L;
+	
 	/**
 	 * 用户ID
 	 */
-	@Column(name = "uid")
+	@Column(name = "uid", pk = true, order = 0)
 	private Integer uid;
 	/**
 	 * 会员真实姓名
@@ -78,7 +77,7 @@ public class Members implements PersistentModel {
 	 * 会员等级
 	 */
 	@Column(name = "m_grade")
-	private Byte mgrade;
+	private int mgrade;
 	/**
 	 * 会员积分
 	 */
@@ -93,22 +92,22 @@ public class Members implements PersistentModel {
 	 * 会员个人财产
 	 */
 	@Column(name = "m_coin")
-	private Float mcoin;
+	private BigDecimal mcoin;
 	/**
 	 * 会员冻结财产
 	 */
 	@Column(name = "m_fcoin")
-	private Float mfcoin;
+	private BigDecimal mfcoin;
 	/**
 	 * 会员设置的返点数
 	 */
 	@Column(name = "m_fanDian")
-	private Float mfandian;
+	private BigDecimal mfandian;
 	/**
 	 * 会员不定位返点
 	 */
 	@Column(name = "m_fanDianBdw")
-	private Float mfandianbdw;
+	private BigDecimal mfandianbdw;
 	/**
 	 * 会员交易密码，请区别于登录密码
 	 */
@@ -154,14 +153,6 @@ public class Members implements PersistentModel {
 	 */
 	@Column(name = "modify_date")
 	private java.sql.Timestamp modifyDate;
-	
-	public Integer getMid() {
-		return this.mid;
-	}
-	
-	public void setMid(Integer mid) {
-		this.mid = mid;
-	}
 	
 	public Integer getUid() {
 		return this.uid;
@@ -260,11 +251,11 @@ public class Members implements PersistentModel {
 		this.mcardid = mcardid;
 	}
 	
-	public Byte getMgrade() {
+	public int getMgrade() {
 		return this.mgrade;
 	}
 	
-	public void setMgrade(Byte mgrade) {
+	public void setMgrade(int mgrade) {
 		this.mgrade = mgrade;
 	}
 	
@@ -284,35 +275,35 @@ public class Members implements PersistentModel {
 		this.mscoretotal = mscoretotal;
 	}
 	
-	public Float getMcoin() {
+	public BigDecimal getMcoin() {
 		return this.mcoin;
 	}
 	
-	public void setMcoin(Float mcoin) {
+	public void setMcoin(BigDecimal mcoin) {
 		this.mcoin = mcoin;
 	}
 	
-	public Float getMfcoin() {
+	public BigDecimal getMfcoin() {
 		return this.mfcoin;
 	}
 	
-	public void setMfcoin(Float mfcoin) {
+	public void setMfcoin(BigDecimal mfcoin) {
 		this.mfcoin = mfcoin;
 	}
 	
-	public Float getMfandian() {
+	public BigDecimal getMfandian() {
 		return this.mfandian;
 	}
 	
-	public void setMfandian(Float mfandian) {
+	public void setMfandian(BigDecimal mfandian) {
 		this.mfandian = mfandian;
 	}
 	
-	public Float getMfandianbdw() {
+	public BigDecimal getMfandianbdw() {
 		return this.mfandianbdw;
 	}
 	
-	public void setMfandianbdw(Float mfandianbdw) {
+	public void setMfandianbdw(BigDecimal mfandianbdw) {
 		this.mfandianbdw = mfandianbdw;
 	}
 	

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.MenuDao">
+	<resultMap id="MenuResultMap" type="com.ssc.demo.model.Menu">
+		<id property="id" column="id" />
+		<result property="type" column="type" />
+		<result property="code" column="code" />
+		<result property="name" column="name" />
+		<result property="url" column="url" />		
+	</resultMap>
+	
+	<select id="findByType" resultMap="MenuResultMap">
+	
+		SELECT	*
+		FROM	ssc_menu_list
+		WHERE	type=#{type,jdbcType=TINYINT}
+	
+	</select>
+	
+</mapper> 

@@ -6,6 +6,10 @@ import framework.generic.annotation.Column;
 import framework.generic.annotation.Table;
 import framework.generic.model.PersistentModel;
 
+/**
+ * 所有玩法
+ * @author danny.zhang
+ */
 @Table(name = "SSC_PLAYED")
 public class Played  implements PersistentModel{
 
@@ -24,6 +28,10 @@ public class Played  implements PersistentModel{
 	@Column(name = "NAME")
 	private String name;
 	
+	
+	@Column(name = "KEY")
+	private String key;
+	
 	/**
 	 * 最高赔率
 	 */
@@ -36,6 +44,12 @@ public class Played  implements PersistentModel{
 	@Column(name = "BONUS_PROP_MIN")
 	private BigDecimal bonusPropMin;
 	
+	/**
+	 * 计算奖金基数  例如:(max-min)/base = 5.6
+	 */
+	@Column(name = "BONUS_BASE")
+	private BigDecimal bonusBase;
+	
 	
 	@Column(name = "LT_NUM")
 	private String ltNum;
@@ -44,15 +58,7 @@ public class Played  implements PersistentModel{
 	 * 每注选几个号码
 	 */
 	@Column(name = "SELECT_NUM")
-	private int selectNum;
-	
-	/**
-	 * 玩法组
-	 * SscPlayedGroup.id
-	 */
-	@Column(name = "GROUP_ID")
-	private int groupId;
-	
+	private int selectNum;	
 	
 	/**
 	 * 玩法说明
@@ -66,32 +72,6 @@ public class Played  implements PersistentModel{
 	 */
 	@Column(name = "EXAMPLE")
 	private String example;
-	
-	
-	/**
-	 * 中奖规则函数
-	 */
-	@Column(name = "RULE_FUN")
-	private String ruleFun;
-	
-
-	@Column(name = "BET_COUNT_FUN")
-	private String betCountFun;
-	
-	/**
-	 * 最大中奖号码计算函数
-	 */
-	@Column(name = "ZJ_MAX")
-	private String zj_max;
-	
-	/**
-	 * 玩法页面模板
-	 */
-	@Column(name = "PLAYED_TPL")
-	private String played_tpl;
-	
-	
-	
 
 	public int getId() {
 		return id;
@@ -115,6 +95,15 @@ public class Played  implements PersistentModel{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public BigDecimal getBonusPropMax() {
@@ -149,14 +138,6 @@ public class Played  implements PersistentModel{
 		this.selectNum = selectNum;
 	}
 
-	public int getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(int groupId) {
-		this.groupId = groupId;
-	}
-
 	public String getInfo() {
 		return info;
 	}
@@ -173,37 +154,12 @@ public class Played  implements PersistentModel{
 		this.example = example;
 	}
 
-	public String getRuleFun() {
-		return ruleFun;
+	public BigDecimal getBonusBase() {
+		return bonusBase;
 	}
 
-	public void setRuleFun(String ruleFun) {
-		this.ruleFun = ruleFun;
-	}
-
-	public String getBetCountFun() {
-		return betCountFun;
-	}
-
-	public void setBetCountFun(String betCountFun) {
-		this.betCountFun = betCountFun;
-	}
-
-	public String getZj_max() {
-		return zj_max;
-	}
-
-	public void setZj_max(String zj_max) {
-		this.zj_max = zj_max;
-	}
-
-	public String getPlayed_tpl() {
-		return played_tpl;
-	}
-
-	public void setPlayed_tpl(String played_tpl) {
-		this.played_tpl = played_tpl;
-	}
-	
+	public void setBonusBase(BigDecimal bonusBase) {
+		this.bonusBase = bonusBase;
+	}	
 	
 }

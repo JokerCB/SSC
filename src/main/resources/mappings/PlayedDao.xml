@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.PlayedDao">
+	<resultMap id="PlayedResultMap" type="com.ssc.demo.model.Played">
+		<id property="id" column="ID" />
+		<result property="type" column="TYPE" />
+		<result property="name" column="NAME" />
+		<result property="key" column="KEY" />
+		<result property="bonusPropMax" column="BONUS_PROP_MAX" />
+		<result property="bonusPropMin" column="BONUS_PROP_MIN" />
+		<result property="bonusBase" column="BONUS_BASE" />
+		<result property="ltNum" column="LT_NUM" />
+		<result property="selectNum" column="SELECT_NUM" />
+		<result property="info" column="INFO" />
+		<result property="example" column="EXAMPLE" />
+	</resultMap>
+	
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="played_column">
+		 ID
+		 ,TYPE
+		 ,NAME
+		 ,KEY
+		 ,BONUS_PROP_MAX
+		 ,BONUS_PROP_MIN
+		 ,BONUS_BASE
+		 ,INFO
+		 ,EXAMPLE		
+	</sql>
+
+	
+	<select id="load" resultMap="PlayedResultMap">	
+		SELECT	*
+		FROM	ssc_played WHERE id = #{id,jdbcType=INTEGER}		
+	</select>
+	
+	<select id="findAll" resultMap="PlayedResultMap">	
+		SELECT	*
+		FROM	ssc_played
+	</select>
+	
+</mapper> 

@@ -21,16 +21,16 @@
 	<context:component-scan base-package="com.ssc.demo">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
+	
 	<!-- 事务管理器配置 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
 	<!-- proxy-target-class="true" 表示强制使用CGLIB代理，默认为：false -->
-	<aop:config>
-		<aop:advisor pointcut="execution(* com.ssc.demo.*.service.*.*Service.*(..))" advice-ref="txAdvice" />
-	</aop:config>
+	<aop:config>  
+        <aop:advisor pointcut="execution(* *..*Service*.*(..))" advice-ref="txAdvice" />  
+	</aop:config> 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="select*" read-only="true" />
@@ -39,7 +39,8 @@
 			<tx:method name="query*" read-only="true" />
 			<tx:method name="read*" read-only="true" />
 			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
-			<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="add*" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
 			<tx:method name="moify*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
 			<tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception" />

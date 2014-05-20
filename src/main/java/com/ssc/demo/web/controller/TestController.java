@@ -3,17 +3,17 @@ package com.ssc.demo.web.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.ssc.demo.model.Data;
 import com.ssc.demo.model.Members;
 import com.ssc.demo.service.MembersService;
+import com.ssc.demo.service.OrderService;
 import com.ssc.demo.util.IssTime;
 import com.ssc.demo.web.controller.base.AbstractController;
 
@@ -29,19 +29,29 @@ public class TestController extends AbstractController<Members, Integer> {
 	@Resource
 	MembersService membersService;
 	
+	@Resource
+	OrderService orderService;
+	
 	@RequestMapping(value = "getData", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 	public String getData(HttpServletRequest request) {
 		if(request.getParameter("empty") != null)
 			return "empty";
-		String lotteryid = request.getParameter("lotteryid");
+		int lotteryid = Integer.parseInt(request.getParameter("lotteryid"));
 		String flag = request.getParameter("flag");
 		String currentissue = request.getParameter("currentissue");
 		
 		System.out.println(currentissue);
 		System.out.println(flag);
 		System.out.println(lotteryid);
-		return "{'0':{'code':'88150','issue':'"+IssTime.getOldIss()+"','statuscode':'2'},'iscurent':1}";
+		
+		Data data = orderService.getLotteryData(lotteryid);
+		//返奖
+		if(data.getStatus() ==0){
+			orderService.addBonus(data);
+		}
+		
+		return "{'0':{'code':'"+data.getData()+"','issue':'"+data.getNumber()+"','statuscode':'2'},'iscurent':1}";
 	}
 
 	@RequestMapping(value = "getSscData", method = { RequestMethod.POST, RequestMethod.GET })
@@ -57,12 +67,12 @@ public class TestController extends AbstractController<Members, Integer> {
 	@ResponseBody
 	public String getMoney(HttpSession session,HttpServletRequest request) {
 		String mname = session.getAttribute("mname") != null ? session.getAttribute("mname").toString():null;
-//		if(mname != null)
-//		{
-//			Members member = membersService.load(mname);
-//			return member.getMcoin()+"";
-//		}
-//		else
+		if(mname != null)
+		{
+			Members member = membersService.load(mname);
+			return member.getMcoin()+"";
+		}
+		else
 			return "0";
 	}
 
@@ -70,23 +80,6 @@ public class TestController extends AbstractController<Members, Integer> {
 	@ResponseBody
 	public long getLeaveTime(HttpSession session,HttpServletRequest request) {
 		return IssTime.getLeaveTime();
-	}
-	
-	@RequestMapping(value = "saveOrder", method = { RequestMethod.POST, RequestMethod.GET })
-	@ResponseBody
-	public String saveOrder(HttpSession session,HttpServletRequest request) {
-		request.getParameter("lt_issue_start");	
-		String[] aa = request.getParameterValues("lt_project[]");
-		for (int i = 0; i < aa.length; i++) {
-			System.out.println(aa[i]);
-		}
-		return null;
-	}
-	
-	@RequestMapping(value = "getUserList", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView getUserList(HttpServletRequest request, HttpServletResponse response) {
-		
-		return new ModelAndView("../index_files/a_user");
 	}
 
 	/*private MembersService membersService;

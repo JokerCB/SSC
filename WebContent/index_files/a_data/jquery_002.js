@@ -353,7 +353,9 @@ if(is_select)SelectItem($("#lt_project_modes")[0],selmodes);
 if((typeof(nn.nfdprize) != "undefined") && (nn.nfdprize.levs != "") && (typeof(nn.nfdprize.levs) != "undefined")){
  $nfdhtml = '<select name="pmode" id="pmode" style="height:20px; line-height:20px; font-size:12px; border: 1px double #57114f;color:#760795;">';
  $nfdhtml += '<option value ="1" >奖金'+nn.nfdprize.defaultprize+"-"+nn.nfdprize.userdiffpoint+'%</option>';
- $nfdhtml += '<option value ="2" selected="selected" >奖金'+nn.nfdprize.levs+'-0%</option>';
+ if(nn.nfdprize.defaultprize != nn.nfdprize.levs){
+	 $nfdhtml += '<option value ="2" selected="selected" >奖金'+nn.nfdprize.levs+'-0%</option>';
+ }
  $("#nfdprize").html($nfdhtml);
  $("#wrapshow").css("display",'block');
     //2013-04-12 Tomcat 添加绑定记录用户返金模式功能,自动选择已选过的模式。
@@ -448,7 +450,9 @@ else{
 			 $nfdhtml += '<option value ="1" >奖金'+opts.label[index[0]].label[index[1]].nfdprize.defaultprize
 					  +"-"+opts.label[index[0]].label[index[1]].nfdprize.userdiffpoint+'%</option>';
 		//	 +opts.label[index[0]].label[index[1]].nfdprize.defaultprize+"-"opts.label[index[0]].label[index[1]].nfdprize.userdiffpoint+'%</option>';
-			 $nfdhtml += '<option value ="2" selected="selected" >奖金'+opts.label[index[0]].label[index[1]].nfdprize.levs+'-0%</option>';
+			 if(opts.label[index[0]].label[index[1]].nfdprize.defaultprize != opts.label[index[0]].label[index[1]].nfdprize.levs){
+				 $nfdhtml += '<option value ="2" selected="selected" >奖金'+opts.label[index[0]].label[index[1]].nfdprize.levs+'-0%</option>';
+			 }
 			 $("#nfdprize").html($nfdhtml);
 			 $("#wrapshow").css("display",'block');
                 //2013-04-12 Tomcat 添加绑定记录用户返金模式功能,自动选择已选过的模式。
@@ -953,7 +957,7 @@ else{
             $.ajax({
                 type: 'POST',
              //   url : $.lt_ajaxurl,
-                url : '../test/saveOrder',
+                url : '../order/saveOrder',
                 timeout : 30000,
                 data: $(form).serialize(),
                 success: function(data){

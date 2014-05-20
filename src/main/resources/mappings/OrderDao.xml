@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.OrderDao">
+	<resultMap id="OrderResultMap" type="com.ssc.demo.model.Order">
+		<id property="oid" column="OID" />
+		<result property="orderId" column="ORDERID" />
+		<result property="uid" column="UID" />
+		<result property="type" column="TYPE" />
+		<result property="ltIssueStart" column="LT_ISSUE_START" />
+		<result property="ltTotalMoney" column="LT_TOTAL_MONEY" />
+		<result property="totalActionNum" column="TOTALACTIONNUM" />
+		<result property="status" column="STATUS" />
+		<result property="createDate" column="CREATEDATE" />
+	</resultMap>
+	<resultMap id="OrderDetailResultMap" type="com.ssc.demo.model.OrderDetail">
+		<id property="orderId" column="ORDERID" />
+		<result property="seq" column="SEQ" />
+		<result property="type" column="TYPE" />
+		<result property="playId" column="PLAYID" />
+		<result property="actionData" column="ACTIONDATA" />
+		<result property="actionNum" column="ACTIONNUM" />
+		<result property="mode" column="MODE" />
+		<result property="beiShu" column="BEISHU" />
+		<result property="actionMoney" column="ACTIONMONEY" />
+		<result property="omodel" column="OMODEL" />
+		<result property="lotteryNo" column="LOTTERYNO" />
+		<result property="zjCount" column="ZJCOUNT" />
+		<result property="bonus" column="BONUS" />
+		<result property="createDate" column="CREATEDATE" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="order_column">
+		 oid
+		 ,orderId
+		 ,uid
+		 ,type
+		 ,LT_ISSUE_START
+		 ,LT_TOTAL_MONEY
+		 ,totalActionNum
+		 ,status
+		 ,createDate		
+	</sql>
+	<sql id="order_detail_column">
+		 orderId
+		 ,seq
+		 ,type
+		 ,playId
+		 ,actionData
+		 ,actionNum
+		 ,mode
+		 ,beiShu
+		 ,actionMoney
+		 ,omodel
+		 ,lotteryNo
+		 ,zjCount
+		 ,bonus
+		 ,createDate	
+	</sql>
+	
+	<sql id="where_detail">
+		<if test="mname != null and mname != ''">
+			AND c.mname LIKE CONCAT('%',#{mname,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="uid != null and uid != ''">
+			AND a.uid = #{uid,jdbcType=VARCHAR}
+		</if>
+		<if test="orderId != null and orderId != ''">
+			AND b.orderId = #{orderId,jdbcType=VARCHAR}
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND b.createDate &gt;= #{startDate}
+		</if>
+		<if test="createDate != null and createDate != ''">
+			AND b.createDate &lt;= #{createDate}
+		</if>
+	</sql>
+
+	<select id="load" resultMap="OrderResultMap" parameterType="java.util.Map">
+		SELECT <include refid="order_column"/>
+		FROM ssc_order WHERE orderId=#{orderId,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="saveOrder" parameterType="com.ssc.demo.model.Order">
+	
+		INSERT INTO ssc_order
+				(oid
+				 ,orderId
+				 ,uid
+				 ,type
+				 ,LT_ISSUE_START
+				 ,LT_TOTAL_MONEY
+				 ,totalActionNum
+				 ,status
+				 ,createDate)
+		VALUES	(#{oid}
+				,#{orderId}
+				,#{uid}
+				,#{type}
+				,#{ltIssueStart}
+				,#{ltTotalMoney}
+				,#{totalActionNum}
+				,#{status}
+				,#{createDate}				
+				)
+				
+	</insert>
+	<insert id="saveOrderDetail" parameterType="com.ssc.demo.model.OrderDetail">	
+		INSERT INTO ssc_order_detail
+				(orderId
+				 ,seq
+				 ,type
+				 ,playId
+				 ,actionData
+				 ,actionNum
+				 ,mode
+				 ,beiShu
+				 ,actionMoney
+				 ,omodel
+				 ,lotteryNo
+				 ,zjCount
+				 ,bonus
+				 ,createDate)
+		VALUES	(#{orderId}
+				,#{seq}
+				,#{type}
+				,#{playId}
+				,#{actionData}
+				,#{actionNum}
+				,#{mode}
+				,#{beiShu}
+				,#{actionMoney}	
+				,#{omodel}
+				,#{lotteryNo}
+				,#{zjCount}
+				,#{bonus}
+				,#{createDate}		
+				)				
+	</insert>
+	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
+		select max(orderId) from ssc_order WHERE createDate &gt;= #{startDate} AND createDate &lt;= #{endDate}
+	</select>
+	
+		<select id="findDetailsByPage" resultMap="OrderDetailResultMap">
+		<choose>
+			<when test="mname != null and mname != '' or uid != null and uid != ''">
+                <if test="mname != null and mname != ''">
+				 SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId 
+				 LEFT JOIN ssc_members c on a.uid=c.uid 
+				
+				</if>
+				<if test="uid != null and uid != ''">
+					SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId
+					
+				</if>
+            </when>
+            <otherwise>
+               SELECT b.* from ssc_order_detail b	
+            </otherwise>			
+		</choose>
+
+		<where>
+			<include refid="where_detail"/>
+		</where>
+	</select>
+	
+	
+	<select id="findOrder" resultMap="OrderResultMap" parameterType="java.util.Map">
+		SELECT <include refid="order_column"/>
+		FROM ssc_order WHERE lt_issue_start=#{ltIssueStart,jdbcType=VARCHAR} AND status=0
+	</select>
+	
+	<select id="findOrderDetail" resultMap="OrderDetailResultMap" parameterType="java.util.Map">
+		SELECT <include refid="order_detail_column"/>
+		FROM ssc_order_detail WHERE orderId=#{orderId,jdbcType=VARCHAR} ORDER BY seq
+	</select>
+	
+	<update id="updateOrder" parameterType="com.ssc.demo.model.Order">
+		UPDATE  ssc_order 
+		<set>
+		status=1
+		</set>
+		WHERE  orderId=#{orderId,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateOrderDetail" parameterType="com.ssc.demo.model.OrderDetail">
+		UPDATE  ssc_order_detail
+		<set>           
+             <if test="lotteryNo != null and lotteryNo != ''">
+                lotteryNo = #{lotteryNo},
+            </if>           
+            <if test="bonus != null and bonus != ''">
+                bonus = #{bonus},
+            </if>           
+        </set>
+         WHERE  orderId=#{orderId,jdbcType=VARCHAR} and seq=#{seq,jdbcType=INTEGER}
+				
+	</update>
+	
+</mapper> 

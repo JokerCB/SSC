@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.DataDao">
+	<resultMap id="DataResultMap" type="com.ssc.demo.model.Data">
+		<id property="id" column="id" />
+		<result property="type" column="type" />
+		<result property="number" column="number" />
+		<result property="data" column="data" />
+		<result property="time" column="time" />
+		<result property="status" column="status" />
+		<result property="createdate" column="createDate" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,type
+		 ,number
+		 ,data
+		 ,time
+		 ,status
+		 ,createDate
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="type != null and type != ''">
+			AND type = #{type,jdbcType=TINYINT}
+		</if>
+		<if test="number != null and number != ''">
+			AND number = #{number,jdbcType=VARCHAR}
+		</if>
+		<if test="data != null and data != ''">
+			AND data = #{data,jdbcType=CHAR}
+		</if>
+		<if test="time != null and time != ''">
+			AND time = #{time,jdbcType=VARCHAR}
+		</if>
+		<if test="createdate != null and createdate != ''">
+			AND createDate = #{createdate,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="find" resultMap="DataResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_data
+		WHERE	type=#{type,jdbcType=TINYINT} and number = #{number,jdbcType=VARCHAR}
+	
+	</select>
+		<select id="getLotteryData" resultMap="DataResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_data
+		WHERE	type=#{type,jdbcType=TINYINT} order by number desc limit 0,1
+	
+	</select>
+	
+		<update id="updateData" parameterType="com.ssc.demo.model.Data">
+		UPDATE  ssc_data 
+		<set>
+		status=1
+		</set>
+		WHERE  id=#{id,jdbcType=INTEGER}
+	</update>
+	
+</mapper> 

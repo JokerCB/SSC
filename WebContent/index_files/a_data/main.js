@@ -666,6 +666,7 @@ function checkemailWithdraw( obj,chineseid,maxnum ){
 
 //格式化浮点数形式(只能输入正浮点数，且小数点后只能跟四位,总体数值不能大于999999999999999共15位:数值999兆)
 function formatFloat( num ) {
+	console.info(num);
 	num = num.replace(/^[^\d]/g,'');
 	num = num.replace(/[^\d.]/g,'');
 	num = num.replace(/\.{2,}/g,'.');

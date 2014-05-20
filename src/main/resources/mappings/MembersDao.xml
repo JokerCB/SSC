@@ -4,8 +4,7 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.ssc.demo.dao.MembersDao">
 	<resultMap id="MembersResultMap" type="com.ssc.demo.model.Members">
-		<id property="mid" column="mid" />
-		<result property="uid" column="uid" />
+		<id property="uid" column="uid" />
 		<result property="mname" column="m_name" />
 		<result property="mpassword" column="m_password" />
 		<result property="mtype" column="m_type" />
@@ -37,8 +36,7 @@
 
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 mid
-		 ,uid
+		uid
 		 ,m_name
 		 ,m_password
 		 ,m_type
@@ -70,9 +68,6 @@
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
 	<sql id="where_column">
-		<if test="mid != null and mid != ''">
-			AND mid = #{mid,jdbcType=INTEGER}
-		</if>
 		<if test="uid != null and uid != ''">
 			AND uid = #{uid,jdbcType=INTEGER}
 		</if>
@@ -140,8 +135,8 @@
 		SELECT	<include refid="base_column" />
 		FROM	ssc_members
 		<where>
-			<if test="mid != null and mid != ''">
-				AND mid = #{mid,jdbcType=INTEGER}
+			<if test="uid != null and uid != ''">
+				AND uid = #{uid,jdbcType=INTEGER}
 			</if>
 			<if test="mname != null and mname != ''">
 				AND m_name = #{mname,jdbcType=VARCHAR}
@@ -151,22 +146,13 @@
 			</if>
 		</where>	  
 	</select>
-
-	<select id="findByPage" resultMap="MembersResultMap">
-	
-		SELECT	<include refid="base_column" />
-		FROM	ssc_members
-		<where>
-			<include refid="where_column" />
-		</where>
-		
-	</select>
 	
 	<insert id="insert" parameterType="com.ssc.demo.model.Members">
 	
 		INSERT INTO ssc_members
 				(m_name
 				,m_type
+				,m_password
 				,m_subCount
 				,is_vip
 				,m_parentId
@@ -194,6 +180,7 @@
 				)
 		VALUES	(#{mname}
 				,#{mtype}
+				,#{mpassword}
 				,#{msubcount}
 				,#{isVip}
 				,#{mparentid}
@@ -305,25 +292,49 @@
 				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
 			</if>
 		</set>
-		WHERE	mid = #{mid,jdbcType=INTEGER}
+		WHERE	uid = #{uid,jdbcType=INTEGER}
 		  
 	</update>
 	
 	<delete id="deleteByPk">
 	
 		DELETE	FROM ssc_members
-		WHERE	mid = #{mid,jdbcType=INTEGER}
+		WHERE	uid = #{uid,jdbcType=INTEGER}
 		  
 	</delete>
 	
 	<delete id="delete">
 	
 		DELETE	FROM ssc_members
-		WHERE	mid
+		WHERE	uid
 		   IN
     	<foreach item="membersId" index="index" collection="array" open="(" separator="," close=")">
 	  		#{membersId} 
 		</foreach>
 		  
 	</delete>
+	
+	<select id="findByPage" resultMap="MembersResultMap">
+
+			SELECT	<include refid="base_column" />
+		FROM	ssc_members
+		<where>
+			<if test="mname != null and mname != ''">
+				AND m_name LIKE CONCAT('%',#{mname,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="mparentid != null and mparentid != ''">
+				AND m_parentId = #{mparentid,jdbcType=INTEGER}
+			</if>
+		</where>
+
+	</select>
+	
+	<update id="updateMembersCoin">
+		UPDATE  ssc_members 
+		<set>
+		m_coin = #{mcoin}
+		</set>
+		WHERE  uid=#{uid,jdbcType=INTEGER}
+	</update>
+	
 </mapper> 

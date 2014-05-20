@@ -1036,7 +1036,7 @@
 //CLIVE添加投注内容时候的东西要修改sean
 			//alert(serverdata);
             var cfhtml = '<tr class="table_line"><th width="710">&nbsp;<img src="../images/sincai/ico_03.png"> '+nohtml+' </th><td width="85">'+stemp+'</td><td width="45">['+$.lt_method_data.modes[modes].name+']</td><td width="105">'+nums+lot_lang.dec_s1+'</td><td width="75">'+times+lot_lang.dec_s2+'</td><td width="115">'+money+lot_lang.dec_s3+'</td><td class="del" width="45px"><span><img src="../images/sincai/btn_08.jpg"></span><input type="hidden" name="lt_project[]" value="'+serverdata+'" /></td></tr>';
-		   //<!--var cfhtml = '<tr><td><div class="table_line"><ul><li>&nbsp;<img src="images/sincai/ico_03.png"> '+nohtml+'</li><li>模式:'+stemp+'</li><li>'+$.lt_method_data.modes[modes].name+'</li><li>'+nums+lot_lang.dec_s1+'</li><li>'+times+lot_lang.dec_s2+'</li><li>'+money+lot_lang.dec_s3+'</li><li class="del"><span><img src="images/sincai/btn_08.jpg"></span><input type="hidden" name="lt_project[]" value="'+serverdata+'" /></li></ul></div></td></tr>';-->
+		   <!--var cfhtml = '<tr><td><div class="table_line"><ul><li>&nbsp;<img src="images/sincai/ico_03.png"> '+nohtml+'</li><li>模式:'+stemp+'</li><li>'+$.lt_method_data.modes[modes].name+'</li><li>'+nums+lot_lang.dec_s1+'</li><li>'+times+lot_lang.dec_s2+'</li><li>'+money+lot_lang.dec_s3+'</li><li class="del"><span><img src="images/sincai/btn_08.jpg"></span><input type="hidden" name="lt_project[]" value="'+serverdata+'" /></li></ul></div></td></tr>';-->
             var $cfhtml = $(cfhtml);
             $cfhtml.prependTo($.lt_id_data.id_cf_content);
             //详情查看

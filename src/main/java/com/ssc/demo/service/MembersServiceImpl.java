@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssc.demo.dao.MembersDao;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.OrderDetail;
 import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
 
@@ -20,11 +21,9 @@ public class MembersServiceImpl implements MembersService {
 	public void setMembersDao(MembersDao membersDao) {
 		this.membersDao = membersDao;
 	}
-	
 
-
-	public Members load(Integer mid){
-		return membersDao.load(mid,null,null);
+	public Members load(Integer uid){
+		return membersDao.load(uid,null,null);
 	}
 	public Members load(String mname){
 		return membersDao.load(null,mname,null);
@@ -33,47 +32,30 @@ public class MembersServiceImpl implements MembersService {
 		return membersDao.load(null,mname, mpassword);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MembersService#getDatagrid(qya.demo.web.ui.PageRequest)
-	 */
-	@Override
-	public DataGrid getDatagrid(PageRequest pageRequest) {
-		PageList<Members> memberss = membersDao.findByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
-		return new DataGrid(memberss.getPaginator().getTotalCount(), memberss);
+	public PageList<Members> findByPage(PageRequest pageRequest) {
+		PageList<Members>  members = membersDao.findByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
+		return members;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MembersService#create(qya.demo.model.ssc.Members)
-	 */
+
 	@Override
-	public Integer create(Members members) {
+	public Integer addMembers(Members members) {
 		return membersDao.insert(members);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MembersService#modify(qya.demo.model.ssc.Members)
-	 */
+
 	@Override
 	public Integer modify(Members members) {
 		return membersDao.update(members);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MembersService#remove(Integer)
-	 */
+
 	@Override
-	public Integer remove(Integer mid) {
-		return membersDao.deleteByPk(mid);
+	public Integer remove(Integer uid) {
+		return membersDao.deleteByPk(uid);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MembersService#removeAll(Integer[])
-	 */
+
 	@Override
 	public Integer removeAll(Integer... membersIds) {
 		return membersDao.delete(membersIds);

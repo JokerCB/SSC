@@ -26,16 +26,17 @@ public class URLFilter implements Filter
 	{
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		String requestURL = httpRequest.getRequestURL().toString();
-		requestURL = requestURL.substring(requestURL.lastIndexOf("/") + 1);
+		requestURL = requestURL.substring(0,requestURL.lastIndexOf("/"));
+		requestURL = requestURL.substring(requestURL.lastIndexOf("/")+1);
 		String pageName = requestURL;
 		HttpSession session = httpRequest.getSession();
 
-//		if (pageName.startsWith("index") && session.getAttribute("login") != null)
-//		{
-//			HttpServletResponse httpResponse = (HttpServletResponse)response;
-//			httpResponse.sendRedirect("login?controller=default&action=main");
-//			return;
-//		}
+		if ("admin".equals(pageName))
+		{
+			HttpServletResponse httpResponse = (HttpServletResponse)response;
+			httpResponse.sendRedirect("login");
+			return;
+		}
 		if (httpRequest.getHeader("referer") == null)
 		{
 			HttpServletResponse httpResponse = (HttpServletResponse)response;

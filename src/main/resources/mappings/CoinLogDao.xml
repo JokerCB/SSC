@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.CoinLogDao">
+	<resultMap id="CoinLogResultMap" type="com.ssc.demo.model.CoinLog">
+		<id property="id" column="id" />
+		<result property="orderId" column="ORDERID" />
+		<result property="uid" column="UID" />
+		<result property="type" column="TYPE" />
+		<result property="coin" column="coin" />
+		<result property="userCoin" column="userCoin" />
+		<result property="liqType" column="liqType" />
+		<result property="actionIP" column="actionIP" />
+		<result property="info" column="info" />
+		<result property="createDate" column="CREATEDATE" />
+	</resultMap>
+	
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="coinLog_column">
+		 id
+		 ,orderId
+		 ,uid
+		 ,type
+		 ,coin
+		 ,userCoin
+		 ,liqType
+		 ,actionIP
+		 ,info
+		 ,createDate		
+	</sql>
+	
+	<sql id="where_detail">
+		<if test="uid != null and uid != ''">
+			AND c.uid LIKE CONCAT('%',#{uid,jdbcType=INTEGER},'%')
+		</if>
+		<if test="orderId != null and orderId != ''">
+			AND a.orderId = #{orderId,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	
+	<insert id="saveCoinLog" parameterType="com.ssc.demo.model.CoinLog">
+	
+		INSERT INTO ssc_coin_log
+				(orderId
+				 ,uid
+				 ,type
+				 ,coin
+				 ,userCoin
+				 ,liqType
+				 ,actionIP
+				 ,info
+				 ,createDate)
+		VALUES	(#{orderId}
+				,#{uid}
+				,#{type}
+				,#{coin}
+				,#{userCoin}
+				,#{liqType}
+				,#{actionIP}
+				,#{info}
+				,#{createDate}				
+				)
+				
+	</insert>
+	
+	<select id="findCoinLogByPage" resultMap="CoinLogResultMap">
+
+       SELECT <include refid="coinLog_column"/> 
+       from ssc_coin_log	
+    
+		<where>
+			<include refid="where_detail"/>
+		</where>
+	</select>
+	
+</mapper> 
