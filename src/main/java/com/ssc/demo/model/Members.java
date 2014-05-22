@@ -29,6 +29,12 @@ public class Members implements PersistentModel {
 	private String mpassword;
 	
 	/**
+	 * 是否为管理员
+	 */
+	@Column(name = "is_admin")
+	private boolean isAdmin;
+	
+	/**
 	 * 是否代理：0会员，1代理
 	 */
 	@Column(name = "m_type")
@@ -177,6 +183,15 @@ public class Members implements PersistentModel {
 
 	public void setMpassword(String mpassword) {
 		this.mpassword = mpassword;
+	}
+
+	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public Boolean getMtype() {

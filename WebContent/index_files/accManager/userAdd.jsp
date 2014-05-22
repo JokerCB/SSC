@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -107,12 +106,11 @@
 								value="37" type="hidden"> 1800
 							</td>
 							<td class="left_noindent">&nbsp;
-								<input style="border: none;" size="20" onblur="checkFandian(this);"
-									 id="mfandian" name="mfandian" type="text">%
+								<input style="border: none;" size="20" onblur="checkFandian(this);" id="mfandian_cqssc" name="mfandian" type="text">%
 								<span id="fd_span_cqssc"></span>
 							</td>
 							<td class="left_noindent" style="padding: 3px;" bgcolor="#CCCCCC">&nbsp;
-								<input style="border: none; size="20" onblur="checkFandian(this);" id="mfandianbdw" name="mfandianbdw" type="text">%
+								<input style="border: none; size="20" onblur="checkFandian(this);" id="mfandianbdw_cqssc" name="mfandianbdw" type="text">%
 								<span id="fdbdw_span_cqssc"></span>
 
 							</td>
@@ -144,6 +142,8 @@
 </body>
 </html>
 <script type="text/javascript">
+var fandian = top.top.fandian;
+var fandianbdw = top.top.fandianbdw;
 // 提交验证
 function checkRapid(){
 	
@@ -175,5 +175,17 @@ function checkNum(num){
 $(document).ready(function(){
 	$("span[id^=fd_span]").html("(范围：0～"+top.top.fandian+"%)");
 	$("span[id^=fdbdw_span]").html("(范围：0～"+top.top.fandianbdw+"%)");
+	$("#keeppoint").keyup(function(){
+		var $this = $(this);
+		var fandian = top.top.fandian;
+		var fandianbdw = top.top.fandianbdw;
+		if((!checkNum($this.val()))){
+			$("#mfandian_cqssc").attr("value", fandian);
+			$("#mfandianbdw_cqssc").attr("value", fandianbdw);
+		} else {
+			$("#mfandian_cqssc").attr("value", parseFloat($this.val()-fandian)>0 ? 0 : parseFloat(fandian-$this.val()).toFixed(1));
+			$("#mfandianbdw_cqssc").attr("value", parseFloat($this.val()-fandianbdw)>0 ? 0 : parseFloat(fandianbdw-$this.val()).toFixed(1));
+		}
+	});
 }); 
 </script>

@@ -48,8 +48,41 @@ public class AdminController {
 	@RequestMapping(value = "login", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView login(Model model,HttpSession session,HttpServletRequest request) throws Exception {
 	
-		return new ModelAndView("index");
+		String mname = session.getAttribute("mname")!=null?session.getAttribute("mname").toString():null;
+		if(mname!= null && mname.equals(memCache.getMc().get(mname))){
+			Members members = (Members) memCache.getMc().get(session.getAttribute("uid")+"_object");
+			if(members.isAdmin())
+				return new ModelAndView("index");
+		}
+		return new ModelAndView("login");
 
+	}
+	
+	@RequestMapping(value = "loging", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String loging(Model model,HttpSession session,HttpServletRequest request) throws Exception {
+		String json = "";
+		String mname = request.getParameter("username");
+		String mpassword = request.getParameter("password");
+		mpassword = MD5.getPasswordMD5(mpassword);
+		Members members = membersService.load(mname, mpassword);
+		if(members == null || !members.isAdmin())
+		{
+			session.removeAttribute("uid");
+			session.removeAttribute("mname");
+			model.addAttribute("msg", "用户名和密码错误, 请重新登陆");
+			json = "{'sError':0,'sMsg':'用户名和密码错误, 请重新登陆','aLinks':[{'url':'login'}]}";
+		}
+		else{
+			
+			session.setAttribute("uid", members.getUid());
+			session.setAttribute("mname", members.getMname());
+			
+			memCache.getMc().set(members.getMname(), members.getMname());
+			memCache.getMc().set(members.getUid()+"_object", members);
+			json = "{'sError':0,'sMsg':'','aLinks':[{'url':'index'}]}";
+		}
+		return json;
 	}
 	
 	/**

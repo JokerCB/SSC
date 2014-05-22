@@ -20,4 +20,34 @@ public interface PlayedService {
 	 * @return
 	 */
 	public boolean calcActionNumberData(OrderDetail detail);
+	
+	/**
+	 * 判断中组三还是组六
+	 * @param actionData
+	 * @param numberData
+	 * @param type
+	 * @param playId
+	 * @return “00” 不中； “10”组三；“01”组六
+	 */
+	public String isZSOrZL(OrderDetail orderDetail);
+	
+	/**
+	 * 返回中奖的注数(适用定位胆和不定位胆)
+	 * @param actionData
+	 * @param numberData
+	 * @param type
+	 * @param playId
+	 * @return
+	 */
+	public int isZJNum(OrderDetail orderDetail);
+	
+	/**
+	 * 适用五星和四星的组合
+	 * @param actionData
+	 * @param numberData
+	 * @param type
+	 * @param playId
+	 * @return  
+	 */
+	public String isGroupZJJudgement(OrderDetail orderDetail);
 }

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>天恒后台管理</title>
+<title>后台管理</title>
 <link rel="stylesheet" href="skin/admin/layout.css" type="text/css" />
 <link type="text/css" href="skin/js/jqueryui/skin/smoothness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
 <!--[if IE]>
@@ -119,7 +119,7 @@ var TIP=true;
 		</ul>
 		<footer>
 			<hr />
-			<p><strong>Copyright &copy; 天恒游戏平台</strong></p>
+			<p><strong>Copyright &copy; 平台</strong></p>
 		</footer>
 	</aside><!-- end of sidebar -->
 
