@@ -20,14 +20,35 @@ function checkLogin(){
 	if(!this.vcode.value) throw('验证码不能为空');
 }
 
-function doLogin(err, data){
-	if(err){
-		//alert(err);
-		alert("登录错误,请尝试删除cookie");
-	}else{
-		//alert('验证成功');
-		location=SCRIPT_NAME;
-	}
+function doLogin(){
+	var loginuser = $("#username").val();
+    var typepw = $("#password").val();
+    var url='./loging';
+    var rq_post={};
+    rq_post['flag']='login';
+    rq_post['username']=loginuser;
+
+    rq_post['password']=typepw;
+
+	  rq_post['Submit']='json';
+
+	  $.post(url,rq_post,function(data,textStatus){                        	
+
+  		 var json = eval('(' + data + ')');
+			
+        var url=json['aLinks'];
+        if(json['sMsg'] > "") {            
+        	alert(json['sMsg']);       
+            if(url > ""){
+                location.href=(url[0]['url']);
+            }       
+	    }else{
+	        if(url>""){
+	            location.href=(url[0]['url']);
+	        }
+	    }
+	   });
+	 
 }
 
 
@@ -83,11 +104,6 @@ body {
                       <td>&nbsp;</td>
                       <td height="25" colspan="2" class="left_txt"><p>尝试暴力登录后台将被永久屏蔽</p></td>
                     </tr>
-                    <tr>
-                      <td>&nbsp;</td>
-                      <td width="30%" height="40" class="left_txt"><img src="skin/admin/images/icon-demo.gif" width="16" height="16"><a href="/" target="_blank" class="left_txt3"> 返回首页</a> </td>
-                      <td width="35%" class="left_txt"><img src="skin/admin/images/icon-login-seaver.gif" width="16" height="16"></td>
-                    </tr>
                   </table></td>
                 </tr>
               </table></td>
@@ -108,11 +124,11 @@ body {
                         <table cellSpacing="0" cellPadding="0" width="100%" border="0" height="143">
                           <tr>
                             <td width="13%" height="38" class="login_hui_text"><span class="login_txt">管理员：&nbsp;&nbsp; </span></td>
-                            <td height="38" colspan="2" class="login_hui_text"><input type="text" name="username" class="editbox4" value="" size="20">                            </td>
+                            <td height="38" colspan="2" class="login_hui_text"><input type="text" id="username" class="editbox4" value="" size="20">                            </td>
                           </tr>
                           <tr>
                             <td width="13%" height="35" class="login_hui_text"><span class="login_txt"> 密 码： &nbsp;&nbsp; </span></td>
-                            <td height="35" colspan="2" class="login_hui_text"><input class="editbox4" type="password" size="20" name="password">
+                            <td height="35" colspan="2" class="login_hui_text"><input class="editbox4" type="password" size="20" id="password">
                               <img src="/skin/admin/images/luck.gif" width="19" height="18"> </td>
                           </tr>
                           <tr>
@@ -144,7 +160,7 @@ body {
   <tr>
     <td height="20"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="login-buttom-bg">
       <tr>
-        <td align="center"><span class="login-buttom-txt">Copyright &copy; 天恒后台管理系统</span></td>
+        <td align="center"><span class="login-buttom-txt">Copyright &copy; 后台管理系统</span></td>
       </tr>
     </table></td>
   </tr>

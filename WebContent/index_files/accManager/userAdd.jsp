@@ -22,7 +22,7 @@
 	<script type="text/javascript" src="../jquery_003.js"></script>
 	<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 	<!--消息框代码结束-->
-	<form action="../../members/addUser" method="post" name="updateform" onsubmit="return checkRapid();" style="height: auto;">
+	 <form action="" method="post" name="updateform" style="height: auto;">
 		<input name="flag" value="insert" type="hidden">
 		<input name="controller" value="user" type="hidden">
 		<input name="action" value="adduser" type="hidden">
@@ -41,7 +41,7 @@
 				<tr>
 					<td width="11%">用户名：</td>
 					<td colspan="2">
-						<input name="mname" onblur="checkUser(this.value)" onclick="$('#userchk').html('')" type="text">
+						<input name="mname" id="mname" onblur="checkUser(this.value)" onclick="$('#userchk').html('')" type="text">
 						<span class="red">(由字母或数字组成的6-16个字符,不能连续四位相同的字符,首字不能以0或者o开头)</span>
 					<p id="userchk"></p></td>
 				</tr>
@@ -62,7 +62,7 @@
 								onchange="clearNoNum(this)" onblur="checkNum(this)"-->
 							(自身最高保留 <span style="display: none" id="keeppoint_min">0.1</span>
 							<span style="display: none" id="keeppoint_max">9.6</span> )
-							<input type="submit" class="formWord" value="确认返点" id="keeppoint_submit" />
+							<input type="button" onclick="checkRapid();" class="formWord" value="确认返点" id="keeppoint_submit" />
 								<!-- onclick="return(onekey_keeppoint());" > -->
 						</td>
 					</tr>
@@ -146,7 +146,38 @@ var fandian = top.top.fandian;
 var fandianbdw = top.top.fandianbdw;
 // 提交验证
 function checkRapid(){
-	
+	if(!this.mname.value){
+		$.alert("用户名不能为空！");
+		return false;
+	}
+	if(!this.mfandian_cqssc.value)
+		{
+		$.alert('返点不能为空！');
+		return false;
+		}
+	if(!this.mfandianbdw_cqssc.value){
+		$.alert('返点不能为空！');
+		return false;
+	}
+	var rq_post={};
+    rq_post['mname']= $("#mname").val();
+    rq_post['mfandian']=$("#mfandian_cqssc").val();
+    rq_post['mfandianbdw']=$("#mfandianbdw_cqssc").val();
+	rq_post['Submit']='json'; 
+	$.ajax({
+		type:"POST",
+		url:"../../members/addUser",
+		data:rq_post,
+		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+		success:function(data){
+			console.log(data);
+			var json = eval('(' + data + ')');
+			$.alert(json['sMsg']);			 
+			$("#mname").val("");
+		    $("#mfandian_cqssc").val("");
+		    $("#mfandianbdw_cqssc").val("");
+		}
+	});
 }
 
 // 验证用户名
@@ -161,8 +192,9 @@ function checkFandian(obj){
 		obj.value = 0;
 		return false;
 	}
-	if(obj.value>minfd){
-		$.alert("输入的返点值不能大于最低返点值！");
+
+	if(parseFloat(obj.value)>parseFloat(minfd)){
+		$.alert("输入的返点值不能大于最高返点值！");
 		return false;
 	}
 	

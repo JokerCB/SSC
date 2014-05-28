@@ -32,7 +32,7 @@ public class Members implements PersistentModel {
 	 * 是否为管理员
 	 */
 	@Column(name = "is_admin")
-	private boolean isAdmin;
+	private Boolean isAdmin;
 	
 	/**
 	 * 是否代理：0会员，1代理
@@ -185,12 +185,16 @@ public class Members implements PersistentModel {
 		this.mpassword = mpassword;
 	}
 
-	
 	public boolean isAdmin() {
 		return isAdmin;
 	}
+	
+	
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
 
-	public void setAdmin(boolean isAdmin) {
+	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 

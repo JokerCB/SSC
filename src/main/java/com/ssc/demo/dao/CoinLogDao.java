@@ -1,10 +1,13 @@
 package com.ssc.demo.dao;
 
+import java.util.Map;
+
 import com.ssc.demo.model.CoinLog;
+import framework.generic.dao.GenericDao;
 import framework.generic.paginator.domain.PageBounds;
 import framework.generic.paginator.domain.PageList;
 
-public interface CoinLogDao {
+public interface CoinLogDao extends GenericDao<CoinLog, Integer> {
 
 	void saveCoinLog(CoinLog coinLog);
 	
@@ -15,5 +18,5 @@ public interface CoinLogDao {
 	 *            分页工具类
 	 * @return pagination 分页工具类
 	 */
-	PageList<CoinLog> findCoinLogByPage(Object parameters, PageBounds pageBounds);
+	PageList<Map> findCoinLogByPage(Object parameters, PageBounds pageBounds);
 }

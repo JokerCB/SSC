@@ -62,7 +62,7 @@
 	
 	<sql id="where_detail">
 		<if test="mname != null and mname != ''">
-			AND c.mname LIKE CONCAT('%',#{mname,jdbcType=VARCHAR},'%')
+			AND c.m_name LIKE CONCAT('%',#{mname,jdbcType=VARCHAR},'%')
 		</if>
 		<if test="uid != null and uid != ''">
 			AND a.uid = #{uid,jdbcType=VARCHAR}
@@ -70,11 +70,14 @@
 		<if test="orderId != null and orderId != ''">
 			AND b.orderId = #{orderId,jdbcType=VARCHAR}
 		</if>
-		<if test="startDate != null and startDate != ''">
-			AND b.createDate &gt;= #{startDate}
+		<if test="issue != null and issue != ''">
+			AND a.lt_issue_start = #{issue,jdbcType=VARCHAR}
 		</if>
-		<if test="createDate != null and createDate != ''">
-			AND b.createDate &lt;= #{createDate}
+		<if test="starttime != null and starttime != ''">
+			AND b.createDate &gt;= #{starttime}
+		</if>
+		<if test="endtime != null and endtime != ''">
+			AND b.createDate &lt;= #{endtime}
 		</if>
 	</sql>
 

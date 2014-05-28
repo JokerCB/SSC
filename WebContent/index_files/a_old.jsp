@@ -19,20 +19,22 @@
 <!--消息框代码结束-->
 <script type="text/javascript" src="../index_files/a_data/main.js"></script>
 <script type="text/javascript">
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-34470891-1']);
+   _gaq.push(['_setAllowLinker', true]);
+   _gaq.push(['_trackPageview']);
+ 
+ </script>
 
-var var_cur_issue = "${cur_issue}";
-var var_servertime = "${servertime}";
-var Iss_today = "${Iss_today}";
-Iss_today = Iss_today.split("|");
+<!--GA统计代码开始 添加于20130830-->
+	<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34470891-1']);
+    _gaq.push(['_setAllowLinker', true]);
+     _gaq.push(['_trackPageview']);
+    </script>
+<!--GA统计代码结束 添加于20130830-->
 
-var Iss_tomorrow = "${Iss_tomorrow}";
-Iss_tomorrow = Iss_tomorrow.split("|");
-
-var moneyMap = eval('(' + '${moneyMap}' + ')');
-var fandian = "${fandian}";
-var fandianbdw = "${fandianbdw}"; 
-
-</script>
 
 </head>
 <body>
@@ -61,6 +63,8 @@ _gaq.push(['_trackPageview']);
 <script language="javascript" src="../index_files/a_data/youxi_lang_zh.js"></script>
 
 <script language="javascript">
+
+var var_cur_issue = top.var_cur_issue;
 
 function intval (mixed_var, base) {
 	var tmp;
@@ -109,7 +113,7 @@ code_sp : '',
 	methodid : 2274,
 	name:'复式',
 	prize:{1:'180000.00'},
-        nfdprize:{levs:moneyMap['2274'].split(",")[0],defaultprize:moneyMap['2274'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2274'].split(",")[0],defaultprize:top.moneyMap['2274'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'复式',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个五位数号码组成一注。',
@@ -121,7 +125,7 @@ code_sp : ' ',
 	methodid : 2274,
 	name:'单式',
 	prize:{1:'180000.00'},
-        nfdprize:{levs:moneyMap['2274'].split(",")[0],defaultprize:moneyMap['2274'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2274'].split(",")[0],defaultprize:top.moneyMap['2274'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'单式',maxcodecount:0
 },{methoddesc:'从个、十、百、千、万位各选一个号码组成五注。',
@@ -163,7 +167,7 @@ code_sp : ',',
 	methodid : 2278,
 	name:'组选120',
 	prize:{1:'1500.00'},
-        nfdprize:{levs:moneyMap['2278'].split(",")[0],defaultprize:moneyMap['2278'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2278'].split(",")[0],defaultprize:top.moneyMap['2278'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选120',maxcodecount:0
 },{methoddesc:'从“二重号”选择一个号码，“单号”中选择三个号码组成一注。',
@@ -183,7 +187,7 @@ code_sp : '',
 	methodid : 2279,
 	name:'组选60 ',
 	prize:{2:'3000.00'},
-        nfdprize:{levs:moneyMap['2279'].split(",")[0],defaultprize:moneyMap['2279'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2279'].split(",")[0],defaultprize:top.moneyMap['2279'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选60 ',maxcodecount:0
 },{methoddesc:'从“二重号”选择两个号码，“单号”中选择一个号码组成一注。',
@@ -203,7 +207,7 @@ code_sp : '',
 	methodid : 2280,
 	name:'组选30',
 	prize:{3:'6000.00'},
-        nfdprize:{levs:moneyMap['2280'].split(",")[0],defaultprize:moneyMap['2280'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2280'].split(",")[0],defaultprize:top.moneyMap['2280'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选30',maxcodecount:0
 },{methoddesc:'从“三重号”选择一个号码，“单号”中选择两个号码组成一注。',
@@ -223,7 +227,7 @@ code_sp : '',
 	methodid : 2281,
 	name:'组选20',
 	prize:{4:'9000.00'},
-        nfdprize:{levs:moneyMap['2281'].split(",")[0],defaultprize:moneyMap['2281'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2281'].split(",")[0],defaultprize:top.moneyMap['2281'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选20',maxcodecount:0
 },{methoddesc:'从“三重号”选择一个号码，“二重号”中选择一个号码组成一注。',
@@ -243,7 +247,7 @@ code_sp : '',
 	methodid : 2282,
 	name:'组选10',
 	prize:{5:'18000.00'},
-        nfdprize:{levs:moneyMap['2282'].split(",")[0],defaultprize:moneyMap['2282'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2282'].split(",")[0],defaultprize:top.moneyMap['2282'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选10',maxcodecount:0
 },{methoddesc:'从“四重号”选择一个号码，“单号”中选择一个号码组成一注。',
@@ -263,7 +267,7 @@ code_sp : '',
 	methodid : 2283,
 	name:'组选5',
 	prize:{6:'36000.00'},
-        nfdprize:{levs:moneyMap['2283'].split(",")[0],defaultprize:moneyMap['2283'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2283'].split(",")[0],defaultprize:top.moneyMap['2283'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选5',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"0",title:"四星", label:[{gtitle:'四星直选', label:[{methoddesc:'从千位、百位、十位、个位中选择一个4位数号码组成一注',
@@ -285,7 +289,7 @@ code_sp : '',
 	methodid : 2265,
 	name:'复式',
 	prize:{1:'18000.00'},
-        nfdprize:{levs:moneyMap['2265'].split(",")[0],defaultprize:moneyMap['2265'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2265'].split(",")[0],defaultprize:top.moneyMap['2265'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'复式',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个四位数号码组成一注。',
@@ -297,7 +301,7 @@ code_sp : ' ',
 	methodid : 2265,
 	name:'单式',
 	prize:{1:'18000.00'},
-        nfdprize:{levs:moneyMap['2265'].split(",")[0],defaultprize:moneyMap['2265'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2265'].split(",")[0],defaultprize:top.moneyMap['2265'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'单式',maxcodecount:0
 },{methoddesc:'在千位，百位，十位，个位任意位置上任意选择1个或1个以上号码。',
@@ -339,7 +343,7 @@ code_sp : ',',
 	methodid : 2269,
 	name:'组选24',
 	prize:{1:'750.00'},
-        nfdprize:{levs:moneyMap['2269'].split(",")[0],defaultprize:moneyMap['2269'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2269'].split(",")[0],defaultprize:top.moneyMap['2269'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选24',maxcodecount:0
 },{methoddesc:'从“二重号”选择一个号码，“单号”中选择两个号码组成一注。',
@@ -359,7 +363,7 @@ code_sp : '',
 	methodid : 2270,
 	name:'组选12',
 	prize:{2:'1500.00'},
-        nfdprize:{levs:moneyMap['2270'].split(",")[0],defaultprize:moneyMap['2270'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2270'].split(",")[0],defaultprize:top.moneyMap['2270'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选12',maxcodecount:0
 },{methoddesc:'从“二重号”选择两个号码组成一注。',
@@ -378,7 +382,7 @@ code_sp : ',',
 	methodid : 2271,
 	name:'组选6',
 	prize:{3:'3000.00'},
-        nfdprize:{levs:moneyMap['2271'].split(",")[0],defaultprize:moneyMap['2271'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2271'].split(",")[0],defaultprize:top.moneyMap['2271'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选6',maxcodecount:0
 },{methoddesc:'从“三重号”选择一个号码，“单号”中选择两个号码组成一注。',
@@ -397,7 +401,7 @@ code_sp : '',
 	methodid : 2272,
 	name:'组选4',
 	prize:{4:'4500.00'},
-        nfdprize:{levs:moneyMap['2272'].split(",")[0],defaultprize:moneyMap['2272'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2272'].split(",")[0],defaultprize:top.moneyMap['2272'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组选4',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"1",title:"后三码", label:[{gtitle:'后三直选', label:[{methoddesc:'从个、十、百位各选一个号码组成一注。',
@@ -418,7 +422,7 @@ code_sp : '',
 	methodid : 5,
 	name:'复式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['5'].split(",")[0],defaultprize:moneyMap['5'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['5'].split(",")[0],defaultprize:top.moneyMap['5'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'复式',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码组成一注。',
@@ -430,7 +434,7 @@ code_sp : ' ',
 	methodid : 5,
 	name:'单式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['5'].split(",")[0],defaultprize:moneyMap['5'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['5'].split(",")[0],defaultprize:top.moneyMap['5'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'单式',maxcodecount:0
 },{methoddesc:'从0-27中任意选择1个或1个以上号码',
@@ -449,7 +453,7 @@ code_sp : ',',
 	methodid : 6,
 	name:'直选和值',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['6'].split(",")[0],defaultprize:moneyMap['6'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['6'].split(",")[0],defaultprize:top.moneyMap['6'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'直选和值',maxcodecount:0
 }]},{gtitle:'后三组选', label:[{methoddesc:'从0-9中任意选择2个或2个以上号码。',
@@ -468,7 +472,7 @@ code_sp : ',',
 	methodid : 13,
 	name:'组三',
 	prize:{1:'600.00'},
-        nfdprize:{levs:moneyMap['13'].split(",")[0],defaultprize:moneyMap['13'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['13'].split(",")[0],defaultprize:top.moneyMap['13'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组三',maxcodecount:0
 },{methoddesc:'从0-9中任意选择3个或3个以上号码。',
@@ -487,7 +491,7 @@ code_sp : ',',
 	methodid : 14,
 	name:'组六',
 	prize:{2:'300.00'},
-        nfdprize:{levs:moneyMap['14'].split(",")[0],defaultprize:moneyMap['14'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['14'].split(",")[0],defaultprize:top.moneyMap['14'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组六',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码。',
@@ -530,7 +534,7 @@ code_sp  : '',
 	methodid : 2,
 	name:'复式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['2'].split(",")[0],defaultprize:moneyMap['2'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2'].split(",")[0],defaultprize:top.moneyMap['2'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'复式',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码组成一注。',
@@ -542,7 +546,7 @@ code_sp : ' ',
 	methodid : 2,
 	name:'单式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['2'].split(",")[0],defaultprize:moneyMap['2'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2'].split(",")[0],defaultprize:top.moneyMap['2'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'单式',maxcodecount:0
 },{methoddesc:'从0-27中任意选择1个或1个以上号码',
@@ -561,7 +565,7 @@ code_sp : ',',
 	methodid : 3,
 	name:'直选和值',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['3'].split(",")[0],defaultprize:moneyMap['3'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['3'].split(",")[0],defaultprize:top.moneyMap['3'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'直选和值',maxcodecount:0
 }]},{gtitle:'前三组选', label:[{methoddesc:'从0-9中任意选择2个或2个以上号码。',
@@ -580,7 +584,7 @@ code_sp : ',',
 	methodid : 8,
 	name:'组三',
 	prize:{1:'600.00'},
-        nfdprize:{levs:moneyMap['8'].split(",")[0],defaultprize:moneyMap['8'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['8'].split(",")[0],defaultprize:top.moneyMap['8'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组三',maxcodecount:0
 },{methoddesc:'从0-9中任意选择3个或3个以上号码。',
@@ -599,7 +603,7 @@ code_sp : ',',
 	methodid : 9,
 	name:'组六',
 	prize:{2:'300.00'},
-        nfdprize:{levs:moneyMap['9'].split(",")[0],defaultprize:moneyMap['9'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['9'].split(",")[0],defaultprize:top.moneyMap['9'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组六',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码。',
@@ -642,7 +646,7 @@ code_sp  : '',
 	methodid : 2291,
 	name:'复式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['2291'].split(",")[0],defaultprize:moneyMap['2291'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2291'].split(",")[0],defaultprize:top.moneyMap['2291'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'复式',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码组成一注。',
@@ -654,7 +658,7 @@ code_sp : ' ',
 	methodid : 2291,
 	name:'单式',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['2291'].split(",")[0],defaultprize:moneyMap['2291'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2291'].split(",")[0],defaultprize:top.moneyMap['2291'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'单式',maxcodecount:0
 },{methoddesc:'从0-27中任意选择1个或1个以上号码',
@@ -673,7 +677,7 @@ code_sp : ',',
 	methodid : 2292,
 	name:'直选和值',
 	prize:{1:'1800.00'},
-        nfdprize:{levs:moneyMap['2292'].split(",")[0],defaultprize:moneyMap['2292'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2292'].split(",")[0],defaultprize:top.moneyMap['2292'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'直选和值',maxcodecount:0
 }]},{gtitle:'中三组选', label:[{methoddesc:'从0-9中任意选择2个或2个以上号码。',
@@ -692,7 +696,7 @@ code_sp : ',',
 	methodid : 2293,
 	name:'组三',
 	prize:{1:'600.00'},
-        nfdprize:{levs:moneyMap['2293'].split(",")[0],defaultprize:moneyMap['2293'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2293'].split(",")[0],defaultprize:top.moneyMap['2293'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组三',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个三位数号码。',
@@ -723,7 +727,7 @@ code_sp : ',',
 	methodid : 2294,
 	name:'组六',
 	prize:{2:'300.00'},
-        nfdprize:{levs:moneyMap['2294'].split(",")[0],defaultprize:moneyMap['2294'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2294'].split(",")[0],defaultprize:top.moneyMap['2294'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'组六',maxcodecount:0
 },{methoddesc:'从0-9中选择1个号码。',
@@ -762,7 +766,7 @@ code_sp : '',
 	methodid : 24,
 	name:'后二直选(复式)',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['24'].split(",")[0],defaultprize:moneyMap['24'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['24'].split(",")[0],defaultprize:top.moneyMap['24'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二(复式)',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个两位数号码。',
@@ -774,7 +778,7 @@ code_sp : ' ',
 	methodid : 24,
 	name:'后二直选(单式)',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['24'].split(",")[0],defaultprize:moneyMap['24'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['24'].split(",")[0],defaultprize:top.moneyMap['24'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二(单式)',maxcodecount:0
 },{methoddesc:'从万、千位各选一个号码组成一注。',
@@ -794,7 +798,7 @@ code_sp : '',
 	methodid : 22,
 	name:'前二直选(复式)',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['22'].split(",")[0],defaultprize:moneyMap['22'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['22'].split(",")[0],defaultprize:top.moneyMap['22'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二(复式)',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个两位数号码。',
@@ -806,7 +810,7 @@ code_sp : ' ',
 	methodid : 22,
 	name:'前二直选(单式)',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['22'].split(",")[0],defaultprize:moneyMap['22'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['22'].split(",")[0],defaultprize:top.moneyMap['22'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二(单式)',maxcodecount:0
 },{methoddesc:'从0-18中任意选择1个或1个以上的和值号码。',
@@ -824,7 +828,7 @@ code_sp : ',',
 	methodid : 474,
 	name:'后二直选和值',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['474'].split(",")[0],defaultprize:moneyMap['474'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['474'].split(",")[0],defaultprize:top.moneyMap['474'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二和值',maxcodecount:0
 },{methoddesc:'从0-18中任意选择1个或1个以上的和值号码。',
@@ -842,7 +846,7 @@ code_sp : ',',
 	methodid : 472,
 	name:'前二直选和值',
 	prize:{1:'180.00'},
-        nfdprize:{levs:moneyMap['472'].split(",")[0],defaultprize:moneyMap['472'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['472'].split(",")[0],defaultprize:top.moneyMap['472'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二和值',maxcodecount:0
 }]},{gtitle:'二星组选', label:[{methoddesc:'从0-9中任意选择2个或2个以上号码。',
@@ -861,7 +865,7 @@ code_sp : ',',
 	methodid : 28,
 	name:'后二组选(复式)',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['28'].split(",")[0],defaultprize:moneyMap['28'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['28'].split(",")[0],defaultprize:top.moneyMap['28'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二(复式)',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个两位数号码。',
@@ -873,7 +877,7 @@ code_sp : ' ',
 	methodid : 28,
 	name:'后二组选(单式)',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['28'].split(",")[0],defaultprize:moneyMap['28'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['28'].split(",")[0],defaultprize:top.moneyMap['28'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二(单式)',maxcodecount:0
 },{methoddesc:'从0-9中任意选择2个或2个以上号码。',
@@ -892,7 +896,7 @@ code_sp : ',',
 	methodid : 26,
 	name:'前二组选(复式)',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['26'].split(",")[0],defaultprize:moneyMap['26'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['26'].split(",")[0],defaultprize:top.moneyMap['26'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二(复式)',maxcodecount:0
 },{methoddesc:'手动输入号码，至少输入1个两位数号码。',
@@ -904,7 +908,7 @@ code_sp : ' ',
 	methodid : 26,
 	name:'前二组选(单式)',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['26'].split(",")[0],defaultprize:moneyMap['26'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['26'].split(",")[0],defaultprize:top.moneyMap['26'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二(单式)',maxcodecount:0
 },{methoddesc:'从1-17中任意选择1个或1个以上的和值号码。',
@@ -922,7 +926,7 @@ code_sp : ',',
 	methodid : 478,
 	name:'后二组选和值',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['478'].split(",")[0],defaultprize:moneyMap['478'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['478'].split(",")[0],defaultprize:top.moneyMap['478'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二和值',maxcodecount:0
 },{methoddesc:'从1-17中任意选择1个或1个以上号码',
@@ -940,7 +944,7 @@ code_sp : ',',
 	methodid : 476,
 	name:'前二组选和值',
 	prize:{1:'90.00'},
-        nfdprize:{levs:moneyMap['476'].split(",")[0],defaultprize:moneyMap['476'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['476'].split(",")[0],defaultprize:top.moneyMap['476'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二和值',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"0",title:"定位胆", label:[{gtitle:'定位胆', label:[{methoddesc:'在万位，千位，百位，十位，个位任意位置上任意选择1个或1个以上号码。',
@@ -963,7 +967,7 @@ code_sp : '',
 	methodid : 30,
 	name:'定位胆',
 	prize:{1:'18.00'},
-        nfdprize:{levs:moneyMap['30'].split(",")[0],defaultprize:moneyMap['30'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['30'].split(",")[0],defaultprize:top.moneyMap['30'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'定位胆',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"0",title:"不定胆", label:[{gtitle:'三星不定胆', label:[{methoddesc:'从0-9中任意选择1个以上号码。',
@@ -982,7 +986,7 @@ code_sp : ',',
 	methodid : 18,
 	name:'后三一码不定胆',
 	prize:{1:'6.60'},
-        nfdprize:{levs:moneyMap['18'].split(",")[0],defaultprize:moneyMap['18'].split(",")[1],userdiffpoint:fandianbdw},
+        nfdprize:{levs:top.moneyMap['18'].split(",")[0],defaultprize:top.moneyMap['18'].split(",")[1],userdiffpoint:top.fandianbdw},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后三一码不定胆',maxcodecount:0
 },{methoddesc:'从0-9中任意选择2个以上号码。',
@@ -1001,7 +1005,7 @@ code_sp : ',',
 	methodid : 20,
 	name:'后三二码不定胆',
 	prize:{1:'33.00'},
-        nfdprize:{levs:moneyMap['20'].split(",")[0],defaultprize:moneyMap['20'].split(",")[1],userdiffpoint:fandianbdw},
+        nfdprize:{levs:top.moneyMap['20'].split(",")[0],defaultprize:top.moneyMap['20'].split(",")[1],userdiffpoint:top.fandianbdw},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后三二码不定胆',maxcodecount:0
 },{methoddesc:'从0-9中任意选择1个以上号码。',
@@ -1020,7 +1024,7 @@ code_sp : ',',
 	methodid : 512,
 	name:'前三一码不定胆',
 	prize:{1:'6.60'},
-        nfdprize:{levs:moneyMap['512'].split(",")[0],defaultprize:moneyMap['512'].split(",")[1],userdiffpoint:fandianbdw},
+        nfdprize:{levs:top.moneyMap['512'].split(",")[0],defaultprize:top.moneyMap['512'].split(",")[1],userdiffpoint:top.fandianbdw},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前三一码不定胆',maxcodecount:0
 },{methoddesc:'从0-9中任意选择2个以上号码。',
@@ -1039,7 +1043,7 @@ code_sp : ',',
 	methodid : 513,
 	name:'前三二码不定胆',
 	prize:{1:'33.00'},
-        nfdprize:{levs:moneyMap['513'].split(",")[0],defaultprize:moneyMap['513'].split(",")[1],userdiffpoint:fandianbdw},
+        nfdprize:{levs:top.moneyMap['513'].split(",")[0],defaultprize:top.moneyMap['513'].split(",")[1],userdiffpoint:top.fandianbdw},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前三二码不定胆',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"0",title:"大小单双", label:[{gtitle:'大小单双', label:[{methoddesc:'从十位、个位中的“大、小、单、双”中至少各选一个组成一注。',
@@ -1055,7 +1059,7 @@ code_sp : '',
 	methodid : 38,
 	name:'后二',
 	prize:{1:'7.20'},
-        nfdprize:{levs:moneyMap['38'].split(",")[0],defaultprize:moneyMap['38'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['38'].split(",")[0],defaultprize:top.moneyMap['38'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'后二大小单双',maxcodecount:0
 },{methoddesc:'从万位、千位中的“大、小、单、双”中至少各选一个组成一注。',
@@ -1071,7 +1075,7 @@ code_sp : '',
 	methodid : 36,
 	name:'前二',
 	prize:{1:'7.20'},
-        nfdprize:{levs:moneyMap['36'].split(",")[0],defaultprize:moneyMap['36'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['36'].split(",")[0],defaultprize:top.moneyMap['36'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'前二大小单双',maxcodecount:0
 }]}]},		{isnew:"0",isdefault:"0",title:"趣味", label:[{gtitle:'特殊', label:[{methoddesc:'从0-9中任意选择1个以上号码。',
@@ -1090,7 +1094,7 @@ code_sp : ',',
 	methodid : 2285,
 	name:'一帆风顺',
 	prize:{1:'4.30'},
-        nfdprize:{levs:moneyMap['2285'].split(",")[0],defaultprize:moneyMap['2285'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2285'].split(",")[0],defaultprize:top.moneyMap['2285'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'一帆风顺',maxcodecount:0
 },{methoddesc:'从0-9中任意选择1个以上的二重号码。',
@@ -1109,7 +1113,7 @@ code_sp : ',',
 	methodid : 2286,
 	name:'好事成双',
 	prize:{2:'22.00'},
-        nfdprize:{levs:moneyMap['2286'].split(",")[0],defaultprize:moneyMap['2286'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2286'].split(",")[0],defaultprize:top.moneyMap['2286'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'好事成双',maxcodecount:0
 },{methoddesc:'从0-9中任意选择1个以上的三重号码。',
@@ -1128,7 +1132,7 @@ code_sp : ',',
 	methodid : 2287,
 	name:'三星报喜',
 	prize:{3:'210.00'},
-        nfdprize:{levs:moneyMap['2287'].split(",")[0],defaultprize:moneyMap['2287'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2287'].split(",")[0],defaultprize:top.moneyMap['2287'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'三星报喜',maxcodecount:0
 },{methoddesc:'从0-9中任意选择1个以上的四重号码。',
@@ -1147,17 +1151,17 @@ code_sp : ',',
 	methodid : 2288,
 	name:'四季发财',
 	prize:{4:'3900.00'},
-        nfdprize:{levs:moneyMap['2288'].split(",")[0],defaultprize:moneyMap['2288'].split(",")[1],userdiffpoint:fandian},
+        nfdprize:{levs:top.moneyMap['2288'].split(",")[0],defaultprize:top.moneyMap['2288'].split(",")[1],userdiffpoint:top.fandian},
 	modes:[{modeid:1,name:'元',rate:1},{modeid:2,name:'角',rate:0.1},{modeid:3,name:'分',rate:0.01}],
 	desc:'四季发财',maxcodecount:0
 }]}]}		],
 //	cur_issue : {issue:'20140401-067',endtime:'2014-04-01 17:09:05'},	
 	cur_issue : eval('(' + var_cur_issue + ')'),
 	issues    : {//所有的可追号期数集合
-	today: Iss_today,
-	tomorrow: Iss_tomorrow
+	today: top.Iss_today,
+	tomorrow: top.Iss_tomorrow
 	},
-	servertime: var_servertime,
+	servertime: top.var_servertime,
 	lotteryid : parseInt(1,10),
 	//ajaxurl   : './?controller=game&action=play',
 	ajaxurl   : 'getLeaveTime',
@@ -1438,8 +1442,8 @@ $(function(){
 			var _h=_field.height();
 			_field.animate({marginTop:-_h+'px'},600,function(){
 				_field.css('marginTop',0).appendTo(_wrap);
-			});
-		},_interval);
+			})
+		},_interval)
 	}).trigger('mouseleave');
 });
 
@@ -1670,9 +1674,133 @@ $(function(){
 </div>
 </div>
 -->
-<div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
+<script type="text/javascript">
+   var _gaq = _gaq || [];
+   _gaq.push(['_setAccount', 'UA-34470891-1']);
+   _gaq.push(['_setAllowLinker', true]);
+   _gaq.push(['_trackPageview']);
+   _gaq.push(['_setCustomVar', 1, 'Theme', 'sincai', 2]);
+
+ </script>
+ <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-41881199-8']);
+_gaq.push(['_setDomainName', 'none']);
+_gaq.push(['_setAllowLinker', true]);
+_gaq.push(['_addOrganic', 'sogou', 'query']);
+_gaq.push(['_addOrganic', 'youdao', 'q']);
+_gaq.push(['_addOrganic', 'soso', 'w']);
+_gaq.push(['_addOrganic', 'sina', 'q']);
+_gaq.push(['_trackPageview']);
+</script>
 <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div>
 
 
 
-</body></html>
+  <script type="text/javascript">
+$(document).ready(function(){
+    if(getCookie("nalert")!=1)
+    {
+        $("#popupad").show("slow");
+        setCookie("nalert",1);
+    }
+})
+    function opoupad()
+    {
+        $("#popupad").hide("slow");
+    }
+</script>
+<div style="width:100%; position: absolute;top:20px;">
+<div id="popupad" style="width: 590px; margin: 0px auto; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 6px solid rgb(255, 255, 255); color: red; border-radius: 5px; display: none;">
+	<div style="background:url(../images/sincai/popupbg.jpg) repeat-x top; height:29px; width:575px; color:#FFFFFF; font-size:14px; padding-left:15px;">杏彩平台最新公告<span style="cursor:pointer; float:right; padding-right:10px; padding-top:7px;" onclick="opoupad();"><img src="../index_files/a_data/popupclose.jpg" border="0"></span></div>
+	<div style="width:554px; margin:0px auto; padding: 10px; background: #e0e0e0; border-left: 8px solid #800001; border-right: 8px solid #800001; border-bottom: 8px solid #800001; color:#4f4f4f;">    
+    <p></p><p><span id="docs-internal-guid-db367ef0-1b1d-850e-07e1-3b8adcd77cb5"> </span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(0, 0, 255);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; font-weight: bold; vertical-align: baseline; white-space: pre-wrap;">活动一、杏彩迎春，彩王再现</span></span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">又到一年春暖花开时，又一期杏彩彩王争霸赛强势开启！本次彩王大礼又将花落谁家，众位玩家们快快投注勇夺彩王吧！</span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动规则：每三天系统会自动计算所有玩家的投注量，投注量最高的前五名即可在第二天点击领取彩王现金奖励！（获奖用户会以平台公告形式公布。）</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;">&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第一名 —— 38888元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第二名 —— 28888元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第三名 —— 18888元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第四名 —— 5888元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第五名 —— 3888元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">第六名 —— 888元</span></span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动时间：4月1日至4月30日</span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动注意事项：</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">1、三天累计投注量达到10000元才有资格参与本活动。</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">2、任何的对冲等刷量行为不计入有效投注，【杏彩娱乐】保留取消、收回该帐号赠送礼金的权利。</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">3、【杏彩娱乐】保留对此次活动做出更改、终止权利，并享有最终解释权。</span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;">&nbsp;</p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(0, 0, 255);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; font-weight: bold; vertical-align: baseline; white-space: pre-wrap;">活动二、杏彩四月，驷马难追</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;">&nbsp;</p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">为了让大家熟悉业界领先的追号系统，配合在线双通道给大家带来的畅快淋漓的到账速度。本次特意推出追号打码大返利活动！</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">点击选择以下追号任务之后，开始累积您的追号金额，只要您当天休市前追号完成金额达到任务要求金额，即可点击领取属于您的追号礼金！</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;">&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">&nbsp;
+追号完成金额 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+礼金</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;888
+ 元 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8
+元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8888
+ 元 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88
+元</span></span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="color: rgb(255, 0, 0);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 88888 元 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  888元</span></span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;">&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动注意事项：</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">1、如果当天无法完成设定的追号要求或者没有自行领取礼金，则自动视为放弃挑战。</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">2、同一帐号、同一银行帐号、同一ip地址每天只可以参与一次挑战，任何的对冲等刷量行为不计入有效投注，【杏彩娱乐】保留取消、收回该帐号赠送礼金的权利。</span></p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">3、【杏彩娱乐】保留对此次活动做出更改、终止权利，并享有最终解释权。 </span></p>
+<p><br>
+<br>
+</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(0, 0, 255);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; font-weight: bold; vertical-align: baseline; white-space: pre-wrap;">活动三、时时陪伴，日日签到</span></span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">杏彩为了答谢玩家们的日夜支持与陪伴，继续推出出每日签到优惠活动。活动期间，只要每日登陆平台并投注588元，即可完成每日任务，点击“签到”即可参与每日签到抽奖环节，有机会抽取到<span style="color: rgb(255, 0, 0);">现金红包（100%中奖）</span>！完成累积签到15天的玩家可以额外获得58元连续活跃奖金！领取15天奖金后可以重新开始累计签到日数！</span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动时间：4月1日至4月30日</span></p>
+<p><br>
+<br>
+</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;text-align: center;"><span style="color: rgb(0, 0, 255);"><span style="font-size: 15px; font-family: Arial; background-color: transparent; font-weight: bold; vertical-align: baseline; white-space: pre-wrap;">活动四、开中有奖，零点礼金大放送</span></span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">每日<span style="color: rgb(255, 0, 0);">重庆时时彩第120期</span>结果会在零点时分开出，只要您<span style="color: rgb(255, 0, 0);">第120期</span>有
+下注并且中奖，即有资格申请零点奖金。只要当期开奖结果后四位与您最近绑定的银行卡号后四位存在一致位置（个、十、百、千位）与数值，即可与在线客服联系
+领取零点特别礼金！个、十位数字吻合可获得88元礼金，个、十、百位数字吻合可获得888元礼金，个、十、百、千位数字都吻合可获得8888元礼金！</span></p>
+<p>&nbsp;</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;"><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;">活动时间：4月1日至4月30日</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>杏彩娱乐公司</p>
+<p>2014年4月1日</p>
+<p dir="ltr" style="line-height:1.15;margin-top:0pt;margin-bottom:0pt;">&nbsp;</p>
+<div><span style="font-size: 15px; font-family: Arial; background-color: transparent; vertical-align: baseline; white-space: pre-wrap;"><br>
+</span></div>
+<p>&nbsp;</p><p></p>
+	</div>
+</div>
+    
+</div></body></html>

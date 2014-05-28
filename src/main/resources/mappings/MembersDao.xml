@@ -8,6 +8,7 @@
 		<result property="mname" column="m_name" />
 		<result property="mpassword" column="m_password" />
 		<result property="mtype" column="m_type" />
+		<result property="isAdmin" column="is_admin" />
 		<result property="msubcount" column="m_subCount" />
 		<result property="isVip" column="is_vip" />
 		<result property="mparentid" column="m_parentId" />
@@ -41,6 +42,7 @@
 		 ,m_password
 		 ,m_type
 		 ,m_subCount
+		 ,is_admin
 		 ,is_vip
 		 ,m_parentId
 		 ,m_qq
@@ -154,6 +156,7 @@
 				,m_type
 				,m_password
 				,m_subCount
+				,is_admin
 				,is_vip
 				,m_parentId
 				,m_qq
@@ -182,6 +185,7 @@
 				,#{mtype}
 				,#{mpassword}
 				,#{msubcount}
+				,#{isAdmin}
 				,#{isVip}
 				,#{mparentid}
 				,#{mqq}

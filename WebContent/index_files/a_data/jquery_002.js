@@ -627,7 +627,9 @@ else{
                 $("#times").attr('selected');
             }
             $.ajax({
-            	url:"../test/getSscData",
+            	type:"POST",
+            	async:false,
+            	url:"../index/getSscData",
             	success:function(data){
             		//成功
                     if( data.length <= 0 ){
@@ -663,22 +665,20 @@ else{
                             break;
                         }
                     }
-                    $.lt_issues.today.unshift({issue:data.issue,endtime:data.saleend});
+                    $.lt_issues.today.unshift("{issue:'"+data.issue+"',endtime:'"+data.saleend+"'}");
                     //重新生成并写入起始期内容
                     //var chtml = '<select name="lt_issue_start" id="lt_issue_start">';
                     var chtml = '';
                     $.each($.lt_issues.today,function(i,n){
+                    	n=eval("("+n+")");
                         chtml += '<option value="'+n.issue+'">'+n.issue+(n.issue==data.issue?lot_lang.dec_s7:'')+'</option>';
                     });
                     var t = $.lt_issues.tomorrow.length-$.lt_issues.today.length;
                     if( t > 0 ){//如果当天的期数小于每天的固定期数则继续增加显示
-                        for( i=0; i<t; i++ ){
+                        for( var i=0; i<t; i++ ){
                             chtml += '<option value="'+$.lt_issues.tomorrow[i].issue+'">'+$.lt_issues.tomorrow[i].issue+'</option>';
                         }
                     }
-                    chtml += '</select>';
-                    $("#lt_issue_start").remove();
-                    $(chtml).appendTo($.lt_id_data.id_issues);
                     $("#lt_issue_start").empty();
                     $(chtml).appendTo("#lt_issue_start");
                     //06:更新可追号期数
@@ -704,94 +704,6 @@ else{
                     return false;
                 }
             });
-            
-            /*$.ajax({
-
-                type: 'POST',
-                //URL : $.lt_ajaxurl,
-                URL : "../test/getMoney",
-               // data: "lotteryid="+$.lt_lottid+"&flag=read",
-                success : function(data){//成功
-
-                                if( data.length <= 0 ){
-                                    $.alert(lot_lang.am_s16);
-                                    return false;
-                                }
-                                var partn = /<script.*>.*<\/script>/;
-                                console.info(partn.test(data));
-                                if( partn.test(data) ){
-                               // 	alert(111111);
-                              //      alert(lot_lang.am_s17);
-        						//	top.location.href="../?controller=default";
-                                	console.info(11111111111111111);
-                                	console.info(11111111111111111);
-                                	//top.location.href="../login";
-                                	console.info(11111111111111111);
-                                	console.info(11111111111111111);
-        							return false;
-                                }
-                                if( data == "empty" ){
-									//未到销售时间
-									//$.alert(lot_lang.am_s15_2);
-                                    $.alert(lot_lang.am_s18);
-                                    //window.location.href="./?controller=default&action=start";
-                                    return false;
-                                }
-                                eval("data="+data);
-                                //03:刷新当前期的信息
-                                $($.lt_id_data.id_cur_issue).html(data.issue);
-                                $($.lt_id_data.id_cur_end).html(data.saleend);
-                                //04:重新开始计时
-                                $($.lt_id_data.id_count_down).lt_timer(data.nowtime, data.saleend);
-                                var l = $.lt_issues.today.length;
-                                //05:更新起始期
-                                while(true){
-                                    if( data.issue == $.lt_issues.today.shift().issue ){
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                $.lt_issues.today.unshift({issue:data.issue,endtime:data.saleend});
-                                //重新生成并写入起始期内容
-                                //var chtml = '<select name="lt_issue_start" id="lt_issue_start">';
-                                var chtml = '';
-                                $.each($.lt_issues.today,function(i,n){
-                                    chtml += '<option value="'+n.issue+'">'+n.issue+(n.issue==data.issue?lot_lang.dec_s7:'')+'</option>';
-                                });
-                                var t = $.lt_issues.tomorrow.length-$.lt_issues.today.length;
-                                if( t > 0 ){//如果当天的期数小于每天的固定期数则继续增加显示
-                                    for( i=0; i<t; i++ ){
-                                        chtml += '<option value="'+$.lt_issues.tomorrow[i].issue+'">'+$.lt_issues.tomorrow[i].issue+'</option>';
-                                    }
-                                }
-                                chtml += '</select>';
-                                $("#lt_issue_start").remove();
-                                $(chtml).appendTo($.lt_id_data.id_issues);
-                                $("#lt_issue_start").empty();
-                                $(chtml).appendTo("#lt_issue_start");
-                                //06:更新可追号期数
-                                t_count = $.lt_issues.tomorrow.length;
-                                $($.lt_id_data.id_tra_alct).html(t_count);
-                                //07:更新追号数据
-                                cleanTraceIssue();//清空追号区数据
-                                while(true){//删除追号列表里已经过期的数据
-                                    $j = $("tr:first",$("#lt_trace_issues_today"));
-                                    if($j.length <= 0){
-                                        break;
-                                    }
-                                    if( $j.find(":checkbox").val() == data.issue ){
-                                        break;
-                                    }
-                                    $j.remove();
-                                }
-                          },
-                error : function(){//失败
-                    $.alert(lot_lang.am_s16);
-                    cleanTraceIssue();//清空追号区数据
-                    return false;
-                }
-            });*/
         }else{//提交表单成功后的刷新
             //01:刷新选号区
             if( iskeep == false ){
@@ -857,6 +769,7 @@ else{
                 var msg = lot_lang.am_s14.replace("[count]",$.lt_trace_issue);
             }else{
                 var msg = lot_lang.dec_s8.replace("[issue]",$("#lt_issue_start").val());
+                //var msg = lot_lang.dec_s8.replace("[issue]",$("#current_issue").html().trim());
             }
             msg += '<div class="floatarea" style="height:150px;">';
             var modesmsg = [];
@@ -946,11 +859,6 @@ else{
             overlayCSS: {backgroundColor: '#FFFFFF',opacity: 0.5,cursor:'wait'}
             });
             var form = $(me).closest("form");
-            
-            console.info($(form).serialize());
-            
-            console.info($("#lt_issue_start"));
-            console.info($("#current_issue").text());
             
             $("#lt_issue_start").prepend("<option value='"+$("#current_issue").text()+"'>"+$("#current_issue").text()+"</option>");
 

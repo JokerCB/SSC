@@ -54,15 +54,6 @@ public class TestController extends AbstractController<Members, Integer> {
 		return "{'0':{'code':'"+data.getData()+"','issue':'"+data.getNumber()+"','statuscode':'2'},'iscurent':1}";
 	}
 
-	@RequestMapping(value = "getSscData", method = { RequestMethod.POST, RequestMethod.GET })
-	@ResponseBody
-	public String getSscData(HttpSession session,HttpServletRequest request) {
-		
-		//{issue:'20140420-091',nowtime:'2014-04-20 20:59:06',saleend:'2014-04-20 21:09:05'}
-		//{"cur_issue","{issue:'"+IssTime.getIss()+"',endtime:'"+IssTime.getEndTime()+"'}"};
-		return "{issue:'"+IssTime.getIss()+"',nowtime:'"+IssTime.getServetTime()+"',saleend:'"+IssTime.getEndTime()+"'}";
-	}
-	
 	@RequestMapping(value = "getMoney", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 	public String getMoney(HttpSession session,HttpServletRequest request) {

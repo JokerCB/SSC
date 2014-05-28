@@ -49,11 +49,11 @@ var TIP=true;
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title">天恒后台管理系统</h1>
+			<h1 class="site_title">后台管理系统</h1>
 			<h2 class="section_title">
             	<a class="tjgk bq load" href="countData/index">统计概况</a><a class="txcl bq load" href="business/cashLog">提现处理</a>
             </h2>
-            <div class="btn_view_site"><a href="">安全退出</a></div>
+            <div class="btn_view_site"><a href="logout">安全退出</a></div>
 		</hgroup>
 	</header>
 	

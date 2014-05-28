@@ -192,7 +192,7 @@ top.SetIframeHeight();
 </script>
 <div id="userlist_yxzb">
 
-<form action="" method="get" name="search">
+<form action="" method="get" name="formTable">
 
 <input name="controller" value="gameinfo" type="hidden">
 <input name="action" value="gamelist" type="hidden">
@@ -203,14 +203,15 @@ top.SetIframeHeight();
               <tr>
                 <th width="20%">投注时间：</th>
                 <td>
-                <input value="2014-05-13 02:20:00" style="width:150px;" name="starttime" id="starttime" class="input_02" type="text">
-                <img style="cursor:pointer" src="a_data/icon_06.jpg" height="17" width="20">
+                <input  style="width:150px;" name="starttime" id="starttime" class="input_02" type="text">
+                <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
                 	至：
-                <input value="2014-05-14 02:20:00" style="width:150px;" id="endtime" name="endtime" class="input_02" type="text">
-                <img style="cursor:pointer" src="a_data/icon_06.jpg" height="17" width="20">
+                <input  style="width:150px;" id="endtime" name="endtime" class="input_02" type="text">
+                <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
              
                 </td>
               </tr>
+             
               <tr>
                 <th>彩种名称：</th>
                 <td sytle="float:left">
@@ -233,15 +234,23 @@ top.SetIframeHeight();
 	                </div>
                 </span>
 			</td></tr>
+	
 			<tr>
-                <th>用户名：</th>
-                <td>
-	                <input name="username" id="username" size="16" class="input_02" style="margin-left:4px;" type="text"> 
-	                <input name="include" id="include" value="1" type="checkbox"> 包含下级
-	            </td>              
-	        </tr>
-            <tr>                
-                <td colspan="2" align="center"><input name="" style="margin:0px" value="查询" class="formCheck" type="submit"></td>
+                <th>用户名称：</th>
+                <td sytle="float:left">
+                 <div style="float:left" class="margin_2px">
+                <input name="mname" id="mname" size="16" class="input_02" style="margin-left:4px;" type="text">
+                </div>
+	
+                <span id="game_info">
+	                <div class="margin_2px" style="float:left">投注期号：</div>
+	                <div style="float:left" class="margin_2px">
+		                 <input name="issue" id="issue" value="" type="text">
+	                </div>               
+                </span>
+			</td></tr>
+           <tr>                
+                <td colspan="2" align="center"><input onclick="deskSearch();" style="margin:0px" value="查询" class="formCheck" type="botton"></td>
             </tr>
             </tbody></table>          
         </form>
@@ -275,7 +284,8 @@ top.SetIframeHeight();
     deskSearch();
     function deskSearch(pIndex,pTag){
     	var obj = $(".formTable");
-    	  var formDate = top.getFieldValues(obj);
+    	var formDate = top.getFieldValues(obj);
+    	  console.log(formDate);
     	  if ((pIndex != undefined)&&(pIndex.length>6))
     		{
     		 pIndex = 1;
@@ -303,15 +313,15 @@ top.SetIframeHeight();
     			      for(var i=0;i<queryList.length;i++){
     			        var list=queryList[i];
     			        var row = orderManager.insertRow(orderManager.rows.length-1);
-    			        var cell1 = row.insertCell();
-    			        var cell2 = row.insertCell();
-    			        var cell3 = row.insertCell();
-    			        var cell4 = row.insertCell();
-    			        var cell5 = row.insertCell();
-    			        var cell6 = row.insertCell();
-    			        var cell7 = row.insertCell();
-    			        var cell8 = row.insertCell();
-    			        var cell9 = row.insertCell();
+    			        var cell1 = document.createElement("td");
+    			        var cell2 =  document.createElement("td");
+    			        var cell3 =  document.createElement("td");
+    			        var cell4 =  document.createElement("td");
+    			        var cell5 =  document.createElement("td");
+    			        var cell6 =  document.createElement("td");
+    			        var cell7 =  document.createElement("td");
+    			        var cell8 =  document.createElement("td");
+    			        var cell9 =  document.createElement("td");
     			        
     			        cell1.innerHTML = "<strong><a href='' target='mainFrame'>"+list.createDate+"</a></strong>";
     			        cell2.innerHTML = list.orderId;
@@ -323,8 +333,24 @@ top.SetIframeHeight();
     			        if(list.bonus == null)
     			        	list.bonus = 0;
     			        cell7.innerHTML = moneyFormat(list.bonus);
+    			        if(list.lotteryNo == null)
+    			        	list.lotteryNo = "";
     			        cell8.innerHTML = list.lotteryNo;
-    			        cell9.innerHTML = "状态";
+    			        if(list.bonus > 0)
+    			        	cell9.innerHTML = "已中奖";
+    			        else
+    			        	cell9.innerHTML = "未中奖";
+    			        
+    			        
+    			        row.appendChild(cell1);
+    			        row.appendChild(cell2);
+    			        row.appendChild(cell3);
+    			        row.appendChild(cell4);
+    			        row.appendChild(cell5);
+    			        row.appendChild(cell6);
+    			        row.appendChild(cell7);
+    			        row.appendChild(cell8);
+    			        row.appendChild(cell9);
     			      }
     			    }
     			    if(pTag == undefined)

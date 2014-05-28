@@ -70,6 +70,12 @@ public class MembersController extends BaseController{
 		
 		Members members = new Members();
 		String mname = request.getParameter("mname");
+		Members existMembers = membersService.load(mname);
+		String msg = "注册成功!";
+		if(existMembers!=null){
+			msg = "此用户名已存在!";
+			return "{'sMsg':'"+msg+"'}";
+		}
 		BigDecimal mfandian = new BigDecimal(request.getParameter("mfandian"));
 		BigDecimal mfandianbdw = new BigDecimal(request.getParameter("mfandianbdw"));
 		int mparentid = Integer.parseInt(session.getAttribute("uid").toString());
@@ -83,8 +89,11 @@ public class MembersController extends BaseController{
 		members.setMparentid(mparentid);
 		members.setMtype(mtype);
 		members.setMpassword(MD5.getPasswordMD5("123456"));
+		members.setMcoin(new BigDecimal("0"));
+		members.setMfcoin(new BigDecimal("0"));
 		membersService.addMembers(members);
-		return null;
+		
+		return "{'sMsg':'"+msg+"'}";
 	}
 }
 

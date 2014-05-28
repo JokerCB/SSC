@@ -113,11 +113,11 @@ function deskSearch(pIndex,pTag){
 			        var list=queryList[i];
 			        //alert(userlistTab.rows.length);
 			        var row = userlistTab.insertRow(userlistTab.rows.length-1);
-			        var cell1 = row.insertCell();
-			        var cell2 = row.insertCell();
-			        var cell3 = row.insertCell();
-			        var cell4 = row.insertCell();
-			        var cell5 = row.insertCell();
+			        var cell1 = document.createElement("td");
+			        var cell2 = document.createElement("td");
+			        var cell3 = document.createElement("td");
+			        var cell4 = document.createElement("td");
+			        var cell5 = document.createElement("td");
 			        cell1.innerHTML = "<strong><a href='' target='mainFrame'>"+list.mname+"</a></strong>";
 			        cell2.innerHTML = "一级代理";
 			        cell3.innerHTML = moneyFormat(list.mcoin);
@@ -125,6 +125,12 @@ function deskSearch(pIndex,pTag){
 			        cell5.innerHTML = "<a href=''>&nbsp;团队余额&nbsp;</a>"+
 			        					"<a href=''>&nbsp;下级充值&nbsp;</a>"+
 			        					"<a href=''>&nbsp;返点设定&nbsp;</a>";
+			        					
+			        row.appendChild(cell1);
+			        row.appendChild(cell2);
+			        row.appendChild(cell3);
+			        row.appendChild(cell4);
+			        row.appendChild(cell5);
 			       
 			      }
 			    }

@@ -105,20 +105,6 @@
                     });
                 }
             </script>
-            <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
-            <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-41881199-8']);
-            _gaq.push(['_setDomainName', 'none']);
-            _gaq.push(['_setAllowLinker', true]);
-            _gaq.push(['_addOrganic', 'sogou', 'query']);
-            _gaq.push(['_addOrganic', 'youdao', 'q']);
-            _gaq.push(['_addOrganic', 'soso', 'w']);
-            _gaq.push(['_addOrganic', 'sina', 'q']);
-            _gaq.push(['_trackPageview']);
-            </script>
-            <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div>
-        
         
  <script language="javascript">
 	jQuery(function(){

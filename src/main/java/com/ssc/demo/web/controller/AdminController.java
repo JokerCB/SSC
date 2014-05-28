@@ -65,13 +65,18 @@ public class AdminController {
 		String mname = request.getParameter("username");
 		String mpassword = request.getParameter("password");
 		mpassword = MD5.getPasswordMD5(mpassword);
+		String sMsg = "";
 		Members members = membersService.load(mname, mpassword);
-		if(members == null || !members.isAdmin())
+		if(members == null)
 		{
 			session.removeAttribute("uid");
 			session.removeAttribute("mname");
-			model.addAttribute("msg", "用户名和密码错误, 请重新登陆");
-			json = "{'sError':0,'sMsg':'用户名和密码错误, 请重新登陆','aLinks':[{'url':'login'}]}";
+			sMsg = "用户名和密码错误, 请重新登陆";
+		}
+		else if(!members.isAdmin()){
+			session.removeAttribute("uid");
+			session.removeAttribute("mname");
+			sMsg = "此用户并非管理员, 请重新登陆";
 		}
 		else{
 			
@@ -80,8 +85,9 @@ public class AdminController {
 			
 			memCache.getMc().set(members.getMname(), members.getMname());
 			memCache.getMc().set(members.getUid()+"_object", members);
-			json = "{'sError':0,'sMsg':'','aLinks':[{'url':'index'}]}";
+			
 		}
+		json = "{'sError':0,'sMsg':'"+sMsg+"','aLinks':[{'url':'login'}]}";
 		return json;
 	}
 	
@@ -94,6 +100,14 @@ public class AdminController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		if(session.getAttribute("mname") != null){
+			memCache.getMc().set(session.getAttribute("mname").toString(), null);
+			memCache.getMc().set(session.getAttribute("uid").toString()+"_object", null);
+		}
+			
+		session.removeAttribute("uid");
+		session.removeAttribute("mname");
+		
 		return new ModelAndView("login");
 
 	}

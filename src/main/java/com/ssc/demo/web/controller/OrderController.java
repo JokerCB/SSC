@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import com.ssc.demo.model.Played;
 import com.ssc.demo.service.MembersService;
 import com.ssc.demo.service.OrderService;
 import com.ssc.demo.service.PlayedService;
+import com.ssc.demo.util.IssTime;
 import com.ssc.demo.web.controller.base.BaseController;
 import com.ssc.demo.web.ui.PageRequest;
 
@@ -60,7 +62,11 @@ public class OrderController extends BaseController{
 		Order order = new Order();
 		order.setUid(Integer.parseInt(session.getAttribute("uid").toString()));
 		int type = Integer.parseInt(request.getParameter("lotteryid"));
-		String lt_issue_start = request.getParameter("lt_issue_start");	
+		String lt_issue_start = request.getParameter("lt_issue_start");
+		String now_issue = IssTime.getIss();
+		if(!now_issue.equals(lt_issue_start)){
+			return "期号不对,请确认！";
+		}
 		int lt_total_nums = Integer.parseInt(request.getParameter("lt_total_nums"));
 		BigDecimal lt_total_money = new BigDecimal(request.getParameter("lt_total_money"));
 		String[] details = request.getParameterValues("lt_project[]");
@@ -110,6 +116,7 @@ public class OrderController extends BaseController{
 		{
 			return "";
 		}
+		order.setLtTotalMoney(money);
 		order.setOrderDetails(detailList);
 		
 		orderService.addOrder(order);
@@ -122,10 +129,19 @@ public class OrderController extends BaseController{
 	@ResponseBody
 //	public Map<String, Object> listData(@RequestParam(value = "currentPage", defaultValue = "0") Integer currentPage, @RequestParam(value = "perNum", defaultValue = "10") Integer perNum, HttpServletRequest request) {
 	public  Map<String, Object> findDetailsByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> paramMap = WebUtils.getParametersStartingWith(request, "sch_");
+//		Map<String, Object> paramMap = WebUtils.getParametersStartingWith(request, "sch_");
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mname", request.getParameter("mname"));
+		paramMap.put("issue", request.getParameter("issue"));
+		paramMap.put("starttime", request.getParameter("starttime"));
+		paramMap.put("endtime", request.getParameter("endtime"));
 		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
-		if(paramMap.get("mname") == null)
+		pageRequest.addDefaultOrder("orderId.desc");
+		if(paramMap.get("mname") == null || "".equals(paramMap.get("mname")))
 			paramMap.put("uid", session.getAttribute("uid"));
+		
+		pageRequest.setParameter(paramMap);
+		
 		PageInfo pageInfo = new PageInfo();
 //		pageInfo.setPageSize(perNum);
 //		pageInfo.setPageIndex(currentPage);

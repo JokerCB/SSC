@@ -48,7 +48,9 @@ public class PlayedServiceImpl implements PlayedService{
 		Played played = this.load(playedId);
 		int sum = 0;
 		if("后三直选(复式/单式)".equals(played.getName()) || "前三直选(复式/单式)".equals(played.getName())
-				|| "中三直选(复式/单式)".equals(played.getName())){
+				|| "中三直选(复式/单式)".equals(played.getName())
+				|| "后三码_混合组选".equals(played.getName())|| "前三码_混合组选".equals(played.getName())
+				|| "中三码_混合组选".equals(played.getName())){
 			if("digital".equals(type)){
 				String[] datas = actionData.split("\\|");
 				int a = datas[0].split("&").length;
@@ -116,7 +118,7 @@ public class PlayedServiceImpl implements PlayedService{
 			sum = datas.length * (datas.length-1);
 		}
 		
-		else if("二码_后二直选(复式))".equals(played.getName()) || "二码_前二直选(复式)".equals(played.getName())){
+		else if("二码_后二直选(复式)".equals(played.getName()) || "二码_前二直选(复式)".equals(played.getName())){
 			if("digital".equals(type)){
 				String[] datas = actionData.split("\\|");
 				int a = datas[0].split("&").length;
@@ -358,9 +360,9 @@ public class PlayedServiceImpl implements PlayedService{
 			if ("digital".equals(type)) // 复式 1&2&3|1&2&3|1&2&3
 			{
 			datas = actionData.split("\\|");
-			if (datas[0].indexOf(actionData.substring(2, 3)) >= 0
-					&& datas[1].indexOf(actionData.substring(3, 4)) >= 0
-					&& datas[2].indexOf(actionData.substring(4, 5)) >= 0) {
+			if (datas[0].indexOf(numberData.substring(2, 3)) >= 0
+					&& datas[1].indexOf(numberData.substring(3, 4)) >= 0
+					&& datas[2].indexOf(numberData.substring(4, 5)) >= 0) {
 				return true;
 			}
 			
@@ -369,8 +371,7 @@ public class PlayedServiceImpl implements PlayedService{
 				datas = actionData.split("&");
 				for (int a=0; a<datas.length;a++)
 				{
-					if (datas[a]==numberData
-							.substring(2, 5))
+					if (datas[a].equals(numberData.substring(2, 5)))
 					{
 						return true;
 					}
@@ -438,9 +439,7 @@ public class PlayedServiceImpl implements PlayedService{
 			if ("digital".equals(type)) // 复式 3&4&5|6&7&8
 			{
 				datas = actionData.split("\\|");
-				if (datas[0].indexOf(numberData
-						.substring(3, 4))>=0 && datas[1].indexOf(numberData
-								.substring(4, 5))>=0 )
+				if (datas[0].indexOf(numberData.substring(3, 4))>=0 && datas[1].indexOf(numberData.substring(4, 5))>=0 )
 				{
 					return true;
 				}
@@ -450,7 +449,7 @@ public class PlayedServiceImpl implements PlayedService{
 				datas = actionData.split("&");
 				for (int a=0;a<datas.length; a++)
 				{
-					if (datas[a]==numberData.substring(3, 5))
+					if (datas[a].equals(numberData.substring(3, 5)))
 					{
 						return true;
 					}
@@ -470,7 +469,7 @@ public class PlayedServiceImpl implements PlayedService{
 			{
 				datas = actionData.split("&");
 				for (int a = 0; a < datas.length; a++) {
-					if (datas[a] == numberData.substring(0, 2)) {
+					if (datas[a].equals(numberData.substring(0, 2))) {
 						return true;
 					}
 				}
@@ -845,35 +844,27 @@ public class PlayedServiceImpl implements PlayedService{
 					return true;
 				}
 			}
-		} else if (playId == 16)// 后三组选（组选和值）4&7&8&9&10
-		{
-			sum = Integer.parseInt(numberData.substring(2, 3))
-					+ Integer.parseInt(numberData.substring(3, 4))
-					+ Integer.parseInt(numberData.substring(4, 5));
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (Integer.parseInt(datas[a]) == sum) {
-					return true;
-				}
-			}
-		} else if (playId == 2)// 前三直选
+		}else if (playId == 2)// 前三直选
 		{
 			if ("digital".equals(type)) // 复式 1&2&3|4&5&6|7&8&9
 			{
 				datas = actionData.split("\\|");
 				if (datas[0].indexOf(numberData.substring(0, 1)) >= 0
 						&& datas[1].indexOf(numberData.substring(1, 2)) >= 0
-						&& datas[1].indexOf(numberData.substring(2, 3)) >= 0) {
+						&& datas[2].indexOf(numberData.substring(2, 3)) >= 0) {
 					return true;
 				}
 			} else if ("input".equals(type)) // 单式 123&456&789
 			{
 				datas = actionData.split("&");
-				if (datas[0].indexOf(numberData.substring(0, 1)) >= 0
-						&& datas[1].indexOf(numberData.substring(1, 2)) >= 0
-						&& datas[1].indexOf(numberData.substring(2, 3)) >= 0) {
-					return true;
+				for (int a=0; a<datas.length;a++)
+				{
+					if (datas[a].equals(numberData.substring(0, 3)))
+					{
+						return true;
+					}
 				}
+				
 			}
 		} else if (playId == 3)// 前三直选(直选和值) 3&4&5&6&7
 		{
@@ -921,18 +912,7 @@ public class PlayedServiceImpl implements PlayedService{
 				return true;
 			}
 
-		} else if (playId == 11)// 前三组选(组选和值') 3&4&5&6&7&8&9&10
-		{
-			sum = Integer.parseInt(numberData.substring(0, 1))
-					+ Integer.parseInt(numberData.substring(1, 2))
-					+ Integer.parseInt(numberData.substring(2, 3));
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (Integer.parseInt(datas[a]) == sum) {
-					return true;
-				}
-			}
-		} else if (playId == 2291)// 中三码直选
+		}else if (playId == 2291)// 中三码直选
 		{
 			if ("digital".equals(type)) // 复式 1&2|3&4|5&6
 			{
@@ -946,10 +926,12 @@ public class PlayedServiceImpl implements PlayedService{
 			} else if ("input".equals(type)) // 单式 123&456&789
 			{
 				datas = actionData.split("&");
-				if (datas[0].indexOf(numberData.substring(1, 2)) >= 0
-						&& datas[1].indexOf(numberData.substring(2, 3)) >= 0
-						&& datas[2].indexOf(numberData.substring(3, 4)) >= 0) {
-					return true;
+				for (int a=0; a<datas.length;a++)
+				{
+					if (datas[a].equals(numberData.substring(1, 4)))
+					{
+						return true;
+					}
 				}
 			}
 		} else if (playId == 2292)// 中三码直选（直选和值）2&3&4&5&6
@@ -997,75 +979,6 @@ public class PlayedServiceImpl implements PlayedService{
 					&& actionData.indexOf(numberData.substring(0, 1)) >= 0
 					&& actionData.indexOf(numberData.substring(1, 2)) >= 0
 					&& actionData.indexOf(numberData.substring(2, 3)) >= 0) {
-				return true;
-			}
-
-		} else if (playId == 2296)// 中三码组选（组选和值）5&6&7&8&9&10
-		{
-			sum = Integer.parseInt(numberData.substring(1, 2))
-					+ Integer.parseInt(numberData.substring(2, 3))
-					+ Integer.parseInt(numberData.substring(3, 4));
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (Integer.parseInt(datas[a]) == sum) {
-					return true;
-				}
-			}
-		}else if (playId == 30)//定位胆 2&5|3|4&6|5&6|6
-		{
-		 datas = actionData.split("\\|");
-		 if (datas[0].indexOf(numberData.substring(0, 1))>=0
-				 || datas[1].indexOf(numberData.substring(1, 2))>=0
-				 || datas[2].indexOf(numberData.substring(2, 3))>=0
-				 || datas[3].indexOf(numberData.substring(3, 4))>=0
-				 || datas[4].indexOf(numberData.substring(4, 5))>=0)
-		 {
-			 return true;
-		 }
-		} else if (playId == 18)// 不定胆（后三一码不定胆） 0&1&2&3&4&5&6&7&8&9
-		{
-			numberData = numberData.substring(2, 5);
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (numberData.indexOf(datas[a]) >= 0) {
-					return true;
-				}
-			}
-
-		} else if (playId == 20)// 不定胆（后三二码不定胆）5&6&7&8&9
-		{
-			numberData = numberData.substring(2, 5);
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (numberData.indexOf(datas[a]) >= 0) {
-					num++;
-				}
-			}
-			if (num >= 2) {
-				return true;
-			}
-
-		}else if (playId == 512)//不定胆（前三一码不定胆）1&2&3&4&5
-		{
-			numberData=numberData
-					.substring(0, 3);
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (numberData.indexOf(datas[a]) >= 0) {
-					return true;
-				}
-			}
-				
-		} else if (playId == 513)// 不定胆（前三二码不定胆）4&5&6&7
-		{
-			numberData = numberData.substring(0, 3);
-			datas = actionData.split("&");
-			for (int a = 0; a < datas.length; a++) {
-				if (numberData.indexOf(datas[a]) >= 0) {
-					num++;
-				}
-			}
-			if (num >= 2) {
 				return true;
 			}
 
@@ -1231,40 +1144,72 @@ public class PlayedServiceImpl implements PlayedService{
 		String actionData = orderDetail.getActionData();
 		String[] datas = actionData.split("&");
 		String[] numberDataArray = null;
-
-		if (playId == 15)// 后三组选（混合组选）112&123&234&334
+		int sum=0;
+		if (playId == 15 || playId == 16)// 后三组选（混合组选）112&123&234&334
 		{
 			numberDataArray = numberDataF(numberData.substring(2, 5))
 					.split(",");
-		} else if (playId == 10)// 前三组选(混合组选)：123&233&345
+			sum = Integer.parseInt(numberData.substring(2, 3))
+					+ Integer.parseInt(numberData.substring(3, 4))
+					+ Integer.parseInt(numberData.substring(4, 5));
+		} else if (playId == 10 || playId == 11)// 前三组选(混合组选)：123&233&345
 		{
 			numberDataArray = numberDataF(numberData.substring(0, 3))
 					.split(",");
-		} else if (playId == 2295)// 中三码组选（混合）：123&199&234&345&556
+			sum = Integer.parseInt(numberData.substring(0, 1))
+					+ Integer.parseInt(numberData.substring(1, 2))
+					+ Integer.parseInt(numberData.substring(2, 3));
+		} else if (playId == 2295 || playId == 2296)// 中三码组选（混合）：123&199&234&345&556
 		{
 			numberDataArray = numberDataF(numberData.substring(1, 4))
 					.split(",");
+			sum = Integer.parseInt(numberData.substring(1, 2))
+					+ Integer.parseInt(numberData.substring(2, 3))
+					+ Integer.parseInt(numberData.substring(3, 4));
 		}
 
 		if (numberDataArray.length == 2) // 组三
 		{
-			for (int a = 0; a < datas.length; a++) {
-				if (datas[a].indexOf(numberDataArray[0].substring(0, 1)) >= 0
-						&& datas[a].indexOf(numberDataArray[1].substring(0, 1)) >= 0) {
-					return "10";
+			if (playId == 16 || playId == 11 || playId == 2296) {
+			
+				for (int a = 0; a < datas.length; a++) {
+					if (Integer.parseInt(datas[a]) == sum) {
+						return "10";
+					}
+				}
+
+			} else
+			{
+				for (int a = 0; a < datas.length; a++) {
+					if (datas[a].indexOf(numberDataArray[0].substring(0, 1)) >= 0
+							&& datas[a].indexOf(numberDataArray[1].substring(0, 1)) >= 0) {
+						return "10";
+					}
 				}
 			}
+			
 
 		} else if (numberDataArray.length == 3) // 组六
 		{
+			if (playId == 16 || playId == 11 || playId == 2296) {
 			for (int a = 0; a < datas.length; a++) {
-				if (datas[a].indexOf(numberDataArray[0]) >= 0
-						&& datas[a].indexOf(numberDataArray[1]) >= 0
-						&& datas[a].indexOf(numberDataArray[2]) >= 0) {
-					return "01";
+					if (Integer.parseInt(datas[a]) == sum) {
+						return "01";
+					}
+				}
+
+			} else{
+				for (int a = 0; a < datas.length; a++) {
+					if (datas[a].indexOf(numberDataArray[0]) >= 0
+							&& datas[a].indexOf(numberDataArray[1]) >= 0
+							&& datas[a].indexOf(numberDataArray[2]) >= 0) {
+						return "01";
+					}
 				}
 			}
+			
 		}
+
 		return "00";
 	}
 	/**
@@ -1357,28 +1302,12 @@ public class PlayedServiceImpl implements PlayedService{
 		}else if (playId == 30)//定位胆 2&5|3|4&6|5&6|6
 		{
 			 datas = actionData.split("\\|");
-			 if (datas[0].indexOf(numberData.substring(0, 1))>=0)
-				{
-					num++;
-				}
-			
-				if (datas[1].indexOf(numberData.substring(1, 2))>=0)
-				{
-					num++;
-				}
-				
-				if (datas[2].indexOf(numberData.substring(2, 3))>=0)
-				{
-					num++;
-				}
-				if (datas[3].indexOf(numberData.substring(3, 4))>=0)
-				{
-					num++;
-				}
-				if (datas[4].indexOf(numberData.substring(4, 5))>=0)
-				{
-					num++;
-				}
+			 for(int i=0; i<datas.length;i++){
+				 if (datas[i].indexOf(numberData.substring(i, i+1))>=0)
+					{
+						num++;
+					}
+			 }
 						
 			}
 		return num;

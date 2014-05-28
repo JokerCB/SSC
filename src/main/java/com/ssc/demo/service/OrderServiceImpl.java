@@ -76,56 +76,7 @@ public class OrderServiceImpl implements OrderService{
 		}
 		members.setMcoin(members.getMcoin().subtract(order.getLtTotalMoney()));
 		membersDao.updateMembersCoin(order.getUid(), members.getMcoin().subtract(order.getLtTotalMoney()));
-		
-		//添加返点
-		for(int i=0; i<detailList.size(); i++){
-			OrderDetail detail = detailList.get(i);
-			//需要返点
-			if(detail.getOmodel() ==1){
-				Members child = members; 
-				int parentId = members.getMparentid();
-				while(parentId != 0){
-					Members parent = membersDao.load(parentId, null, null);
-					BigDecimal pF = parent.getMfandian().subtract(child.getMfandian());
-					//不定位返点
-					if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
-						pF = parent.getMfandianbdw().subtract(child.getMfandianbdw());
-					}
-					pF = detail.getActionMoney().multiply(pF).divide(new BigDecimal("100"));
-					membersDao.updateMembersCoin(parentId, parent.getMcoin().add(pF));
-					CoinLog pCoinLog = new CoinLog();
-					pCoinLog.setUid(parentId);
-					pCoinLog.setOrderId(order.getOrderId());
-					pCoinLog.setType(order.getType());
-					pCoinLog.setPlayedId(detail.getPlayId());
-					pCoinLog.setCoin(pF);
-					pCoinLog.setUserCoin(parent.getMcoin().add(pCoinLog.getCoin()));
-					pCoinLog.setLiqType(2);
-					pCoinLog.setCreateDate(new Date());
-					coinLogDao.saveCoinLog(pCoinLog);										
-					
-					child = parent;
-					parentId = parent.getMparentid();
-				}
-				BigDecimal fandian = members.getMfandian();
-				//不定位返点
-				if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
-					fandian = members.getMfandianbdw();
-				}
-				fandian = detail.getActionMoney().multiply(fandian).divide(new BigDecimal("100"));
-				membersDao.updateMembersCoin(members.getUid(), members.getMcoin().add(fandian));
-				CoinLog mCoinLog = new CoinLog();
-				mCoinLog.setUid(members.getUid());
-				mCoinLog.setOrderId(order.getOrderId());
-				mCoinLog.setType(order.getType());
-				mCoinLog.setPlayedId(detail.getPlayId());
-				mCoinLog.setCoin(fandian);
-				mCoinLog.setUserCoin(members.getMcoin().add(mCoinLog.getCoin()));
-				mCoinLog.setLiqType(2);
-				mCoinLog.setCreateDate(new Date());
-				coinLogDao.saveCoinLog(mCoinLog);				
-			}
-		}
+				
 		return 0;
 	}
 	
@@ -182,6 +133,58 @@ public class OrderServiceImpl implements OrderService{
 			Order order= orders.get(i);
 			Members members = membersDao.load(order.getUid(), null, null);
 			List<OrderDetail> details = orderDao.findOrderDetail(order.getOrderId());
+			
+			//添加返点
+			for(int j=0; j<details.size(); j++){
+				OrderDetail detail = details.get(j);
+				//需要返点
+				if(detail.getOmodel() ==1){
+					Members child = members; 
+					int parentId = members.getMparentid();
+					while(parentId != 0){
+						Members parent = membersDao.load(parentId, null, null);
+						BigDecimal pF = parent.getMfandian().subtract(child.getMfandian());
+						//不定位返点
+						if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
+							pF = parent.getMfandianbdw().subtract(child.getMfandianbdw());
+						}
+						pF = detail.getActionMoney().multiply(pF).divide(new BigDecimal("100"));
+						membersDao.updateMembersCoin(parentId, parent.getMcoin().add(pF));
+						CoinLog pCoinLog = new CoinLog();
+						pCoinLog.setUid(parentId);
+						pCoinLog.setOrderId(order.getOrderId());
+						pCoinLog.setType(order.getType());
+						pCoinLog.setPlayedId(detail.getPlayId());
+						pCoinLog.setCoin(pF);
+						pCoinLog.setUserCoin(parent.getMcoin().add(pCoinLog.getCoin()));
+						pCoinLog.setLiqType(2);
+						pCoinLog.setCreateDate(new Date());
+						coinLogDao.saveCoinLog(pCoinLog);										
+						
+						child = parent;
+						parentId = parent.getMparentid();
+					}
+					BigDecimal fandian = members.getMfandian();
+					//不定位返点
+					if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
+						fandian = members.getMfandianbdw();
+					}
+					fandian = detail.getActionMoney().multiply(fandian).divide(new BigDecimal("100"));
+					membersDao.updateMembersCoin(members.getUid(), members.getMcoin().add(fandian));
+					CoinLog mCoinLog = new CoinLog();
+					mCoinLog.setUid(members.getUid());
+					mCoinLog.setOrderId(order.getOrderId());
+					mCoinLog.setType(order.getType());
+					mCoinLog.setPlayedId(detail.getPlayId());
+					mCoinLog.setCoin(fandian);
+					mCoinLog.setUserCoin(members.getMcoin().add(mCoinLog.getCoin()));
+					mCoinLog.setLiqType(2);
+					mCoinLog.setCreateDate(new Date());
+					coinLogDao.saveCoinLog(mCoinLog);				
+				}
+			}
+			
+			//添加奖金
 			for(int m=0; m<details.size();m++){
 				BigDecimal JJ = new BigDecimal("0");
 				BigDecimal model = new BigDecimal("1");//模式(1:元,2:角,3:分)

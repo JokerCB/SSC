@@ -1058,11 +1058,21 @@ public class Test {
 		orderDetail.setPlayId(2287);
 		orderDetail.setType("digital");
 //		orderDetail.setType("input");
-		System.out.println(calcActionNumberData(orderDetail));	
-		String data = "12221";
+//		System.out.println(calcActionNumberData(orderDetail));	
+//		String data = "12221";
 		
 //		System.out.println(test(data));
-
+		int num =0;
+		String numberData = "12345";
+		String actionData = "0&1&2&3&4&5&6&7&8&9||0&1&2&3&4&5&6&7&8&9||";
+		String []datas = actionData.split("\\|");
+		 for(int i=0; i<datas.length;i++){
+			 if (datas[i].indexOf(numberData.substring(i, i+1))>=0)
+				{
+					num++;
+				}
+		 }
+		 System.out.println(num);
 	}
 	
 	public static String test(String data){
