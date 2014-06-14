@@ -8,6 +8,7 @@
 		<result property="orderId" column="ORDERID" />
 		<result property="uid" column="UID" />
 		<result property="type" column="TYPE" />
+		<result property="playedId" column="PLAYEDID" />
 		<result property="coin" column="coin" />
 		<result property="userCoin" column="userCoin" />
 		<result property="liqType" column="liqType" />
@@ -23,6 +24,7 @@
 		 ,orderId
 		 ,uid
 		 ,type
+		 ,playedId
 		 ,coin
 		 ,userCoin
 		 ,liqType
@@ -47,6 +49,7 @@
 				(orderId
 				 ,uid
 				 ,type
+				 ,playedId
 				 ,coin
 				 ,userCoin
 				 ,liqType
@@ -56,6 +59,7 @@
 		VALUES	(#{orderId}
 				,#{uid}
 				,#{type}
+				,#{playedId}
 				,#{coin}
 				,#{userCoin}
 				,#{liqType}
@@ -84,8 +88,11 @@
 		a.orderId=g.orderId and a.playedId=g.playId
 		
 		<where>
-		<if test="memberName!=null and memberName!=''">
-	       AND b.m_name  CONCAT('%',#{memberName},'%')
+		<if test="lt_issue_start!=null and lt_issue_start!=''">
+	       AND f.lt_issue_start LIKE CONCAT('%',#{lt_issue_start},'%')
+	     </if>
+	     <if test="memberName!=null and memberName!=''">
+	       AND b.m_name LIKE CONCAT('%',#{memberName},'%')
 	     </if>
 		<if test="liqType!=null and liqType!=''">
 	     AND a.liqType=#{liqType,jdbcType=VARCHAR}
@@ -98,7 +105,7 @@
 	     </if>
 			
 		</where>
-		ORDER BY a.uid,a.createDate
+		ORDER BY a.uid,a.createDate DESC
 	</select>
 	
 </mapper> 

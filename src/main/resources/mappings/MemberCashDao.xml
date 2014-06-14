@@ -6,172 +6,96 @@
 	<resultMap id="MemberCashResultMap" type="com.ssc.demo.model.MemberCash">
 		<id property="id" column="id" />
 		<result property="uid" column="uid" />
-		<result property="actiontime" column="actionTime" />
+		<result property="cashNo" column="cashNo" />
 		<result property="amount" column="amount" />
-		<result property="bankid" column="bankId" />
-		<result property="account" column="account" />
-		<result property="username" column="username" />
+		<result property="membersBankId" column="membersBankId" />
 		<result property="state" column="state" />
-		<result property="isdelete" column="isDelete" />
+		<result property="isDelete" column="isDelete" />
 		<result property="info" column="info" />
+		<result property="createDate" column="createDate" />
 	</resultMap>
 
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
 		 id
 		 ,uid
-		 ,actionTime
+		 ,cashNo
 		 ,amount
-		 ,bankId
-		 ,account
-		 ,username
+		 ,membersBankId
 		 ,state
 		 ,isDelete
 		 ,info
+		 ,createDate
 	</sql>
 	
-	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
-	<sql id="where_column">
-		<if test="id != null and id != ''">
-			AND id = #{id,jdbcType=INTEGER}
-		</if>
+	<sql id="base_where">
 		<if test="uid != null and uid != ''">
-			AND uid = #{uid,jdbcType=INTEGER}
+			AND uid = #{uid,jdbcType=VARCHAR}
 		</if>
-		<if test="actiontime != null and actiontime != ''">
-			AND actionTime = #{actiontime,jdbcType=INTEGER}
+		<if test="rechargeNo != null and rechargeNo != ''">
+			AND cashNo LIKE CONCAT('%',#{cashNo,jdbcType=VARCHAR},'%')
+		</if>		
+		<if test="starttime != null and starttime != ''">
+			AND createDate &gt;= #{starttime}
 		</if>
-		<if test="amount != null and amount != ''">
-			AND amount = #{amount,jdbcType=FLOAT}
-		</if>
-		<if test="bankid != null and bankid != ''">
-			AND bankId = #{bankid,jdbcType=INTEGER}
-		</if>
-		<if test="account != null and account != ''">
-			AND account = #{account,jdbcType=VARCHAR}
-		</if>
-		<if test="username != null and username != ''">
-			AND username = #{username,jdbcType=VARCHAR}
-		</if>
-		<if test="state != null and state != ''">
-			AND state = #{state,jdbcType=TINYINT}
-		</if>
-		<if test="isdelete != null and isdelete != ''">
-			AND isDelete = #{isdelete,jdbcType=BIT}
-		</if>
-		<if test="info != null and info != ''">
-			AND info = #{info,jdbcType=VARCHAR}
+		<if test="endtime != null and endtime != ''">
+			AND createDate &lt;= #{endtime}
 		</if>
 	</sql>
-	
-	<select id="find" resultMap="MemberCashResultMap">
-	
-		SELECT	<include refid="base_column" />
-		FROM	ssc_member_cash
-		WHERE	id=#{id,jdbcType=INTEGER}
-	
-	</select>
-	
-	<select id="findByPk" resultMap="MemberCashResultMap">
-	
-		SELECT	<include refid="base_column" />
-		FROM	ssc_member_cash
-		WHERE	id=#{id,jdbcType=INTEGER}
-		  
-	</select>
 
-	<select id="findByPage" resultMap="MemberCashResultMap">
+	<select id="load" resultMap="MemberCashResultMap" parameterType="java.util.Map">
+		SELECT <include refid="base_column"/>
+		FROM ssc_member_cash WHERE id=#{id,jdbcType=VARCHAR}
+	</select>
 	
+	<insert id="save" parameterType="com.ssc.demo.model.MemberCash">
+	
+		INSERT INTO ssc_member_cash
+				( id
+				 ,uid
+				 ,cashNo
+				 ,amount
+				 ,membersBankId
+				 ,state
+				 ,isDelete
+				 ,info
+				 ,createDate)
+		VALUES	(#{id}
+				,#{uid}
+				,#{cashNo}
+				,#{amount}
+				,#{membersBankId}
+				,#{state}
+				,#{isDelete}
+				,#{info}
+				,#{createDate}			
+				)				
+	</insert>
+	<update id="update" parameterType="com.ssc.demo.model.MemberCash">
+		UPDATE  ssc_member_cash 
+		<set>
+		state=#{state,jdbcType=INTEGER}
+		</set>
+		WHERE  id=#{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="delete">	
+		DELETE	FROM ssc_member_cash
+		WHERE  id=#{id,jdbcType=VARCHAR}			  
+	</delete>
+
+	
+	
+	<select id="findByPage" resultMap="MemberCashResultMap">
 		SELECT	<include refid="base_column" />
 		FROM	ssc_member_cash
 		<where>
-			<include refid="where_column" />
+			<include refid="base_where" />
 		</where>
-		
+
 	</select>
 	
-	<insert id="insert" parameterType="com.ssc.demo.model.MemberCash">
-	
-		INSERT INTO ssc_member_cash
-				(id
-				,uid
-				,actionTime
-				,amount
-				,bankId
-				,account
-				,username
-				,state
-				,isDelete
-				,info
-				)
-		VALUES	(#{id,jdbcType=INTEGER}
-				,#{uid}
-				,#{actiontime}
-				,#{amount}
-				,#{bankid}
-				,#{account}
-				,#{username}
-				,#{state}
-				,#{isdelete}
-				,#{info}
-				)
-				
-	</insert>
-	
-	<update id="update" parameterType="com.ssc.demo.model.MemberCash">
-	
-		UPDATE	ssc_member_cash
-		<set>
-			<if test="id != null and id != ''">
-				id = #{id,jdbcType=INTEGER},
-			</if>
-			<if test="uid != null and uid != ''">
-				uid = #{uid,jdbcType=INTEGER},
-			</if>
-			<if test="actiontime != null and actiontime != ''">
-				actionTime = #{actiontime,jdbcType=INTEGER},
-			</if>
-			<if test="amount != null and amount != ''">
-				amount = #{amount,jdbcType=FLOAT},
-			</if>
-			<if test="bankid != null and bankid != ''">
-				bankId = #{bankid,jdbcType=INTEGER},
-			</if>
-			<if test="account != null and account != ''">
-				account = #{account,jdbcType=VARCHAR},
-			</if>
-			<if test="username != null and username != ''">
-				username = #{username,jdbcType=VARCHAR},
-			</if>
-			<if test="state != null and state != ''">
-				state = #{state,jdbcType=TINYINT},
-			</if>
-			<if test="isdelete != null and isdelete != ''">
-				isDelete = #{isdelete,jdbcType=BIT},
-			</if>
-			<if test="info != null and info != ''">
-				info = #{info,jdbcType=VARCHAR},
-			</if>
-		</set>
-		WHERE	id = #{id,jdbcType=INTEGER}
-		  
-	</update>
-	
-	<delete id="deleteByPk">
-	
-		DELETE	FROM ssc_member_cash
-		WHERE	id = #{id,jdbcType=INTEGER}
-		  
-	</delete>
-	
-	<delete id="delete">
-	
-		DELETE	FROM ssc_member_cash
-		WHERE	id
-		   IN
-    	<foreach item="memberCashId" index="index" collection="array" open="(" separator="," close=")">
-	  		#{memberCashId} 
-		</foreach>
-		  
-	</delete>
+	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
+		select max(cashNo) from ssc_member_cash WHERE createDate &gt;= #{startDate} AND create_Date &lt;= #{endDate}
+	</select>
 </mapper> 

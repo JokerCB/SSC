@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.AdminBankDao">
+	<resultMap id="AdminBankResultMap" type="com.ssc.demo.model.AdminBank">
+		<id property="id" column="id" />
+		<result property="bankid" column="bankId" />
+		<result property="username" column="username" />
+		<result property="provinceid" column="provinceId" />
+		<result property="cityid" column="cityId" />
+		<result property="account" column="account" />
+		<result property="bankcardname" column="bankCardName" />
+	
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,bankId
+		 ,username
+		 ,provinceId
+		 ,cityId
+		 ,account
+		 ,bankCardName
+	
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="bankid != null and bankid != ''">
+			AND bankId = #{bankid,jdbcType=INTEGER}
+		</if>
+		<if test="username != null and username != ''">
+			AND username = #{username,jdbcType=VARCHAR}
+		</if>
+		<if test="provinceid != null and provinceid != ''">
+			AND provinceId = #{provinceid,jdbcType=VARCHAR}
+		</if>
+		<if test="cityid != null and cityid != ''">
+			AND cityId = #{cityid,jdbcType=VARCHAR}
+		</if>
+		<if test="account != null and account != ''">
+			AND account = #{account,jdbcType=VARCHAR}
+		</if>
+		<if test="bankcardname != null and bankcardname != ''">
+			AND bankCardName = #{bankcardname,jdbcType=VARCHAR}
+		</if>
+		
+	</sql>
+	
+	<select id="find" resultMap="AdminBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_admin_bank
+		WHERE	id=#{id,jdbcType=INTEGER}
+	
+	</select>
+	
+	<select id="findByPk" resultMap="AdminBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_admin_bank
+		WHERE	id=#{id,jdbcType=INTEGER}
+		  
+	</select>
+
+	<select id="findByPage" resultMap="AdminBankResultMap">
+	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_admin_bank
+		<where>
+			<include refid="where_column" />
+		</where>
+		
+	</select>
+	
+	<select id="findDataByPage" resultType="java.util.Map">
+	
+	SELECT b.`name`,a.username,a.account,b.logo,a.id from ssc_admin_bank a INNER JOIN ssc_bank_list b on a.bankId=b.id 
+				
+	</select>
+	<select id="findUnique" resultType="int">
+    SELECT count(*) FROM ssc_admin_bank 
+    WHERE username = #{username,jdbcType=VARCHAR} AND (bankId = #{bankid,jdbcType=INTEGER} OR account = #{account,jdbcType=VARCHAR})
+    <if test="id != null and id != ''">
+			AND id != #{id,jdbcType=INTEGER}
+	</if>
+	</select>
+	<insert id="insert" parameterType="com.ssc.demo.model.AdminBank">
+	
+		INSERT INTO ssc_admin_bank
+				(id
+				,bankId
+				,username
+				,provinceId
+				,cityId
+				,account
+				,bankCardName
+			
+				)
+		VALUES	(#{id,jdbcType=INTEGER}
+				,#{bankid}
+				,#{username}
+				,#{provinceid}
+				,#{cityid}
+				,#{account}
+				,#{bankcardname}
+			
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.AdminBank">
+	
+		UPDATE	ssc_admin_bank
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="bankid != null and bankid != ''">
+				bankId = #{bankid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null and username != ''">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="provinceid != null and provinceid != ''">
+				provinceId = #{provinceid,jdbcType=VARCHAR},
+			</if>
+			<if test="cityid != null and cityid != ''">
+				cityId = #{cityid,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null and account != ''">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="bankcardname != null and bankcardname != ''">
+				bankCardName = #{bankcardname,jdbcType=VARCHAR},
+			</if>
+		
+		</set>
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</update>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_admin_bank
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</delete>
+	
+	<delete id="delete">
+	
+		DELETE	FROM ssc_admin_bank
+		WHERE	id
+		   IN
+    	<foreach item="adminBankId" index="index" collection="array" open="(" separator="," close=")">
+	  		#{adminBankId} 
+		</foreach>
+		  
+	</delete>
+</mapper> 

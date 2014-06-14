@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.AreaDao">
+	<resultMap id="ProvinceResultMap" type="com.ssc.demo.model.Province">
+		<id property="fid" column="FID" />
+		<result property="fname" column="FNAME" />
+	</resultMap>
+	<resultMap id="CityResultMap" type="com.ssc.demo.model.City">
+		<id property="fid" column="FID" />
+		<result property="fname" column="FNAME" />
+		<result property="fprovinceid" column="FPROVINCEID" />
+	</resultMap>
+	
+	<select id="loadProvinces" resultMap="ProvinceResultMap">
+		SELECT	*
+		FROM	ssc_bas_province
+		WHERE	FID=#{fid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="loadCity" resultMap="CityResultMap">	
+		SELECT	*
+		FROM	ssc_bas_city
+		WHERE	FID=#{fid,jdbcType=VARCHAR}	
+	</select>
+	
+	<select id="findProvinces" resultMap="ProvinceResultMap">
+		SELECT	*
+		FROM	ssc_bas_province
+	</select>
+	
+	<select id="findCitys" resultMap="CityResultMap">	
+		SELECT	*
+		FROM	ssc_bas_city
+		WHERE	fprovinceid=#{fprovinceid,jdbcType=VARCHAR}	
+	</select>
+</mapper> 

@@ -41,21 +41,13 @@ $(document).ready(function(){
 </div>
 <div><table class="formTable" border="0" cellpadding="4" cellspacing="1" width="100%">
     
-    <tbody><tr>
-      <td align="right" bgcolor="#CCCCCC" width="200">用户名</td>
-      <td align="left"></td>
-    </tr>
+
     <tr>
       <td align="right">当前余额</td>
-      <td id="channel_0" align="left"></td>
+      <td id="money" align="left"></td>
 
     </tr>
-    <!--
-<tr>
-<td align="right">总计</td>
-<td align="left" id="total">0.00</td>
-</tr>
--->
+
   </tbody></table></div>
 <div class="height5">
 <div class="right_02_24"></div>
@@ -64,3 +56,14 @@ $(document).ready(function(){
 </div>
 
 </body></html>
+
+<script type="text/javascript">
+$.ajax({
+	  type:"POST",
+	  url:"../../test/getMoney",
+	  contentType:"application/x-www-form-urlencoded",
+	  success:function(data){
+		  money.innerHTML = moneyFormat(data);
+	  }
+});
+</script>

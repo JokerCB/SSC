@@ -341,4 +341,11 @@
 		WHERE  uid=#{uid,jdbcType=INTEGER}
 	</update>
 	
+	<select id="findChilds" resultMap="MembersResultMap">
+
+			SELECT	<include refid="base_column" />
+		FROM	ssc_members
+		WHERE m_parentId = #{membersId,jdbcType=INTEGER}
+	</select>
+	
 </mapper> 

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.RechargeDao">
+	<resultMap id="RechargeResultMap" type="com.ssc.demo.model.Recharge">
+		<id property="id" column="id" />
+		<result property="uid" column="UID" />
+		<result property="rechargeNo" column="rechargeNo" />
+		<result property="banklistId" column="banklistId" />
+		<result property="amount" column="amount" />
+		<result property="rechargeAmount" column="rechargeAmount" />
+		<result property="coin" column="coin" />
+		<result property="state" column="state" />
+		<result property="info" column="info" />
+		<result property="createDate" column="CREATE_DATE" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id
+		 ,uid
+		 ,rechargeNo
+		 ,banklistId
+		 ,amount
+		 ,rechargeAmount
+		 ,coin
+		 ,state
+		 ,info
+		 ,create_Date		
+	</sql>	
+	
+	<sql id="base_where">
+		<if test="uid != null and uid != ''">
+			AND uid = #{uid,jdbcType=VARCHAR}
+		</if>
+		<if test="rechargeNo != null and rechargeNo != ''">
+			AND rechargeNo LIKE CONCAT('%',#{rechargeNo,jdbcType=VARCHAR},'%')
+		</if>		
+		<if test="starttime != null and starttime != ''">
+			AND create_Date &gt;= #{starttime}
+		</if>
+		<if test="endtime != null and endtime != ''">
+			AND create_Date &lt;= #{endtime}
+		</if>
+	</sql>
+
+	<select id="load" resultMap="RechargeResultMap" parameterType="java.util.Map">
+		SELECT <include refid="base_column"/>
+		FROM ssc_member_recharge WHERE id=#{id,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="save" parameterType="com.ssc.demo.model.Recharge">
+	
+		INSERT INTO ssc_member_recharge
+				(id
+				 ,uid
+				 ,rechargeNo
+				 ,banklistId
+				 ,amount
+				 ,rechargeAmount
+				 ,coin
+				 ,state
+				 ,info
+				 ,create_Date)
+		VALUES	(#{id}
+				,#{uid}
+				,#{rechargeNo}
+				,#{banklistId}
+				,#{amount}
+				,#{rechargeAmount}
+				,#{coin}
+				,#{state}
+				,#{info}
+				,#{createDate}				
+				)				
+	</insert>
+	<update id="update" parameterType="com.ssc.demo.model.Recharge">
+		UPDATE  ssc_member_recharge 
+		<set>
+		state=#{state,jdbcType=INTEGER}
+		</set>
+		WHERE  id=#{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="delete">	
+		DELETE	FROM ssc_member_recharge
+		WHERE  id=#{id,jdbcType=VARCHAR}			  
+	</delete>
+
+	
+	
+	<select id="findByPage" resultMap="RechargeResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	ssc_member_recharge
+		<where>
+			<include refid="base_where" />
+		</where>
+
+	</select>
+	
+	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
+		select max(rechargeNo) from ssc_member_recharge WHERE create_Date &gt;= #{startDate} AND create_Date &lt;= #{endDate}
+	</select>
+
+	
+</mapper> 

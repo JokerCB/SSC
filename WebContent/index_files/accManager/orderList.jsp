@@ -323,7 +323,7 @@ top.SetIframeHeight();
     			        var cell8 =  document.createElement("td");
     			        var cell9 =  document.createElement("td");
     			        
-    			        cell1.innerHTML = "<strong><a href='' target='mainFrame'>"+list.createDate+"</a></strong>";
+    			        cell1.innerHTML = list.createDate;
     			        cell2.innerHTML = list.orderId;
     			        cell3.innerHTML = list.playedName;
     			        cell4.innerHTML = list.issue;
@@ -338,6 +338,8 @@ top.SetIframeHeight();
     			        cell8.innerHTML = list.lotteryNo;
     			        if(list.bonus > 0)
     			        	cell9.innerHTML = "已中奖";
+    			        else if(list.lotteryNo == "")
+    			        	cell9.innerHTML = "未开奖";
     			        else
     			        	cell9.innerHTML = "未中奖";
     			        

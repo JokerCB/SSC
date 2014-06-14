@@ -3,18 +3,27 @@ package com.ssc.demo.dao;
 import org.apache.ibatis.annotations.Param;
 
 import com.ssc.demo.model.MemberCash;
+import framework.generic.paginator.domain.PageBounds;
+import framework.generic.paginator.domain.PageList;
 
-import framework.generic.dao.GenericDao;
+public interface MemberCashDao{
 
-public interface MemberCashDao extends GenericDao<MemberCash, Integer> {
+	MemberCash load(@Param("id") String id);
 
+	void save(MemberCash memberCash);
+	
+	void update(MemberCash memberCash);
+	
+	void delete(@Param("id") String id);
+	
 	/**
-	 * 根据主键查询一条记录
+	 * 分页查询，必须是传递一个pagination
+	 * 
+	 * @param pagination
+	 *            分页工具类
+	 * @return pagination 分页工具类
 	 */
-	MemberCash findByPk(@Param("id") Integer id);
-
-	/**
-	 * 根据主键删除一条记录
-	 */
-	Integer deleteByPk(@Param("id") Integer id);
+	PageList<MemberCash> findByPage(Object parameters, PageBounds pageBounds);
+	
+	String selectMaxCode(@Param("startDate")String startDate,@Param("endDate")String endDate);
 }

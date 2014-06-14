@@ -1,7 +1,10 @@
 package com.ssc.demo.service;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -9,12 +12,18 @@ import org.springframework.stereotype.Service;
 
 
 
+
+
+
 import com.ssc.demo.dao.MemberCashDao;
+import com.ssc.demo.dao.RechargeDao;
 import com.ssc.demo.model.MemberCash;
+import com.ssc.demo.model.Recharge;
 import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
 
 import framework.generic.paginator.domain.PageList;
+import framework.generic.utils.date.DateUtil;
 
 @Service("memberCashService")
 public class MemberCashServiceImpl implements MemberCashService {
@@ -26,67 +35,57 @@ public class MemberCashServiceImpl implements MemberCashService {
 		this.memberCashDao = memberCashDao;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#getDatagrid(qya.demo.web.ui.PageRequest)
-	 */
-	@Override
-	public DataGrid getDatagrid(PageRequest pageRequest) {
-		PageList<MemberCash> memberCashs = memberCashDao.findByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
-		return new DataGrid(memberCashs.getPaginator().getTotalCount(), memberCashs);
-	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#create(qya.demo.model.ssc.MemberCash)
-	 */
 	@Override
-	public Integer create(MemberCash memberCash) {
-		return memberCashDao.insert(memberCash);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#modify(qya.demo.model.ssc.MemberCash)
-	 */
-	@Override
-	public Integer modify(MemberCash memberCash) {
-		return memberCashDao.update(memberCash);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#remove(Integer)
-	 */
-	@Override
-	public Integer remove(Integer id) {
-		return memberCashDao.deleteByPk(id);
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#removeAll(Integer[])
-	 */
-	@Override
-	public Integer removeAll(Integer... memberCashIds) {
-		return memberCashDao.delete(memberCashIds);
+	public MemberCash load(String id) {		
+		return memberCashDao.load(id);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#getByPk(Integer)
-	 */
 	@Override
-	public MemberCash getByPk(Integer id) {
-		return memberCashDao.findByPk(id);
+	public void save(MemberCash memberCash) {
+		memberCashDao.save(memberCash);
+		
+	}
+
+	@Override
+	public void update(MemberCash memberCash) {
+		memberCashDao.update(memberCash);
+		
+	}
+
+	@Override
+	public void delete(String id) {
+		memberCashDao.delete(id);
+		
+	}
+
+	@Override
+	public PageList<MemberCash> findByPage(PageRequest pageRequest) {
+		PageList<MemberCash>  recharge = memberCashDao.findByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
+		return recharge;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberCashService#get(Integer)
-	 */
-	@Override
-	public MemberCash get(Integer id) {
-		return memberCashDao.find(id);
+	public String buildCashNo(){
+		String RechargeNo = null;
+		Date now = new Date();
+		String maxId = memberCashDao.selectMaxCode(DateUtil.formatDate(now)+" 00:00:00", DateUtil.formatDate(now)+" 23:59:59");
+		if(maxId != null){
+			int index = Integer.parseInt(maxId.substring(10)) +1;
+			if(index<10)
+				RechargeNo = maxId.substring(0,10)+"000"+index;
+			else if(index<100)
+				RechargeNo = maxId.substring(0,10)+"00"+index;
+			else if(index<1000)
+				RechargeNo = maxId.substring(0,10)+"0"+index;
+			else
+				RechargeNo = maxId.substring(0,10)+index;
+				
+		}
+		else{
+			RechargeNo = "TX"+DateUtil.formatDate(now).replace("-", "")+"0001";
+		}
+		
+		return RechargeNo;
 	}
+
 }

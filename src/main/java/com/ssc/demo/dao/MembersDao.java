@@ -1,6 +1,7 @@
 package com.ssc.demo.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -41,4 +42,11 @@ public interface MembersDao extends GenericDao<Members, Integer> {
 	 * @param coin
 	 */
 	void updateMembersCoin(@Param("uid") Integer uid,@Param("mcoin") BigDecimal mcoin);
+	
+	/**
+	 * 查找直接下级
+	 * @param membersId
+	 * @return
+	 */
+	List<Members> findChilds(@Param("membersId") String membersId);
 }

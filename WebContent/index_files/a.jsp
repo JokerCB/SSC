@@ -1566,12 +1566,15 @@ $(function(){
 	          		<span id="lt_issues">
 		          	</span>
 	          	</span> &nbsp;&nbsp;&nbsp;&nbsp;
-            <label>
-            <input name="lt_trace_if" id="lt_trace_if_button" value="no" type="checkbox">
-            <span class="red">发起追号</span></label>
-            <label>
-            <input name="lt_trace_stop" value="yes" id="lt_trace_stop" disabled="disabled" type="checkbox">
-            <span class="red">中奖后停止追号</span></label>
+
+	            <label style="display: none;">     
+	            <input name="lt_trace_if" id="lt_trace_if_button" value="no" type="checkbox">
+	            <span class="red">发起追号</span></label>
+	            <label  style="display: none;">
+	            <input name="lt_trace_stop" value="yes" id="lt_trace_stop" disabled="disabled" type="checkbox">
+	            <span class="red">中奖后停止追号</span></label>
+  
+            
           </div>
           <span class="floatR"><a href="#_" class="tjBt" onclick="return(false);" id="lt_sendok">提交</a></span> </div>
       </div>

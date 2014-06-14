@@ -1,124 +1,100 @@
 package com.ssc.demo.web.controller;
 
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.ssc.demo.model.MemberCash;
+import com.ssc.demo.model.Members;
 import com.ssc.demo.service.MemberCashService;
-import com.ssc.demo.web.controller.base.AbstractController;
-import com.ssc.demo.web.ui.DataGrid;
-import com.ssc.demo.web.ui.Json;
+import com.ssc.demo.service.MembersService;
+import com.ssc.demo.web.controller.base.BaseController;
 import com.ssc.demo.web.ui.PageRequest;
-
-import framework.generic.utils.string.StringUtil;
-import framework.generic.utils.webutils.ServletUtil;
+import framework.generic.page.PageInfo;
+import framework.generic.paginator.domain.PageList;
 
 @Controller
 @RequestMapping("memberCash/*")
-public class MemberCashController extends AbstractController<MemberCash, Integer> {
+public class MemberCashController extends BaseController{
 
 	private MemberCashService memberCashService;
 
+	private MembersService membersService;
+	
 	@Resource
 	public void setMemberCashService(MemberCashService memberCashService) {
 		this.memberCashService = memberCashService;
 	}
 
-	/*-------------------------------列表显示页面---------------------------------*/
-	@Override
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("ssc/memberCash_list");
+	@Resource
+	public void setMembersService(MembersService membersService) {
+		this.membersService = membersService;
 	}
 
-	@Override
-	public DataGrid dataGrid(PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> paramMap = ServletUtil.getParametersMapStartingWith(request, "filter_");
-		pageRequest.setParameter(paramMap);
-		DataGrid dataGrid = memberCashService.getDatagrid(pageRequest);
-		return dataGrid;
+	@RequestMapping(value = "save", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String save(HttpSession session,HttpServletRequest request) {
+		MemberCash memberCash = new MemberCash();			
+		Members members = membersService.load(Integer.parseInt(session.getAttribute("uid").toString()));
+		memberCash.setUid(members.getUid());
+		memberCash.setState(0);
+		memberCash.setAmount(new BigDecimal(request.getParameter("amount")));
+		memberCash.setMembersBankId(Integer.parseInt(request.getParameter("membersBankId")));
+		memberCash.setInfo(request.getParameter("info"));
+		memberCash.setCashNo(memberCashService.buildCashNo());
+		memberCash.setCreateDate(new Date());
+		
+		memberCashService.save(memberCash);
+
+		return null;
+	}
+	@RequestMapping(value = "update", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String update(HttpSession session,HttpServletRequest request) {
+		MemberCash memberCash = memberCashService.load(request.getParameter("id"));
+		memberCash.setState(Integer.parseInt(session.getAttribute("state").toString()));
+		
+		memberCashService.update(memberCash);
+		return null;
 	}
 
-	/*--------------------------------添加操作-----------------------------------*/
-	@Override
-	public ModelAndView addFrom(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("action", "memberCash/insert");
-		return new ModelAndView("ssc/memberCash_edit");
-	}
-
-	@Override
-	public Json insert(MemberCash memberCash, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			int insertRecords = memberCashService.create(memberCash);
-			if (insertRecords <= 0) {
-				return error(getMessage("msg.error.add"));
-			}
-			return success(getMessage("msg.success.add"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.add"));
-		}
-	}
-
-	/*--------------------------------编辑操作-----------------------------------*/
-	@Override
-	public ModelAndView editForm(Integer id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		MemberCash memberCash = memberCashService.get(id);
-		request.setAttribute("memberCash", memberCash);
-		request.setAttribute("action", "memberCash/update");
-		return new ModelAndView("ssc/memberCash_edit");
-	}
-
-	@Override
-	public Json update(MemberCash memberCash, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			int updatedRecords = memberCashService.modify(memberCash);
-			if (updatedRecords <= 0) {
-				return error(getMessage("msg.error.add"));
-			}
-			return success(getMessage("msg.success.update"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.update"));
-		}
-	}
-
-	/*--------------------------------删除操作-----------------------------------*/
-	@Override
-	public Json deleteAll(Integer[] memberCashIds, HttpServletRequest request, HttpServletResponse response) {
-		try {
-			int deletedRecords = memberCashService.removeAll(memberCashIds);
-			if (deletedRecords <= 0) {
-				return error(getMessage("msg.error.delete"));
-			} 
-			return success(getMessage("msg.success.delete"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.delete"));
-		}
-	}
-	/*--------------------------------查看操作-----------------------------------*/
-	@Override
-	public ModelAndView view(Integer id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("memberCash", memberCashService.get(id));
-		return new ModelAndView("ssc/memberCash_edit");
-	}
+	@RequestMapping(value = "delete", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String delete(HttpSession session,HttpServletRequest request) {
 	
-	/*--------------------------------验证操作-----------------------------------*/
-	@Override
-	public boolean validatePk(Integer id, HttpServletRequest request, HttpServletResponse response) {
-		MemberCash memberCash = memberCashService.get(id);
-		if (StringUtil.isNullOrEmpty(memberCash)) {
-			return true;
-		}
-		return false;
+		memberCashService.delete(request.getParameter("id"));
+		return null;
+	}
+
+	
+	/*-------------------------------列表显示页面---------------------------------*/
+
+	@RequestMapping(value = "findByPage", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public  Map<String, Object> findByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
+	
+		paramMap.put("uid", session.getAttribute("uid"));
+			
+		PageInfo pageInfo = new PageInfo();
+		pageRequest.setParameter(paramMap);
+		PageList<MemberCash> list = memberCashService.findByPage(pageRequest);
+		pageInfo.setDataList(list);
+		pageInfo.setPageSize(list.getPaginator().getLimit());
+		pageInfo.setPageIndex(list.getPaginator().getPage());
+		pageInfo.setPageCount(list.getPaginator().getTotalPages());
+		return ajaxDone(pageInfo);
 	}
 }
 

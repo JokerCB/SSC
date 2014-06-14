@@ -1052,6 +1052,8 @@ public class Test {
 	}
 
 	public static void main(String[] args) {
+		String aab = "11111";
+		System.out.println(Integer.parseInt(aab.toCharArray()[0]+"") == 1);
 
 		OrderDetail orderDetail=new OrderDetail();
 		orderDetail.setActionData("5&6&7&8&9");

@@ -55,7 +55,7 @@
                 <li><label>余额：</label><span class="bal" id="availabalances"><a class="sx" id="refff" href="#" title="刷新余额">0.0000</a></span></li>
                 <li><a url-data="/?controller=user&amp;action=main&amp;tag=messages" class="show" href="javascript:void(0)" title="账户管理"><img src="index_files/emailNone.gif"></a>
                 <span class="mail"><a url-data="/?controller=user&amp;action=main&amp;tag=messages" class="show" href="javascript:void(0)" title="账户管理">( <strong class="white">0</strong> )</a></span> 
-                <span class="addMoney"><a url-data="/?controller=emaildeposit&amp;action=main" class="show" href="javascript:void(0)" title="账户充提">充值</a></span> 
+                <span class="addMoney"><a url-data="index/userMain?type=4" class="show" href="javascript:void(0)" title="账户充提">充值</a></span> 
                 <span class="decMoney"><a url-data="/?controller=emaildeposit&amp;action=main&amp;tag=platwithdraw" class="show" href="javascript:void(0)" title="账户充提">提款</a></span>               
                 </li>
             </ul>

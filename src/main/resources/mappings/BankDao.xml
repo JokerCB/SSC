@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.BankDao">
+	<resultMap id="BankResultMap" type="com.ssc.demo.model.Bank">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="logo" column="logo" />
+		<result property="home" column="home" />
+		<result property="sort" column="sort" />
+		<result property="isDelete" column="isDelete" />
+		<result property="isMember" column="isMember" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		id,name,logo,home,sort,isDelete,isMember
+	</sql>
+
+	<select id="findList" resultMap="BankResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	ssc_bank_list		
+	</select>
+	
+	<select id="findByIsMember" resultMap="BankResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM ssc_bank_list
+		WHERE isMember=1
+	</select>
+</mapper> 
