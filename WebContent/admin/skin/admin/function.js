@@ -631,15 +631,21 @@ function sysBeforeUpdateNotice(){
 /**
  * 编辑银行
  */
+var bankModal;
 function sysEditBank(id){
-
-	$('<div class="bank-modal"><iframe frameborder="0" src="/admin.php/system/bankModal/'+(id||'')+'" style="width:380px;height:190px;" allowTransparency="true"></iframe></div>')
+	bankModal = $('<div class="bank-modal"><iframe id="iframem" frameborder="0" src="../admin/system/bankModal.jsp?id='+id+'" style="width:380px;height:190px;" allowTransparency="true"></iframe></div>')
 	.dialog({
 		title:'编辑银行',
 		width:400,
 		buttons:{
 			"确定":function(event,ui){
-				frames[frames.length-1].document.forms[0].submit();
+				if (id!="" && id!=undefined)
+					{
+					parent.frames["iframem"].contentWindow.updateAdminBank(id);
+					}
+					
+				else
+				 parent.frames["iframem"].contentWindow.saveAdminBank();
 			},
 			"取消":function(event,ui){
 				$(this).dialog("destroy");
@@ -647,6 +653,16 @@ function sysEditBank(id){
 		}
 	});
 
+
+}
+
+function bindDropDownList(objID, arr) {
+	$(objID).find("option").remove();
+	var len = arr.length;
+	for (var i = 0; i < len; i++) {
+			$(objID).append("<option value='" + arr[i].id+ "'>" + arr[i].name + "</option>");
+
+	}
 }
 
 function onUpdateCompile(type, msg){

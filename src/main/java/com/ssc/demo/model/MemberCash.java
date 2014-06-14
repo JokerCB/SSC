@@ -1,6 +1,7 @@
 package com.ssc.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import framework.generic.annotation.Column;
 import framework.generic.annotation.Table;
@@ -19,43 +20,44 @@ public class MemberCash implements PersistentModel {
 	 */
 	@Column(name = "uid")
 	private Integer uid;
+	
 	/**
-	 * 申请时间
+	 * 编号
 	 */
-	@Column(name = "actionTime")
-	private Integer actiontime;
+	@Column(name = "cashNo")
+	private String cashNo;
+
 	/**
 	 * 提现金额
 	 */
 	@Column(name = "amount")
-	private Float amount;
+	private BigDecimal amount;
 	/**
 	 * 银行ID
+	 * MemberBank.id
 	 */
-	@Column(name = "bankId")
-	private Integer bankid;
-	/**
-	 * 银行帐号
-	 */
-	@Column(name = "account")
-	private String account;
-	/**
-	 * 银行开户名
-	 */
-	@Column(name = "username")
-	private String username;
+	@Column(name = "membersBankId")
+	private Integer membersBankId;
+	
 	/**
 	 * 提现状态：1用户申请，2已取消，3已支付，4提现失败，0确认到帐, 5后台删除
 	 */
 	@Column(name = "state")
-	private Byte state;
+	private int state;
+	
 	@Column(name = "isDelete")
-	private Boolean isdelete;
+	private Boolean isDelete;
 	/**
 	 * 备注字段
 	 */
 	@Column(name = "info")
 	private String info;
+	
+	/**
+	 * 创建日期
+	 */
+	@Column(name = "createDate")
+	private Date createDate;
 	
 	public Integer getId() {
 		return this.id;
@@ -73,68 +75,65 @@ public class MemberCash implements PersistentModel {
 		this.uid = uid;
 	}
 	
-	public Integer getActiontime() {
-		return this.actiontime;
+	public String getCashNo() {
+		return cashNo;
 	}
-	
-	public void setActiontime(Integer actiontime) {
-		this.actiontime = actiontime;
+
+	public void setCashNo(String cashNo) {
+		this.cashNo = cashNo;
 	}
-	
-	public Float getAmount() {
-		return this.amount;
+
+	public BigDecimal getAmount() {
+		return amount;
 	}
-	
-	public void setAmount(Float amount) {
+
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	
-	public Integer getBankid() {
-		return this.bankid;
+
+	public Integer getMembersBankId() {
+		return membersBankId;
 	}
-	
-	public void setBankid(Integer bankid) {
-		this.bankid = bankid;
+
+	public void setMembersBankId(Integer membersBankId) {
+		this.membersBankId = membersBankId;
 	}
-	
-	public String getAccount() {
-		return this.account;
+
+	public int getState() {
+		return state;
 	}
-	
-	public void setAccount(String account) {
-		this.account = account;
-	}
-	
-	public String getUsername() {
-		return this.username;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public Byte getState() {
-		return this.state;
-	}
-	
-	public void setState(Byte state) {
+
+	public void setState(int state) {
 		this.state = state;
 	}
-	
-	public Boolean getIsdelete() {
-		return this.isdelete;
+
+	public Boolean isDelete() {
+		return isDelete;
 	}
-	
-	public void setIsdelete(Boolean isdelete) {
-		this.isdelete = isdelete;
+
+	public Boolean getIsDelete() {
+		return isDelete;
 	}
-	
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
 	public String getInfo() {
-		return this.info;
+		return info;
 	}
-	
+
 	public void setInfo(String info) {
 		this.info = info;
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	
 	
 }

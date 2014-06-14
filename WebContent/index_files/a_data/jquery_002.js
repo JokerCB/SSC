@@ -869,13 +869,13 @@ else{
                 timeout : 30000,
                 data: $(form).serialize(),
                 success: function(data){
-
 //                        alert(data); return false;
                         $.unblockUI({fadeInTime: 0, fadeOutTime: 0});
                         $.lt_submiting = false;
                         //return false;
                         if( data.length <= 0 ){
-                            $.alert(lot_lang.am_s16);
+                          //  $.alert(lot_lang.am_s16);
+                        	$.alert("余额不足,请确认！");
                             return false;
                         }
                         var partn = /<script.*>.*<\/script>/;

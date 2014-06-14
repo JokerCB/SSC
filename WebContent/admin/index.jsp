@@ -83,8 +83,7 @@ var TIP=true;
 		</ul>
 		<h3>开奖数据<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">
-			<!-- ';foreach($this->getRows("select id,title from {$this->prename}type where enable=1 and isDelete=0 order by sort") as $type){;echo '			<li><a href="data/index/';echo $type['id'];echo '" class="k_b_1 bq">';echo $type['title'];echo '</a></li>
-			';};echo '	 -->	
+			<li><a class="bq yw_b_1" href="data/index">重庆时时彩</a></li>
 		</ul>
 		<h3>数据统计<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">

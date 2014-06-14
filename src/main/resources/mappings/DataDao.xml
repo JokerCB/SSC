@@ -45,7 +45,16 @@
 			AND createDate = #{createdate,jdbcType=TIMESTAMP}
 		</if>
 	</sql>
+	<select id="load" resultMap="DataResultMap">
 	
+		SELECT	<include refid="base_column" />
+		FROM	ssc_data
+		<where>
+			<if test="id != null and id != ''">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+		</where>
+	</select>
 	<select id="find" resultMap="DataResultMap">
 	
 		SELECT	<include refid="base_column" />
@@ -60,6 +69,20 @@
 		WHERE	type=#{type,jdbcType=TINYINT} order by number desc limit 0,1
 	
 	</select>
+	
+	<select id="findDataByPage" resultType="java.util.Map">
+      SELECT a.id,b.title,a.number,a.data,case a.status when 0 then '未开奖' else '已开奖' end `status`,a.time FROM ssc_data a LEFT JOIN ssc_type b ON a.type=b.id
+	<where>
+	<if test="actionNo!=null and actionNo!=''">
+       AND a.number LIKE  CONCAT('%',#{actionNo},'%')
+     </if>
+	 <if test="date!=null and date!=''">
+     AND date_format(a.time,'%Y-%m-%d') = #{date,jdbcType=VARCHAR}
+     </if>
+   		
+	</where>
+	ORDER BY a.number DESC
+</select>
 	
 		<update id="updateData" parameterType="com.ssc.demo.model.Data">
 		UPDATE  ssc_data 

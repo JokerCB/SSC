@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService{
 			coinLogDao.saveCoinLog(coinLog);			
 		}
 		members.setMcoin(members.getMcoin().subtract(order.getLtTotalMoney()));
-		membersDao.updateMembersCoin(order.getUid(), members.getMcoin().subtract(order.getLtTotalMoney()));
+		membersDao.updateMembersCoin(order.getUid(), members.getMcoin());
 				
 		return 0;
 	}
@@ -120,6 +120,10 @@ public class OrderServiceImpl implements OrderService{
 		
 		return data;
 	}
+	public void addBonus(String dataId){
+		Data data = dataDao.load(dataId);
+		addBonus(data);
+	}
 	
 	/**
 	 * 返奖方法
@@ -139,6 +143,26 @@ public class OrderServiceImpl implements OrderService{
 				OrderDetail detail = details.get(j);
 				//需要返点
 				if(detail.getOmodel() ==1){
+					BigDecimal fandian = members.getMfandian();
+					//不定位返点
+					if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
+						fandian = members.getMfandianbdw();
+					}
+					fandian = detail.getActionMoney().multiply(fandian).divide(new BigDecimal("100"));
+					members.setMcoin(members.getMcoin().add(fandian));
+					membersDao.updateMembersCoin(members.getUid(), members.getMcoin());
+					CoinLog mCoinLog = new CoinLog();
+					mCoinLog.setUid(members.getUid());
+					mCoinLog.setOrderId(order.getOrderId());
+					mCoinLog.setType(order.getType());
+					mCoinLog.setPlayedId(detail.getPlayId());
+					mCoinLog.setCoin(fandian);
+					mCoinLog.setUserCoin(members.getMcoin());
+					mCoinLog.setLiqType(2);
+					mCoinLog.setCreateDate(new Date());
+					coinLogDao.saveCoinLog(mCoinLog);
+					
+					
 					Members child = members; 
 					int parentId = members.getMparentid();
 					while(parentId != 0){
@@ -149,38 +173,22 @@ public class OrderServiceImpl implements OrderService{
 							pF = parent.getMfandianbdw().subtract(child.getMfandianbdw());
 						}
 						pF = detail.getActionMoney().multiply(pF).divide(new BigDecimal("100"));
-						membersDao.updateMembersCoin(parentId, parent.getMcoin().add(pF));
+						parent.setMcoin(parent.getMcoin().add(pF));
+						membersDao.updateMembersCoin(parentId, parent.getMcoin());
 						CoinLog pCoinLog = new CoinLog();
 						pCoinLog.setUid(parentId);
 						pCoinLog.setOrderId(order.getOrderId());
 						pCoinLog.setType(order.getType());
 						pCoinLog.setPlayedId(detail.getPlayId());
 						pCoinLog.setCoin(pF);
-						pCoinLog.setUserCoin(parent.getMcoin().add(pCoinLog.getCoin()));
+						pCoinLog.setUserCoin(parent.getMcoin());
 						pCoinLog.setLiqType(2);
 						pCoinLog.setCreateDate(new Date());
 						coinLogDao.saveCoinLog(pCoinLog);										
 						
 						child = parent;
 						parentId = parent.getMparentid();
-					}
-					BigDecimal fandian = members.getMfandian();
-					//不定位返点
-					if(detail.getPlayId() == 18 ||detail.getPlayId() == 20||detail.getPlayId() == 512||detail.getPlayId() == 513){
-						fandian = members.getMfandianbdw();
-					}
-					fandian = detail.getActionMoney().multiply(fandian).divide(new BigDecimal("100"));
-					membersDao.updateMembersCoin(members.getUid(), members.getMcoin().add(fandian));
-					CoinLog mCoinLog = new CoinLog();
-					mCoinLog.setUid(members.getUid());
-					mCoinLog.setOrderId(order.getOrderId());
-					mCoinLog.setType(order.getType());
-					mCoinLog.setPlayedId(detail.getPlayId());
-					mCoinLog.setCoin(fandian);
-					mCoinLog.setUserCoin(members.getMcoin().add(mCoinLog.getCoin()));
-					mCoinLog.setLiqType(2);
-					mCoinLog.setCreateDate(new Date());
-					coinLogDao.saveCoinLog(mCoinLog);				
+					}						
 				}
 			}
 			
@@ -201,27 +209,27 @@ public class OrderServiceImpl implements OrderService{
 					String result = playedService.isGroupZJJudgement(detail);
 					char[] results = result.toCharArray();
 					//中五星直选
-					if(results[0] == 1){
+					if(Integer.parseInt(results[0]+"") == 1){
 						tempP = playedDao.load(2274);
 						JJ = tempP.getBonusPropMin().multiply(model).multiply(new BigDecimal(detail.getBeiShu()));
 					}
 					//中四星直选
-					if(results[1] == 1){
+					if(Integer.parseInt(results[1]+"") == 1){
 						tempP = playedDao.load(2265);
 						JJ = JJ.add(tempP.getBonusPropMin().multiply(model).multiply(new BigDecimal(detail.getBeiShu())));
 					}
 					//中三星直选
-					if(results[2] == 1){
+					if(Integer.parseInt(results[2]+"") == 1){
 						tempP = playedDao.load(5);
 						JJ = JJ.add(tempP.getBonusPropMin().multiply(model).multiply(new BigDecimal(detail.getBeiShu())));					
 					}
 					//中二码
-					if(results[3] == 1){
+					if(Integer.parseInt(results[3]+"") == 1){
 						tempP = playedDao.load(24);
 						JJ = JJ.add(tempP.getBonusPropMin().multiply(model).multiply(new BigDecimal(detail.getBeiShu())));					
 					}
 					//中一码
-					if(results[4] == 1){
+					if(Integer.parseInt(results[4]+"") == 1){
 						tempP = playedDao.load(30);
 						JJ = JJ.add(tempP.getBonusPropMin().multiply(model).multiply(new BigDecimal(detail.getBeiShu())));					
 					}

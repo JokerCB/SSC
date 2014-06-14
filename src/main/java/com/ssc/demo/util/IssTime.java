@@ -211,7 +211,7 @@ public class IssTime {
 		// 获取当前期号转成int
 		String nowStr = DateUtil.format(nowTime);
 		String Iss = getIss(nowTime);
-		int nowIss = Integer.parseInt(Iss.substring(10, 12));// 当前期号
+		int nowIss = Integer.parseInt(Iss.substring(Iss.indexOf("-")+1, Iss.length()));// 当前期号
 		long endTimeStr=0;
 		try {
 			// 当前的截止时间 

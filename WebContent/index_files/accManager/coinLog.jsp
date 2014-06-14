@@ -14,7 +14,9 @@
 <script type="text/javascript" src="../jquery_003.js"></script>
 <link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
+<script type="text/javascript" src="../a_data/iframe.js"></script>
 <script type="text/javascript" src="../a_data/main.js"></script>
+<script type="text/javascript" src="../a_data/page.js"></script>
 </head>
 
 <body>
@@ -156,18 +158,6 @@ jQuery(document).ready(function() {
 					<option selected="selected" value="0">往期报表</option>
 					<option value="2014-05-19">2014-05-19</option>
 					<option value="2014-05-18">2014-05-18</option>
-					<option value="2014-05-17">2014-05-17</option>
-					<option value="2014-05-16">2014-05-16</option>
-					<option value="2014-05-15">2014-05-15</option>
-					<option value="2014-05-14">2014-05-14</option>
-					<option value="2014-05-13">2014-05-13</option>
-					<option value="2014-05-12">2014-05-12</option>
-					<option value="2014-05-11">2014-05-11</option>
-					<option value="2014-05-10">2014-05-10</option>
-					<option value="2014-05-09">2014-05-09</option>
-					<option value="2014-05-08">2014-05-08</option>
-					<option value="2014-05-07">2014-05-07</option>
-					<option value="2014-05-06">2014-05-06</option>
                  </select>
 				 				 </td>
               </tr>
@@ -176,73 +166,147 @@ jQuery(document).ready(function() {
                 <td><select name="lotteryid" id="lotteryid" style="width:100px;">
   	<option selected="selected" value="0">所有游戏</option>
     <option value="1">重庆时时彩</option>
-<option value="3">江西时时彩</option>
-<option value="5">山东11运</option>
-<option value="6">新疆时时彩</option>
-<option value="7">江西11选5</option>
-<option value="8">广东11选5</option>
-<option value="9">北京快乐彩</option>
-<option value="10">重庆11选5</option>
-<option value="11">福彩3D</option>
-<option value="12">体彩P3</option>
-<option value="13">天津时时彩</option>
   </select>
   
   投注模式：
    <select name="modes" id="modes" style="width:100px;">
   	<option selected="selected" value="0">所有模式</option>
-   <option value="1">元</option>
-<option value="2">角</option>
-<option value="3">分</option>
+   	<option value="1">元</option>
+	<option value="2">角</option>
+	<option value="3">分</option>
   </select>
   帐变类型：
   <select name="ordertype" id="ordertype" style="width:100px;">
   	<option selected="selected" value="0">所有类型</option>
-   <option value="3">[-]加入游戏</option>
-<option value="4">[+]投注返点</option>
-<option value="5">[+]奖金派送</option>
-<option value="6">[-]追号扣款</option>
-<option value="7">[+]当期追号返款</option>
-<option value="9">[+]撤单返款</option>
-<option value="11">[-]撤销返点</option>
-<option value="12">[-]撤销派奖</option>
+	   	<option value="3">[-]加入游戏</option>
+		<option value="4">[+]投注返点</option>
+		<option value="5">[+]奖金派送</option>
+		<option value="6">[-]追号扣款</option>
+		<option value="7">[+]当期追号返款</option>
+		<option value="9">[+]撤单返款</option>
+		<option value="11">[-]撤销返点</option>
+		<option value="12">[-]撤销派奖</option>
   </select>
   
   
   </td>
               </tr>
- 			  			  <tr>
-                <th>用户名：</th>
-                <td><input name="username" id="username" size="16" class="input_02" style="margin-left:4px;" type="text">
-				<label><input name="include" id="include" value="1" type="checkbox">包含下级</label></td>              </tr>
-<tr><td colspan="2" align="center"><input name="" value="查询" class="formCheck" style="margin:2px;" type="submit"></td></tr>
+ 		
+				<tr>
+	                <th>用户名称：</th>
+	                <td sytle="float:left">
+	                 <div style="float:left" class="margin_2px">
+	                <input name="memberName" id="memberName" size="16" class="input_02" style="margin-left:4px;" type="text">
+	                </div>
+		
+	                <span id="game_info">
+		                <div class="margin_2px" style="float:left">投注期号：</div>
+		                <div style="float:left" class="margin_2px">
+			                 <input name="lt_issue_start" id="lt_issue_start" value="" type="text">
+		                </div>               
+	                </span>
+				</td></tr>
+				
+				<tr><td colspan="2" align="center"><input name="" value="查询"  onclick="deskSearch();" class="formCheck" style="margin:2px;" type="botton"></td></tr>
             </tbody></table>
         </form>
 <br>
-        <table class="grayTable" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <table class="grayTable" id="coinLogTab" border="0" cellpadding="0" cellspacing="0" width="100%">
           <tbody><tr>
         
             <th>用户名</th>
             <th>时间</th>
             <th>帐变类型</th>
+            <th>订单编号</th>
             <th>彩种</th>
-            <th>玩法</th>
+            <th>玩法</th>           
             <th>期号</th>
-            <th>投注模式</th>
             <th>余额变动</th>
             <th>余额</th>
-			 <th>状态
+		   </tr>
+           <tr>
+            <td colspan="9" height="20">
+            	<div class="pages_o" id="pageDiv"></div>
+            </td>
+        </tr>
 
-          </th></tr>
-		            <tr>
-            <td colspan="11">请选择查询条件之后进行查询</td>
-          </tr>
-		              <tr>
-            <th colspan="8" class="left">小结：本页资金变动 <font color="Red"><b>0.0000</b></font></th>
-            <th><font color="Red">0.0000</font></th>
-            <th colspan="2"></th>
-          </tr>
         </tbody></table>
-        <div class="page">总计 0个记录,  分为 0 页, 当前第 0 页<span id="tPages">   </span>
-</div>
     </div></body></html>
+    
+ 
+<script type="text/javascript">
+deskSearch();
+function deskSearch(pIndex,pTag){
+	var obj = $(".formTable");
+	  var formDate = top.getFieldValues(obj);
+	  if ((pIndex != undefined)&&(pIndex.length>6))
+		{
+		 pIndex = 1;
+		}
+	  $(".news_uldetail").html('');
+	  var userlistTab = document.getElementById("coinLogTab");
+	  while(userlistTab.rows.length>2)
+		  userlistTab.deleteRow(1);
+	  if(pIndex == undefined)
+	  {
+		  pIndex = 1;
+	  }
+	 
+	  $(formDate).attr("pageIndex",pIndex);
+	
+	  $.ajax({
+		  type:"POST",
+		  url:"../../coinLog/findByPage",
+		  contentType:"application/x-www-form-urlencoded",
+		  data:formDate,
+		  success:function(dataMap){
+			  var pageInfo = dataMap.pageInfo;
+			  queryList = pageInfo.dataList;
+			    if(queryList!=undefined){			    	
+			      for(var i=0;i<queryList.length;i++){
+			        var list=queryList[i];
+			        //alert(userlistTab.rows.length);
+			        var row = userlistTab.insertRow(userlistTab.rows.length-1);
+			        var cell1 = document.createElement("td");
+			        var cell2 = document.createElement("td");
+			        var cell3 = document.createElement("td");
+			        var cell4 = document.createElement("td");
+			        var cell5 = document.createElement("td");
+			        var cell6 = document.createElement("td");
+			        var cell7 = document.createElement("td");
+			        var cell8 = document.createElement("td");
+			        var cell9 = document.createElement("td");
+			        cell1.innerHTML = list.m_name;
+			        cell2.innerHTML = list.createDate;
+			        cell3.innerHTML = list.fname;
+			        cell4.innerHTML = list.orderId;
+			        cell5.innerHTML = list.title;
+			        if(list.name == null)
+			        	list.name = "";
+			        cell6.innerHTML = list.name;
+			        cell7.innerHTML = list.lt_issue_start;
+			        cell8.innerHTML = moneyFormat(list.coin);
+			        cell9.innerHTML = moneyFormat(list.userCoin);
+			        					
+			        row.appendChild(cell1);
+			        row.appendChild(cell2);
+			        row.appendChild(cell3);
+			        row.appendChild(cell4);
+			        row.appendChild(cell5);
+			        row.appendChild(cell6);
+			        row.appendChild(cell7);
+			        row.appendChild(cell8);
+			        row.appendChild(cell9);
+			       
+			      }
+			    }
+			    if(pTag == undefined)
+			    {
+			    	$("#pageDiv").attr("pCount",pageInfo.pageCount);
+			    	initPage(1);
+			    }
+		  }
+	  });
+//	  SetWinHeight(parent.document.getElementById("mainFrame"));
+  }
+</script>

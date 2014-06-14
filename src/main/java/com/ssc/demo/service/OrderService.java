@@ -19,5 +19,7 @@ public interface OrderService {
 	
 	public Data getLotteryData(int type);
 	
+	public void addBonus(String dataId);
+	
 	public void addBonus(Data data);
 }

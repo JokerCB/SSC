@@ -1329,85 +1329,44 @@ public class PlayedServiceImpl implements PlayedService{
 		int playId = played.getId();
 		String numberData = data.getData();
 		String actionData = orderDetail.getActionData();
-		String zjArray="";
-		String[] datas;
+		String zjArray="00000";
+		String[] datas = new String[5];
 		if (playId == 2276)//  五星直选组合  0&1|2&3|4&5|6&7|8&9
 		{
 			datas = actionData.split("\\|");
-			if (datas[0].indexOf(numberData.substring(0, 1))>=0)
-			{
-				zjArray="1";
-			}
-			else{
-				zjArray="0";
-			}
-			if (datas[1].indexOf(numberData.substring(1, 2))>=0)
-			{
-				zjArray=zjArray+"1";
-			}
-			else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[2].indexOf(numberData.substring(2, 3))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[3].indexOf(numberData.substring(3, 4))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[4].indexOf(numberData.substring(4, 5))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-		
-		}else if (playId == 2267)//  四星直选(组合)  5&6&7&8&9|0&1&2&3&4|0&1&2&3&4&5&6&7&8&9|0&1&2&3&4&5&6&7&8&9
+		}
+		else if (playId == 2267)//  四星直选(组合)  5&6&7&8&9|0&1&2&3&4|0&1&2&3&4&5&6&7&8&9|0&1&2&3&4&5&6&7&8&9
 		{
-			datas = actionData.split("\\|");
-			zjArray="0";
-		
-			if (datas[0].indexOf(numberData.substring(1, 2))>=0)
-			{
-				zjArray=zjArray+"1";
-			}
-			else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[1].indexOf(numberData.substring(2, 3))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[2].indexOf(numberData.substring(3, 4))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-			if (datas[3].indexOf(numberData.substring(4, 5))>=0)
-			{
-				zjArray=zjArray+"1";
-			}else
-			{
-				zjArray=zjArray+"0";
-			}
-		
+			datas[0] = "";
+			String[] temp = actionData.split("\\|");
+			for(int i=0; i<temp.length; i++)
+				datas[i+1] = temp[i];
 		}
 		
+		if (datas[0].indexOf(numberData.substring(0, 1))>=0 && datas[1].indexOf(numberData.substring(1, 2))>=0
+		 && datas[2].indexOf(numberData.substring(2, 3))>=0	&& datas[3].indexOf(numberData.substring(3, 4))>=0
+		 && datas[4].indexOf(numberData.substring(4, 5))>=0)
+		{
+			zjArray="11111";
+		}
+		else if (datas[1].indexOf(numberData.substring(1, 2))>=0 && datas[2].indexOf(numberData.substring(2, 3))>=0
+			  && datas[3].indexOf(numberData.substring(3, 4))>=0 && datas[4].indexOf(numberData.substring(4, 5))>=0)
+		{
+			zjArray="01111";
+		}
+		else if (datas[2].indexOf(numberData.substring(2, 3))>=0 && datas[3].indexOf(numberData.substring(3, 4))>=0
+				&& datas[4].indexOf(numberData.substring(4, 5))>=0)
+		{
+				zjArray="00111";
+		}
+		else if (datas[3].indexOf(numberData.substring(3, 4))>=0&& datas[4].indexOf(numberData.substring(4, 5))>=0)
+		{
+				zjArray="00011";
+		}
+		else if (datas[4].indexOf(numberData.substring(4, 5))>=0)
+		{
+				zjArray="00001";
+		}		
 		return zjArray;
 	}
 	

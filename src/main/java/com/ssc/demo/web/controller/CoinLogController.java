@@ -42,10 +42,7 @@ public class CoinLogController extends BaseController{
 	public  Map<String, Object> findByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
-		System.out.println(request.getParameter("liqType"));
-		System.out.println(request.getParameter("startDate"));
-		System.out.println(request.getParameter("endDate"));
-		System.out.println(request.getParameter("memberName"));
+	
 		if (!StringUtil.isNullOrEmpty(request.getParameter("liqType"))) {
 			paramMap.put("liqType", request.getParameter("liqType"));
 		}
@@ -58,11 +55,7 @@ public class CoinLogController extends BaseController{
 		if (!StringUtil.isNullOrEmpty(request.getParameter("memberName"))) {
 			paramMap.put("memberName", request.getParameter("memberName"));
 		}
-			/*	if(request.getParameter("mname") != null && request.getParameter("mname") != "")
-			paramMap.put("mname", request.getParameter("mname"));
-		else
-			paramMap.put("mparentid", session.getAttribute("uid"));*/
-			
+						
 		PageInfo pageInfo = new PageInfo();
 		pageRequest.setParameter(paramMap);
 		PageList<Map> list = coinLogService.findCoinLogByPage(pageRequest);

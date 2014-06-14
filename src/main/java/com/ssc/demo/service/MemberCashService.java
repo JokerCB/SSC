@@ -1,55 +1,30 @@
 package com.ssc.demo.service;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ssc.demo.model.MemberCash;
+import com.ssc.demo.model.Recharge;
 import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
+
+import framework.generic.paginator.domain.PageList;
 
 
 public interface MemberCashService {
 	
-	/**
-	 * 获取DataGrid列表数据和总数
-	 * @param pageRequest datagrid页面请求数据
-	 * @return DataGrid
-	 */
-	DataGrid getDatagrid(PageRequest pageRequest);
-	
-	/**
-	 * 创建一条数据库记录
-	 * @param memberCash
-	 * @return 受影响的行数
-	 */
-	Integer create(MemberCash memberCash);
+	MemberCash load(@Param("id") String id);
 
-	/**
-	 * 修改一条数据库记录
-	 * @param memberCash
-	 * @return 受影响的行数
-	 */
-	Integer modify(MemberCash memberCash);
-
-	/**
-	 * 根据主键删除一条数据库记录
-	 * @return 受影响的行数
-	 */
-	Integer remove(Integer id);
+	void save(MemberCash memberCash);
+	
+	void update(MemberCash memberCash);
+	
+	void delete(@Param("id") String id);
 	
 	/**
-	 * 批量删除数据库记录
-	 * @return 受影响的行数
+	 * 分页查询
 	 */
-	Integer removeAll(Integer... memberCashIds);
+	PageList<MemberCash> findByPage(PageRequest pageRequest);
 	
-	/**
-	 * 根据主键查询一条数据库记录
-	 * @return 实体类
-	 */
-	MemberCash getByPk(Integer id);
-	
-	/**
-	 * 查询一条数据库记录
-	 * @return 实体类
-	 */
-	MemberCash get(Integer id);
+	public String buildCashNo();
 	
 }
