@@ -1,5 +1,6 @@
 package com.ssc.demo.service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -15,9 +16,16 @@ import org.springframework.stereotype.Service;
 
 
 
+
+
+
+
+import com.ssc.demo.dao.CoinLogDao;
 import com.ssc.demo.dao.MemberCashDao;
 import com.ssc.demo.dao.RechargeDao;
+import com.ssc.demo.model.CoinLog;
 import com.ssc.demo.model.MemberCash;
+import com.ssc.demo.model.Members;
 import com.ssc.demo.model.Recharge;
 import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
@@ -30,12 +38,26 @@ public class MemberCashServiceImpl implements MemberCashService {
 
 	private MemberCashDao memberCashDao;
 	
+	private MembersService membersService;
+	
+	private CoinLogDao coinLogDao;
+	
 	@Resource
 	public void setMemberCashDao(MemberCashDao memberCashDao) {
 		this.memberCashDao = memberCashDao;
 	}
 	
-	
+	@Resource
+	public void setMembersService(MembersService membersService) {
+		this.membersService = membersService;
+	}
+
+	@Resource
+	public void setCoinLogDao(CoinLogDao coinLogDao) {
+		this.coinLogDao = coinLogDao;
+	}
+
+
 	@Override
 	public MemberCash load(String id) {		
 		return memberCashDao.load(id);
@@ -86,6 +108,29 @@ public class MemberCashServiceImpl implements MemberCashService {
 		}
 		
 		return RechargeNo;
+	}
+	
+	@Override
+	public int getCountToday(String uid) {
+		Date now = new Date();
+		return memberCashDao.getCountToday(uid, DateUtil.formatDate(now) + " 00:00:00", DateUtil.formatDate(now) + " 23:59:59");
+	}
+
+	@Override
+	public void saveCash(Members member, MemberCash memberCash) {
+		BigDecimal mCoin = member.getMcoin();
+		member.setMcoin(member.getMcoin().subtract(memberCash.getAmount()));
+		membersService.modify(member);
+		memberCash.setCashNo(this.buildCashNo());
+		memberCashDao.save(memberCash);
+		CoinLog coinLog = new CoinLog();
+		coinLog.setUid(memberCash.getUid());
+		coinLog.setOrderId(memberCash.getCashNo());
+		coinLog.setCoin(mCoin);
+		coinLog.setUserCoin(member.getMcoin());
+		coinLog.setLiqType(101);
+		coinLog.setCreateDate(new Date());
+		coinLogDao.saveCoinLog(coinLog);	
 	}
 
 }

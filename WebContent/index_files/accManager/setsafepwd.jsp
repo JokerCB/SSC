@@ -40,8 +40,9 @@ function checkform(obj)
 body{font-size:12px;}
 </style>
 <form action="../members/safepwd" method="post" name="updateform" onsubmit="return checkform(this)">
+<input type="hidden" name="topage" value="${topage}"/>
 	<h4 class="dotTitle">
-		<span class="st">·</span>设置提款密码
+		<span class="st"></span>设置提款密码
 	</h4>
 	<table class="formTable" border="0" cellpadding="0" cellspacing="0"
 		width="100%">

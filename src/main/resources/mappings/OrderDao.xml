@@ -148,13 +148,17 @@
 	
 		<select id="findDetailsByPage" resultMap="OrderDetailResultMap">
 		<choose>
-			<when test="mname != null and mname != '' or uid != null and uid != ''">
+			<when test="mname != null and mname != '' or uid != null and uid != ''  or issue != null and issue != ''">
                 <if test="mname != null and mname != ''">
 				 SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId 
 				 LEFT JOIN ssc_members c on a.uid=c.uid 
 				
 				</if>
 				<if test="uid != null and uid != ''">
+					SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId
+					
+				</if>
+				<if test="mname == null or mname == '' and uid == null or uid == ''">
 					SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId
 					
 				</if>

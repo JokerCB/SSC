@@ -8,5 +8,7 @@ import com.ssc.demo.model.Bank;
  */
 public interface BankService {
 	
+	Bank findByPk(int id);
+	
 	List<Bank> findByIsMember();
 }

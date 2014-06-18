@@ -172,10 +172,17 @@ function checkRapid(){
 		success:function(data){
 			console.log(data);
 			var json = eval('(' + data + ')');
-			$.alert(json['sMsg']);			 
+			
+			if($.confirm(json['sMsg'])){
+				 $("body",window.parent.document).find("#siderbar li")[0].click();
+			}
+
+			
 			$("#mname").val("");
 		    $("#mfandian_cqssc").val("");
 		    $("#mfandianbdw_cqssc").val("");
+		    
+		   
 		}
 	});
 }

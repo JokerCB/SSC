@@ -26,4 +26,13 @@ public interface MemberCashDao{
 	PageList<MemberCash> findByPage(Object parameters, PageBounds pageBounds);
 	
 	String selectMaxCode(@Param("startDate")String startDate,@Param("endDate")String endDate);
+	
+	/**
+	 * 获取用户当天取款次数
+	 * @param uid
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	int getCountToday(@Param("uid") String uid, @Param("startDate")String startDate,@Param("endDate")String endDate);
 }

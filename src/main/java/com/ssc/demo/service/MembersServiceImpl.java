@@ -23,6 +23,8 @@ public class MembersServiceImpl implements MembersService {
 	
 	private AreaDao areaDao;
 	
+	private static BigDecimal money;
+	
 	@Resource
 	public void setMembersDao(MembersDao membersDao) {
 		this.membersDao = membersDao;
@@ -51,14 +53,15 @@ public class MembersServiceImpl implements MembersService {
 	}
 	
 	/**
-	 * ��ȡ�Ŷ����
+	 * 获取团队资金
 	 * @param membersId
 	 * @param money
 	 * @return
 	 */
 	public BigDecimal getTotalMoney(String membersId,BigDecimal money){
-		this.updateTotalMoney(membersId, money);
-		return money;
+		this.money = money;
+		this.updateTotalMoney(membersId, this.money);
+		return this.money;
 	}
 	
 
@@ -99,8 +102,8 @@ public class MembersServiceImpl implements MembersService {
 		List<Members> childs = membersDao.findChilds(membersId);
 		for(int i=0; i<childs.size(); i++){
 			Members child = childs.get(i);
-			money = money.add(child.getMcoin());
-			updateTotalMoney(child.getUid()+"",money);
+			this.money = this.money.add(child.getMcoin());
+			updateTotalMoney(child.getUid()+"",this.money);
 		}
 	}
 	

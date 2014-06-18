@@ -1,5 +1,7 @@
 package com.ssc.demo.service;
 
+import java.util.List;
+
 import com.ssc.demo.model.MemberBank;
 import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
@@ -41,15 +43,16 @@ public interface MemberBankService {
 	Integer removeAll(Integer... memberBankIds);
 	
 	/**
-	 * 根据主键查询一条数据库记录
-	 * @return 实体类
-	 */
-	MemberBank getByPk(Integer id);
-	
-	/**
 	 * 查询一条数据库记录
 	 * @return 实体类
 	 */
 	MemberBank get(Integer id);
+	
+	/**
+	 * 根据用户编号查询数据
+	 * @param uid
+	 * @return
+	 */
+	public List<MemberBank> findByUid(Integer uid);
 	
 }

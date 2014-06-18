@@ -18,12 +18,7 @@
 </head>
 
 <body>
-<script type="text/javascript">
-//删除遮罩
-if($("#laybox",parent.parent.document).length){
-	$("#laybox",parent.parent.document).remove();
-}
-</script>
+
 <a name="topall"></a>
 <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
 <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div><!--消息框代码开始-->
@@ -33,114 +28,6 @@ if($("#laybox",parent.parent.document).length){
 
 <!--消息框代码结束-->
 
-<script type="text/javascript">
-	var result = 0;
-	function checkForm(obj)
-	{
-		if (obj.bid.value <= 0){
-			$.alert("请选择充值银行");
-			return false;
-		}
-		if (result > 0){
-			if (result == 1){
-				$.alert("您现有建行卡为重复绑定，请更换存款银行或绑定新的建行卡");
-				return false;
-			} else if (result == 2){
-				alert("您尚未绑定建行银行卡，请绑定");
-				gotolink("卡号绑定");
-				self.location="/?controller=security&action=userbankinfo";
-				return false;
-			}
-		}
-		if (obj.amount.value == ""){
-			$.alert("请输入限定内金额！");
-			obj.amount.focus();
-			return false;
-		}
-		var loadmin = document.getElementById("alertmin").value;
-		if(parseInt(obj.amount.value,10) < parseInt(loadmin,10))
-		{
-			alert("充值金额不能低于最低充值限额 ");
-			$("#amount").val(loadmin);
-			$("#chineseMoney").html( changeMoneyToChinese(loadmin) );
-			return false;
-		}
-		
-		if( $("#2tips").attr('data') == '1')
-		{
-			alert('如果您的浏览器提示充值跳转页面存在未经证实信息网站或非法网站等类似信息，请您不要关闭页面，忽略警告，放心点击继续访问');
-		}
-	}
-
-	function changeInfo(obj){
-		var bankinfo = new Array();
-		bankinfo = {"espay":{"loadmax":"40000","loadmin":"10","id":"24","logo":"espay"}};
-		var loadmax = document.getElementById("loadmax");
-		var loadmin = document.getElementById("loadmin");
-		var alertmin = document.getElementById("alertmin");
-		var bid		= document.getElementById("bid");
-		
-		loadmax.innerHTML = bankinfo[obj.value]['loadmax'];
-		loadmin.innerHTML = bankinfo[obj.value]['loadmin'];
-		alertmin.value = bankinfo[obj.value]['loadmin'];
-		bid.value = bankinfo[obj.value]['id'];
-		
-		document.getElementById("amount").onkeyup = function(){
-			checkemailWithdraw(this,'chineseMoney',bankinfo[obj.value]['loadmax']);
-		}
-		var bank_name="";
-		if(obj.value =='ccb'){
-			
-			bank_name='建行卡';
-		}
-		else
-			bank_name='农行卡';
-		// 只有建行才显示用户选卡下拉框
-		if (obj.value == "ccb" || obj.value== 'abc'){
-			var allexist = 1;
-			// 是否全部重复
-			if (allexist == 1){
-				alert("您现有"+bank_name+"为重复绑定，请更换存款银行或绑定新的建行卡");
-				result = 1;
-				return false;
-			}
-			var isHave = 0;
-			if (isHave == 0){
-				alert("您尚未绑定"+bank_name+"，请绑定");
-				gotolink("卡号绑定");
-				self.location="/?controller=security&action=userbankinfo";
-				result = 2;
-				return false;
-			}
-			//document.getElementById("selectbank").style.display = "";
-		} else {
-			//document.getElementById("selectbank").style.display = "none";
-		}
-	}
-
-	function checkbindin(obj){
-		var banklist = new Array();
-		var tbids =$("#bid").val();
-		banklist = null;
-		if(tbids == 9){
-		if (banklist[obj.value] == 1){
-			alert("您选择的建行卡重复绑定，请选择另一张");
-			obj[0].selected = true;
-		}
-		}
-	}
-	
-	function gotolink(string){
-		var t = window.top;
-	    $.each(t.$("#leftframe").contents().find(".menu_05"),function(){
-	        if($(this).find("a").html() == string){
-	            t.$("#leftframe").contents().find(".menu_05_05").attr("class",'menu_05');
-	            $(this).addClass('menu_05_05');
-	        }
-	    });
-	}
-
-</script>
 
 <div id="point">平台填写金额应当与网银汇款金额完全一致，否则将无法即时到帐！<a href=""><span style="color:red;float:right;margin-right:20px;">点击查看存款帮助</span></a></div>
      
@@ -176,14 +63,14 @@ if($("#laybox",parent.parent.document).length){
               <tbody>
               <tr>
                 <th width="20%">充值银行：</th>
-                <td><a href="https://mybank.icbc.com.cn/" target="_blank"><img alt="" src="../../images/bank-icons/bank-gh.jpg" ></a></td>
+                <td><a id="bankHome" href="https://mybank.icbc.com.cn/" target="_blank"><img id="bankLogo" alt="" src="../../images/bank-icons/bank-gh.jpg" ></a></td>
               </tr>
               
               <tr>
 			  	<th width="20%">收款人户名：</th></td>
 			    <td align="left">
-					<span id="bankName">张三</span>
-					<button>复制</button>
+					<span id="username">张三</span>
+					<button id="copy">复制</button>
 			    </td>
 			    
 			  </tr>
@@ -191,21 +78,21 @@ if($("#laybox",parent.parent.document).length){
 			  	<th width="20%">收款人帐号：</th></td>
 			    <td align="left">
 					<span id="bankNum">6666666666666</span>
-					<button>复制</button>
+					<button id="copy">复制</button>
 			    </td>
 			  </tr>
               <tr>
                 <th>充值金额：</th>
                 <td>
 	                <span id="money">0.00</span>
-	                <button>复制</button>
+	                <button id="copy">复制</button>
                 </td>               
               </tr>
                <tr>
                 <th>充值编号：</th>
                 <td>
 	                <span id="rechargeNo"></span>
-	                <button>复制</button>
+	                <button id="copy">复制</button>
                 </td>               
               </tr>
 
@@ -214,28 +101,34 @@ if($("#laybox",parent.parent.document).length){
    
 <script  type="text/javascript">
 
+$(function(){
+    $("#copy").click(function(){
+
+    }); 
+}); 
+
 init();
 function init(){
 	var bank = document.getElementById("bank");
 	bank.options.length=0; 
-	bank.options.add(new Option("中国工商银行",1)); 
-	bank.options.add(new Option("中国招商银行",2)); 
-	bank.options.add(new Option("中国建设银行",3)); 
-/**
+//	bank.options.add(new Option("中国工商银行",1)); 
+//	bank.options.add(new Option("中国招商银行",2)); 
+//	bank.options.add(new Option("中国建设银行",3)); 
+
 	$.ajax({
 		type:"POST",
-		url:"../../members/addUser",
+		url:"../../recharge/findAdminBanks",
 		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
 		success:function(data){
-			console.log(data);
-			var json = eval('(' + data + ')');
-			$.alert(json['sMsg']);			 
-			$("#mname").val("");
-		    $("#mfandian_cqssc").val("");
-		    $("#mfandianbdw_cqssc").val("");
+			var arr = data.list;
+			var len = arr.length;
+			for (var i = 0; i < len; i++) {
+					$("#bank").append("<option value='" + arr[i].id+ "' username='"+arr[i].username+"' account='"+arr[i].account+"' home='"+arr[i].home+"'  logo='"+arr[i].logo+"'>" + arr[i].name + "</option>");
+
+			}
 		}
 	});
-	**/
+
 }
 
 function goNext(){
@@ -247,7 +140,7 @@ function goNext(){
 		$.alert("充值金额金额不能低于最低金额");
 		return false;
 	}
-	
+
 	var rq_post={};
     rq_post['amount']= $("#amount").val();
     rq_post['banklistId']=$("#bank").val();
@@ -261,9 +154,17 @@ function goNext(){
 			rechargeNo.innerHTML = data;			
 		}
 	});
-	
+
+	var bank = document.getElementById("bank");
+	var index = bank.selectedIndex; // 选中索引
+
 	drawform.style.display = "none";
 	bankDiv.style.display = "block";
+	//bankName.innerHTML = bank.options[index].text;
+	bankLogo.src = "../"+$(bank.options[index]).attr("logo");
+	bankHome.href = $(bank.options[index]).attr("home");
+	username.innerHTML = $(bank.options[index]).attr("username");
+	bankNum.innerHTML = $(bank.options[index]).attr("account");
 	money.innerHTML = moneyFormat(amount.value);
 }
 

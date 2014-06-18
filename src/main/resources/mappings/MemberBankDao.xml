@@ -6,26 +6,34 @@
 	<resultMap id="MemberBankResultMap" type="com.ssc.demo.model.MemberBank">
 		<id property="id" column="id" />
 		<result property="uid" column="uid" />
-		<result property="admin" column="admin" />
 		<result property="enable" column="enable" />
 		<result property="bankid" column="bankId" />
 		<result property="username" column="username" />
+		<result property="provinceid" column="provinceId" />
+		<result property="cityid" column="cityId" />
 		<result property="account" column="account" />
-		<result property="rechargedemo" column="rechargeDemo" />
-		<result property="editenable" column="editEnable" />
+		<result property="bankcardname" column="bankCardName" />
+		<result property="createName" column="create_name" />
+		<result property="createDate" column="create_date" />
+		<result property="modifyName" column="modify_name" />
+		<result property="modifyDate" column="modify_date" />
 	</resultMap>
 
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
 		 id
 		 ,uid
-		 ,admin
 		 ,enable
 		 ,bankId
 		 ,username
+		 ,provinceId
+		 ,cityId
 		 ,account
-		 ,rechargeDemo
-		 ,editEnable
+		 ,bankCardName
+		 ,create_name
+		 ,create_date
+		 ,modify_name
+		 ,modify_date
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -36,9 +44,6 @@
 		<if test="uid != null and uid != ''">
 			AND uid = #{uid,jdbcType=INTEGER}
 		</if>
-		<if test="admin != null and admin != ''">
-			AND admin = #{admin,jdbcType=BIT}
-		</if>
 		<if test="enable != null and enable != ''">
 			AND enable = #{enable,jdbcType=BIT}
 		</if>
@@ -48,14 +53,29 @@
 		<if test="username != null and username != ''">
 			AND username = #{username,jdbcType=VARCHAR}
 		</if>
+		<if test="provinceid != null and provinceid != ''">
+			AND provinceId = #{provinceid,jdbcType=VARCHAR}
+		</if>
+		<if test="cityid != null and cityid != ''">
+			AND cityId = #{cityid,jdbcType=VARCHAR}
+		</if>
 		<if test="account != null and account != ''">
 			AND account = #{account,jdbcType=VARCHAR}
 		</if>
-		<if test="rechargedemo != null and rechargedemo != ''">
-			AND rechargeDemo = #{rechargedemo,jdbcType=VARCHAR}
+		<if test="bankcardname != null and bankcardname != ''">
+			AND bankCardName = #{bankcardname,jdbcType=VARCHAR}
 		</if>
-		<if test="editenable != null and editenable != ''">
-			AND editEnable = #{editenable,jdbcType=BIT}
+		<if test="createName != null and createName != ''">
+			AND create_name = #{createName,jdbcType=VARCHAR}
+		</if>
+		<if test="createDate != null and createDate != ''">
+			AND create_date = #{createDate,jdbcType=TIMESTAMP}
+		</if>
+		<if test="modifyName != null and modifyName != ''">
+			AND modify_name = #{modifyName,jdbcType=VARCHAR}
+		</if>
+		<if test="modifyDate != null and modifyDate != ''">
+			AND modify_date = #{modifyDate,jdbcType=TIMESTAMP}
 		</if>
 	</sql>
 	
@@ -67,14 +87,14 @@
 	
 	</select>
 	
-	<select id="findByPk" resultMap="MemberBankResultMap">
+	<select id="findByUid" resultMap="MemberBankResultMap">
 	
 		SELECT	<include refid="base_column" />
 		FROM	ssc_member_bank
-		WHERE	id=#{id,jdbcType=INTEGER}
-		  
+		WHERE	uid=#{uid,jdbcType=INTEGER}
+	
 	</select>
-
+	
 	<select id="findByPage" resultMap="MemberBankResultMap">
 	
 		SELECT	<include refid="base_column" />
@@ -90,23 +110,31 @@
 		INSERT INTO ssc_member_bank
 				(id
 				,uid
-				,admin
 				,enable
 				,bankId
 				,username
+				,provinceId
+				,cityId
 				,account
-				,rechargeDemo
-				,editEnable
+				,bankCardName
+				,create_name
+				,create_date
+				,modify_name
+				,modify_date
 				)
 		VALUES	(#{id,jdbcType=INTEGER}
 				,#{uid}
-				,#{admin}
 				,#{enable}
 				,#{bankid}
 				,#{username}
+				,#{provinceid}
+				,#{cityid}
 				,#{account}
-				,#{rechargedemo}
-				,#{editenable}
+				,#{bankcardname}
+				,#{createName}
+				,#{createDate}
+				,#{modifyName}
+				,#{modifyDate}
 				)
 				
 	</insert>
@@ -121,9 +149,6 @@
 			<if test="uid != null and uid != ''">
 				uid = #{uid,jdbcType=INTEGER},
 			</if>
-			<if test="admin != null and admin != ''">
-				admin = #{admin,jdbcType=BIT},
-			</if>
 			<if test="enable != null and enable != ''">
 				enable = #{enable,jdbcType=BIT},
 			</if>
@@ -133,14 +158,29 @@
 			<if test="username != null and username != ''">
 				username = #{username,jdbcType=VARCHAR},
 			</if>
+			<if test="provinceid != null and provinceid != ''">
+				provinceId = #{provinceid,jdbcType=VARCHAR},
+			</if>
+			<if test="cityid != null and cityid != ''">
+				cityId = #{cityid,jdbcType=VARCHAR},
+			</if>
 			<if test="account != null and account != ''">
 				account = #{account,jdbcType=VARCHAR},
 			</if>
-			<if test="rechargedemo != null and rechargedemo != ''">
-				rechargeDemo = #{rechargedemo,jdbcType=VARCHAR},
+			<if test="bankcardname != null and bankcardname != ''">
+				bankCardName = #{bankcardname,jdbcType=VARCHAR},
 			</if>
-			<if test="editenable != null and editenable != ''">
-				editEnable = #{editenable,jdbcType=BIT},
+			<if test="createName != null and createName != ''">
+				create_name = #{createName,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyName != null and modifyName != ''">
+				modify_name = #{modifyName,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		WHERE	id = #{id,jdbcType=INTEGER}

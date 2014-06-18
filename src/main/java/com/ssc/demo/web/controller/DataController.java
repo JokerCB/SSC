@@ -47,13 +47,6 @@ public class DataController extends BaseController{
 		this.dataService = dataService;
 	}
 	
-
-	@RequestMapping(value = "index", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView index(Model model,HttpSession session,HttpServletRequest request) throws Exception {
-		return new ModelAndView("../admin/data/index");
-
-	}
-	
 	/*-------------------------------列表显示页面---------------------------------*/
 
 	@RequestMapping(value = "findByPage", method = { RequestMethod.POST, RequestMethod.GET })

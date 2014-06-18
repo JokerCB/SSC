@@ -17,6 +17,11 @@
 	<sql id="base_column">
 		id,name,logo,home,sort,isDelete,isMember
 	</sql>
+	
+	<select id="findByPk" resultMap="BankResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	ssc_bank_list	where id = #{id,jdbcType=INTEGER}
+	</select>
 
 	<select id="findList" resultMap="BankResultMap">
 		SELECT	<include refid="base_column" />

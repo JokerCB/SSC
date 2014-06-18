@@ -42,4 +42,9 @@
 		FROM	ssc_played
 	</select>
 	
+	<select id="findByType" resultMap="PlayedResultMap">	
+		SELECT	*
+		FROM	ssc_played where type = #{type,jdbcType=INTEGER} and 'key' is not  null or 'key' != ''
+	</select>
+	
 </mapper> 

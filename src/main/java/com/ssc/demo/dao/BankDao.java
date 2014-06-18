@@ -14,7 +14,7 @@ public interface BankDao{
 	/**
 	 * 根据主键查询一条记录
 	 */
-	Bank findByPk(@Param("id") Byte id);
+	Bank findByPk(@Param("id") int id);
 
 	/**
 	 * 根据主键删除一条记录

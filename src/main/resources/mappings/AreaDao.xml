@@ -4,25 +4,25 @@
 <!-- namespace必须指向Dao接口 -->
 <mapper namespace="com.ssc.demo.dao.AreaDao">
 	<resultMap id="ProvinceResultMap" type="com.ssc.demo.model.Province">
-		<id property="fid" column="FID" />
-		<result property="fname" column="FNAME" />
+		<id property="id" column="FID" />
+		<result property="name" column="FNAME" />
 	</resultMap>
 	<resultMap id="CityResultMap" type="com.ssc.demo.model.City">
-		<id property="fid" column="FID" />
-		<result property="fname" column="FNAME" />
+		<id property="id" column="FID" />
+		<result property="name" column="FNAME" />
 		<result property="fprovinceid" column="FPROVINCEID" />
 	</resultMap>
 	
 	<select id="loadProvinces" resultMap="ProvinceResultMap">
 		SELECT	*
 		FROM	ssc_bas_province
-		WHERE	FID=#{fid,jdbcType=VARCHAR}
+		WHERE	FID=#{id,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="loadCity" resultMap="CityResultMap">	
 		SELECT	*
 		FROM	ssc_bas_city
-		WHERE	FID=#{fid,jdbcType=VARCHAR}	
+		WHERE	FID=#{id,jdbcType=VARCHAR}	
 	</select>
 	
 	<select id="findProvinces" resultMap="ProvinceResultMap">

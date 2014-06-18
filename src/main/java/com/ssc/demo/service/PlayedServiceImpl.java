@@ -40,6 +40,10 @@ public class PlayedServiceImpl implements PlayedService{
 		return playedDao.findAll();
 	}
 	
+	public List<Played> findByType(int type){
+		return playedDao.findByType(type);
+	}
+	
 	/**
 	 * 通过投注号码计算出注数
 	 * @return

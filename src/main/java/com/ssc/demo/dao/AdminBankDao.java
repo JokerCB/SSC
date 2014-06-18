@@ -1,5 +1,6 @@
 package com.ssc.demo.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,6 @@ public interface AdminBankDao  extends GenericDao<AdminBank, Integer> {
 	PageList<Map> findDataByPage(Object parameters, PageBounds pageBounds);
 	
 	Integer findUnique(@Param("id") Integer id,@Param("username") String userName,@Param("bankid") Integer bankId,@Param("account") String account);
+	
+	List<Map> findAdminBanks();
 }

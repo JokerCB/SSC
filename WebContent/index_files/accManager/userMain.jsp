@@ -64,6 +64,9 @@
 		if($(this).find("a").attr("page")=="bindCard"){
 			var pagePath = "/test/members/"+$(this).find("a").attr("page");
 			$("#mainFrame").attr("src", pagePath);
+		} else if($(this).find("a").attr("page")=="platwithdraw"){
+			var pagePath = "/test/members/"+$(this).find("a").attr("page");
+			$("#mainFrame").attr("src", pagePath);
 		} else {
 			var pagePath = top.basePath+"/index_files/accManager/"+$(this).find("a").attr("page")+".jsp";
 			$("#mainFrame").attr("src", pagePath);

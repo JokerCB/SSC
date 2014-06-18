@@ -12,10 +12,10 @@ import framework.generic.model.PersistentModel;
 public class City implements PersistentModel {
 	
 	@Column(name = "FID", pk = true, order = 0)
-	private String fid;
+	private String id;
 	
 	@Column(name = "FNAME")
-	private String fname;
+	private String name;
 	
 	/**
 	 * Province.fid
@@ -23,22 +23,24 @@ public class City implements PersistentModel {
 	@Column(name = "FPROVINCEID")
 	private String fprovinceid;
 	
-	public String getFid() {
-		return this.fid;
-	}
 	
-	public void setFid(String fid) {
-		this.fid = fid;
-	}
 	
-	public String getFname() {
-		return this.fname;
+	public String getId() {
+		return id;
 	}
-	
-	public void setFname(String fname) {
-		this.fname = fname;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getFprovinceid() {
 		return this.fprovinceid;
 	}

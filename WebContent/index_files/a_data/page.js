@@ -17,7 +17,7 @@ function initPage(pIndex,fun){
 	var pageDiv = document.getElementById("pageDiv");
 	var pCount = parseInt($(pageDiv).attr("pCount"));
 	pageDiv.innerHTML = "";
-	var inHtml = "<a href='javascript:initPage(1,deskSearch(1,1));'>&nbsp;首页&nbsp;</a><a href='javascript:goLast()'>&nbsp;上一页&nbsp;</a>";
+	var inHtml = "<a style='cursor: pointer;' onclick='javascript:initPage(1,deskSearch(1,1));'>&nbsp;首页&nbsp;</a><a style='cursor: pointer;' onclick='javascript:goLast()'>&nbsp;上一页&nbsp;</a>";
 	if(pIndex == 1 || pIndex == undefined){
 		inHtml += "<span id='selected'><span id='p1'>[1]</span></span>";	
 		//不超过5页全显示
@@ -26,7 +26,7 @@ function initPage(pIndex,fun){
 			i=pCount;		
 
 		for(var m=1; m<i; m++)
-			inHtml += "<span><a id='p"+(m+1)+"' href='"+"javascript:goPage("+(m+1)+")"+"'>["+(m+1)+"]</a></span>";
+			inHtml += "<span><a id='p"+(m+1)+"' style='cursor: pointer;' onclick='"+"javascript:goPage("+(m+1)+")"+"'>["+(m+1)+"]</a></span>";
 		
 		$(pageDiv).attr("mix",1);
 		$(pageDiv).attr("max",i);
@@ -37,7 +37,7 @@ function initPage(pIndex,fun){
 		if(i<0)
 			i=0;
 		for(var m=i; m<pCount-1; m++){
-			inHtml += "<span><a id='p"+(m+1)+"' href='"+"javascript:goPage("+(m+1)+")"+"'>["+(m+1)+"]</a></span>";
+			inHtml += "<span><a id='p"+(m+1)+"' style='cursor: pointer;' onclick='"+"javascript:goPage("+(m+1)+")"+"'>["+(m+1)+"]</a></span>";
 		}
 		inHtml += "<span id='selected'><span id='p"+pCount+"'>["+pCount+"]</span></span>";
 		
@@ -53,19 +53,19 @@ function initPage(pIndex,fun){
 			j=pCount;
 		
 		for(var m=i; m<pIndex; m++){
-			inHtml += "<span><a id='p"+(m)+"' href='"+"javascript:goPage("+(m)+")"+"'>["+(m)+"]</a></span>";
+			inHtml += "<span><a id='p"+(m)+"' style='cursor: pointer;' onclick='"+"javascript:goPage("+(m)+")"+"'>["+(m)+"]</a></span>";
 		}			
 		inHtml += "<span id='selected'><span id='p"+pIndex+"'>["+pIndex+"]</span></span>";
 
 		for(var n=pIndex+1; n<=j; n++){
-			inHtml += "<span><a id='p"+(n)+"' href='"+"javascript:goPage("+(n)+")"+"'>["+(n)+"]</a></span>";
+			inHtml += "<span><a id='p"+(n)+"' style='cursor: pointer;' onclick='"+"javascript:goPage("+(n)+")"+"'>["+(n)+"]</a></span>";
 		}
 
 		$(pageDiv).attr("mix",i);
 		$(pageDiv).attr("max",j);
 	}
 
-	inHtml += "<span><a href='javascript:goNext()'>下一页</a></span><span><a href='"+"javascript:initPage("+pCount+",deskSearch("+pCount+",1))"+"'>尾页</a></span>";
+	inHtml += "<span><a style='cursor: pointer;' onclick='javascript:goNext()'>下一页</a></span><span><a style='cursor: pointer;' onclick='"+"javascript:initPage("+pCount+",deskSearch("+pCount+",1))"+"'>尾页</a></span>";
 		
 	
 	pageDiv.innerHTML = inHtml;
@@ -79,7 +79,7 @@ function goPage(pIndex){
 	
 	var oldObj = document.getElementById("selected");	
 	var oSel = parseInt(oldObj.childNodes[0].id.substring(1));
-	oldObj.innerHTML = "<a id='p"+(oSel)+"' href='"+"javascript:goPage("+oSel+")"+"'>["+(oSel)+"]</a>";
+	oldObj.innerHTML = "<a id='p"+(oSel)+"' style='cursor: pointer;' onclick='"+"javascript:goPage("+oSel+")"+"'>["+(oSel)+"]</a>";
 	oldObj.id = "";
 	
 

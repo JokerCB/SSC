@@ -10,7 +10,6 @@
 		<result property="amount" column="amount" />
 		<result property="membersBankId" column="membersBankId" />
 		<result property="state" column="state" />
-		<result property="isDelete" column="isDelete" />
 		<result property="info" column="info" />
 		<result property="createDate" column="createDate" />
 	</resultMap>
@@ -23,7 +22,6 @@
 		 ,amount
 		 ,membersBankId
 		 ,state
-		 ,isDelete
 		 ,info
 		 ,createDate
 	</sql>
@@ -57,7 +55,6 @@
 				 ,amount
 				 ,membersBankId
 				 ,state
-				 ,isDelete
 				 ,info
 				 ,createDate)
 		VALUES	(#{id}
@@ -66,7 +63,6 @@
 				,#{amount}
 				,#{membersBankId}
 				,#{state}
-				,#{isDelete}
 				,#{info}
 				,#{createDate}			
 				)				
@@ -96,6 +92,10 @@
 	</select>
 	
 	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
-		select max(cashNo) from ssc_member_cash WHERE createDate &gt;= #{startDate} AND create_Date &lt;= #{endDate}
+		select max(cashNo) from ssc_member_cash WHERE createDate &gt;= #{startDate} AND createDate &lt;= #{endDate}
+	</select>
+	
+	<select id="getCountToday" resultType="int">
+		select count(*) from ssc_member_cash WHERE uid=#{uid} and (state=1 or state=3) and createDate &gt;= #{startDate} AND createDate &lt;= #{endDate} 
 	</select>
 </mapper> 

@@ -162,4 +162,8 @@
 		</foreach>
 		  
 	</delete>
+	
+	<select id="findAdminBanks" resultType="java.util.Map">
+		SELECT b.id,a.username,a.account,b.name,b.logo,b.home from ssc_admin_bank a INNER JOIN ssc_bank_list b ON a.bankId=b.id
+	</select>
 </mapper> 

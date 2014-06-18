@@ -191,7 +191,7 @@ function checkform2(obj) {
 	}
 }
 </script>
-	<form action="" method="post" name="addform">
+	<form action="../members/saveCard" method="post" name="addform">
 		<input name="flag" value="add" type="hidden">
 		<input name="controller" value="security" type="hidden">
 		<input name="action" value="adduserbank" type="hidden">
@@ -213,7 +213,7 @@ function checkform2(obj) {
 							<td class="narrow-label" align="right" bgcolor="#CCCCCC"><font
 								style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>开户银行:</td>
 							<td align="left" bgcolor="#CCCCCC">
-								<select name="bank" id="bank">
+								<select name="bankid" id="bank">
 									<option selected="selected" value="">请选择...</option>
 									<c:forEach var="bankList" items="${bankList}">
 										<option value="${bankList.id }">${bankList.name }</option>
@@ -224,11 +224,11 @@ function checkform2(obj) {
 						</tr>
 
 						<tr>
-							<td class="narrow-label" align="right" bgcolor="#CCCCCC"><font
-								style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>开户银行省份:</td>
+							<td class="narrow-label" align="right" bgcolor="#CCCCCC">
+								<font style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>开户银行省份:</td>
 
 							<td align="left" bgcolor="#CCCCCC">
-								<select name="province" id="province" onchange="changeCity();">
+								<select name="provinceid" id="province" onchange="changeCity();">
 									<option selected="selected" value="">请选择</option>
 									<c:forEach var="provinceList" items="${provinceList}">
 										<option value="${provinceList.fid }">${provinceList.fname }</option>
@@ -241,7 +241,7 @@ function checkform2(obj) {
 							<td class="narrow-label" align="right" bgcolor="#CCCCCC">
 								<font style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>开户银行城市:</td>
 							<td align="left" bgcolor="#CCCCCC">
-								<select name="city" id="city">
+								<select name="cityid" id="city">
 									<option selected="selected" value="">请选择</option>
 								</select>&nbsp;&nbsp;
 								<span style="color: red;" id="city_msg"></span></td>
@@ -251,7 +251,7 @@ function checkform2(obj) {
 							<td class="narrow-label" align="right" bgcolor="#CCCCCC">
 								<font style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>支行名称:</td>
 							<td align="left" bgcolor="#CCCCCC">
-								<input name="branch" maxlength="20" id="branch" onkeyup="exceptSpecial(this);"
+								<input name="bankcardname" maxlength="20" id="branch" onkeyup="exceptSpecial(this);"
 									onchange="exceptSpecial(this);" type="text">
 								<span id="branch_msg">(由1至20个字符或汉字组成，不能使用特殊字符)</span></td>
 						</tr>
@@ -260,7 +260,7 @@ function checkform2(obj) {
 								<font style="color: #FF3300; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">*</font>
 								<span id="khxm">开户人姓名</span>:</td>
 							<td align="left" bgcolor="#CCCCCC">
-								<input name="account_name" maxlength="10" id="account_name" onkeyup="exceptSpecialName(this);"
+								<input name="username" maxlength="10" id="account_name" onkeyup="exceptSpecialName(this);"
 									onchange="exceptSpecialName(this);" type="text">
 								<span id="account_name_msg">（请填写您的真实姓名，只能是中文字符，支持以下姓名分隔符"·"".""。"）</span>
 							</td>

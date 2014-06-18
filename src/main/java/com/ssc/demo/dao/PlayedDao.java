@@ -11,4 +11,6 @@ public interface PlayedDao {
 	Played load(@Param("id")int id);
 	
 	List<Played> findAll();
+	
+	List<Played> findByType(int type);
 }

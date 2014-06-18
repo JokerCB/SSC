@@ -88,7 +88,32 @@
 		WHERE  id=#{id,jdbcType=VARCHAR}			  
 	</delete>
 
-	
+	<select id="findRechargeLogByPage" resultType="java.util.Map">
+SELECT a.id,a.uid,b.m_name,a.rechargeNo,a.amount,a.rechargeAmount,a.coin,c.name,
+case a.state when 0 then '申请' when 1 then '成功到账' else '失败' end state ,a.info,a.create_date from ssc_member_recharge a 
+INNER JOIN ssc_members b on a.uid=b.uid
+LEFT JOIN ssc_bank_list c on a.banklistid=c.id
+
+   <where>
+		<if test="username!=null and username!=''">
+	       b.m_name=#{username,jdbcType=VARCHAR}
+	     </if>
+	     <if test="rechargeNo!=null and rechargeNo!=''">
+	        AND a.rechargeNo=#{rechargeNo,jdbcType=VARCHAR}
+	     </if>
+		 <if test="state!=null and state!=''">
+	     AND  a.state=#{state,jdbcType=INTEGER}
+	     </if>
+		<if test="startDate!=null and startDate!=''">
+	     AND date_format(a.create_date,'%Y-%m-%d') &gt;= #{startDate,jdbcType=VARCHAR}  
+	    
+	     </if>
+	   		<if test="endDate!=null and endDate!=''">
+	      AND date_format(a.create_date,'%Y-%m-%d') &lt;= #{endDate,jdbcType=VARCHAR}
+	     </if>		
+		</where>
+		ORDER BY a.uid,a.create_date DESC
+	</select>
 	
 	<select id="findByPage" resultMap="RechargeResultMap">
 		SELECT	<include refid="base_column" />

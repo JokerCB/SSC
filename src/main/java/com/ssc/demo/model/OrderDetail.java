@@ -111,6 +111,11 @@ public class OrderDetail   implements PersistentModel{
 	 */
 	private String playedName;
 	
+	/**
+	 * 用户
+	 */
+	private String mName;
+	
 	
 
 	public String getOrderId() {
@@ -240,5 +245,14 @@ public class OrderDetail   implements PersistentModel{
 	public void setPlayedName(String playedName) {
 		this.playedName = playedName;
 	}
+
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+	
 	
 }

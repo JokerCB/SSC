@@ -31,15 +31,11 @@ jQuery("document").ready( function(){
   <table class="formTable" id="list-table" align="center" cellpadding="3" cellspacing="1">
     <tbody><tr>
       <td align="right" width="150">帐号:</td>
-      <td>sb1234a</td>
-    </tr>
-    <tr>
-      <td align="right" width="150">呢称:</td>
-      <td>ni</td>
+      <td id="mname">sb1234a</td>
     </tr>
     <tr>
       <td align="right" width="150">团队余额:</td>
-      <td colspan="3">0.0000&nbsp;&nbsp;元</td>
+      <td colspan="3" id="totalMoney">0.0000&nbsp;&nbsp;元</td>
     </tr>
     <tr>
       <td align="right" width="150">团队余额(大写):</td>
@@ -50,3 +46,19 @@ jQuery("document").ready( function(){
 
 
 </body></html>
+<script type="text/javascript">
+init();
+function init(lotteryid,groupid){
+	var rq_post={};
+	$.ajax({
+		type:"POST",
+		url:"../../members/getTotalMoney",
+		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+		success:function(data){
+			mname.innerHTML = data.mname;
+			totalMoney.innerHTML = moneyFormat(data.totalMoney);
+			$("#chineseMoney").html(changeMoneyToChinese(data.totalMoney));
+		}
+	});
+	}
+</script>

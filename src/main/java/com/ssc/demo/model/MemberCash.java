@@ -45,8 +45,6 @@ public class MemberCash implements PersistentModel {
 	@Column(name = "state")
 	private int state;
 	
-	@Column(name = "isDelete")
-	private Boolean isDelete;
 	/**
 	 * 备注字段
 	 */
@@ -105,18 +103,6 @@ public class MemberCash implements PersistentModel {
 
 	public void setState(int state) {
 		this.state = state;
-	}
-
-	public Boolean isDelete() {
-		return isDelete;
-	}
-
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
-
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
 	}
 
 	public String getInfo() {

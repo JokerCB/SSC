@@ -131,13 +131,14 @@ public class OrderController extends BaseController{
 	public  Map<String, Object> findDetailsByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
 //		Map<String, Object> paramMap = WebUtils.getParametersStartingWith(request, "sch_");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("orderId", request.getParameter("orderId"));
 		paramMap.put("mname", request.getParameter("mname"));
 		paramMap.put("issue", request.getParameter("issue"));
 		paramMap.put("starttime", request.getParameter("starttime"));
 		paramMap.put("endtime", request.getParameter("endtime"));
 		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
 		pageRequest.addDefaultOrder("orderId.desc");
-		if(paramMap.get("mname") == null || "".equals(paramMap.get("mname")))
+		if((paramMap.get("mname") == null || "".equals(paramMap.get("mname"))) && request.getParameter("all") == null)
 			paramMap.put("uid", session.getAttribute("uid"));
 		
 		pageRequest.setParameter(paramMap);
@@ -151,8 +152,14 @@ public class OrderController extends BaseController{
 			OrderDetail detail = list.get(i);
 			Order order = orderService.load(detail.getOrderId());
 			detail.setIssue(order.getLtIssueStart());
+			
 			Played played = playedService.load(detail.getPlayId());
 			detail.setPlayedName(played.getName());
+			
+			if("all".equals(request.getParameter("all"))){
+				Members m = membersService.load(order.getUid());
+				detail.setmName(m.getMname());
+			}
 			
 		}
 		pageInfo.setDataList(list);

@@ -1,6 +1,8 @@
 package com.ssc.demo.web.controller;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,12 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ssc.demo.model.Data;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.Played;
 import com.ssc.demo.service.MembersService;
 import com.ssc.demo.service.OrderService;
+import com.ssc.demo.service.PlayedService;
 import com.ssc.demo.util.IssTime;
 import com.ssc.demo.web.controller.base.AbstractController;
 
 import framework.generic.memcached.MemCache;
+import framework.generic.utils.json.JsonUtil;
 
 @Controller
 @RequestMapping("test/*")
@@ -31,6 +36,9 @@ public class TestController extends AbstractController<Members, Integer> {
 	
 	@Resource
 	OrderService orderService;
+	
+	@Resource
+	PlayedService playedService;
 	
 	@RequestMapping(value = "getData", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
@@ -73,101 +81,14 @@ public class TestController extends AbstractController<Members, Integer> {
 		return IssTime.getLeaveTime();
 	}
 
-	/*private MembersService membersService;
-
-	@Resource
-	public void setMembersService(MembersService membersService) {
-		this.membersService = membersService;
-	}
-
-	-------------------------------列表显示页面---------------------------------
-	@Override
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("ssc/members_list");
-	}
-
-	@Override
-	public DataGrid dataGrid(PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> paramMap = ServletUtil.getParametersMapStartingWith(request, "filter_");
-		pageRequest.setParameter(paramMap);
-		DataGrid dataGrid = membersService.getDatagrid(pageRequest);
-		return dataGrid;
-	}
-
-	--------------------------------添加操作-----------------------------------
-	@Override
-	public ModelAndView addFrom(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("action", "members/insert");
-		return new ModelAndView("ssc/members_edit");
-	}
-
-	@Override
-	public Json insert(Members members, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			int insertRecords = membersService.create(members);
-			if (insertRecords <= 0) {
-				return error(getMessage("msg.error.add"));
-			}
-			return success(getMessage("msg.success.add"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.add"));
-		}
-	}
-
-	--------------------------------编辑操作-----------------------------------
-	@Override
-	public ModelAndView editForm(Integer mid, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Members members = membersService.get(mid);
-		request.setAttribute("members", members);
-		request.setAttribute("action", "members/update");
-		return new ModelAndView("ssc/members_edit");
-	}
-
-	@Override
-	public Json update(Members members, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			int updatedRecords = membersService.modify(members);
-			if (updatedRecords <= 0) {
-				return error(getMessage("msg.error.add"));
-			}
-			return success(getMessage("msg.success.update"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.update"));
-		}
-	}
-
-	--------------------------------删除操作-----------------------------------
-	@Override
-	public Json deleteAll(Integer[] membersIds, HttpServletRequest request, HttpServletResponse response) {
-		try {
-			int deletedRecords = membersService.removeAll(membersIds);
-			if (deletedRecords <= 0) {
-				return error(getMessage("msg.error.delete"));
-			} 
-			return success(getMessage("msg.success.delete"));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return error(getMessage("msg.error.delete"));
-		}
-	}
-	--------------------------------查看操作-----------------------------------
-	@Override
-	public ModelAndView view(Integer mid, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("members", membersService.get(mid));
-		return new ModelAndView("ssc/members_edit");
+	@RequestMapping(value = "findByType", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String findByType(HttpSession session,HttpServletRequest request){
+		int type = Integer.parseInt(request.getParameter("type"));
+		List<Played> list = playedService.findByType(type);
+		return JsonUtil.toJson(list);
 	}
 	
-	--------------------------------验证操作-----------------------------------
-	@Override
-	public boolean validatePk(Integer mid, HttpServletRequest request, HttpServletResponse response) {
-		Members members = membersService.get(mid);
-		if (StringUtil.isNullOrEmpty(members)) {
-			return true;
-		}
-		return false;
-	}*/
 }
 
 

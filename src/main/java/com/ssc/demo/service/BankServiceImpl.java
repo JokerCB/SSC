@@ -18,6 +18,11 @@ public class BankServiceImpl implements BankService {
 	@Resource
 	private BankDao bankDao;
 	
+	@Override
+	public Bank findByPk(int id) {
+		// TODO Auto-generated method stub
+		return bankDao.findByPk(id);
+	}
 	
 	@Override
 	public List<Bank> findByIsMember() {

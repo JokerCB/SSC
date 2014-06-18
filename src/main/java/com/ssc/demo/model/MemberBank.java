@@ -1,7 +1,5 @@
 package com.ssc.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import framework.generic.annotation.Column;
 import framework.generic.annotation.Table;
 import framework.generic.model.PersistentModel;
@@ -11,31 +9,66 @@ import framework.generic.model.PersistentModel;
  */
 @Table(name = "ssc_member_bank")
 public class MemberBank implements PersistentModel {
-	
 	@Column(name = "id", pk = true, order = 0)
 	private Integer id;
+	/**
+	 * 会员ID
+	 */
 	@Column(name = "uid")
 	private Integer uid;
-	/**
-	 * 非普通用户信息
-	 */
-	@Column(name = "admin")
-	private Boolean admin;
+	
 	@Column(name = "enable")
 	private Boolean enable;
+	/**
+	 * 关联ssc_bank_list表id,支付方式
+	 */
 	@Column(name = "bankId")
 	private Integer bankid;
+	/**
+	 * 银行卡对应用户名
+	 */
 	@Column(name = "username")
 	private String username;
+	/**
+	 * 开户行省份ID，关联ssc_bas_province表FID
+	 */
+	@Column(name = "provinceId")
+	private String provinceid;
+	/**
+	 * 开户行城市ID，关联ssc_bas_city表FID;
+	 */
+	@Column(name = "cityId")
+	private String cityid;
+	/**
+	 * 银行帐号
+	 */
 	@Column(name = "account")
 	private String account;
 	/**
-	 * 充值演示图片
+	 * 开户行名称
 	 */
-	@Column(name = "rechargeDemo")
-	private String rechargedemo;
-	@Column(name = "editEnable")
-	private Boolean editenable;
+	@Column(name = "bankCardName")
+	private String bankcardname;
+	/**
+	 * 创建人
+	 */
+	@Column(name = "create_name")
+	private String createName;
+	/**
+	 * 创建时间
+	 */
+	@Column(name = "create_date")
+	private java.sql.Timestamp createDate;
+	/**
+	 * 修改人
+	 */
+	@Column(name = "modify_name")
+	private String modifyName;
+	/**
+	 * 修改时间
+	 */
+	@Column(name = "modify_date")
+	private java.sql.Timestamp modifyDate;
 	
 	public Integer getId() {
 		return this.id;
@@ -51,14 +84,6 @@ public class MemberBank implements PersistentModel {
 	
 	public void setUid(Integer uid) {
 		this.uid = uid;
-	}
-	
-	public Boolean getAdmin() {
-		return this.admin;
-	}
-	
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
 	}
 	
 	public Boolean getEnable() {
@@ -85,6 +110,22 @@ public class MemberBank implements PersistentModel {
 		this.username = username;
 	}
 	
+	public String getProvinceid() {
+		return this.provinceid;
+	}
+	
+	public void setProvinceid(String provinceid) {
+		this.provinceid = provinceid;
+	}
+	
+	public String getCityid() {
+		return this.cityid;
+	}
+	
+	public void setCityid(String cityid) {
+		this.cityid = cityid;
+	}
+	
 	public String getAccount() {
 		return this.account;
 	}
@@ -93,20 +134,43 @@ public class MemberBank implements PersistentModel {
 		this.account = account;
 	}
 	
-	public String getRechargedemo() {
-		return this.rechargedemo;
+	public String getBankcardname() {
+		return this.bankcardname;
 	}
 	
-	public void setRechargedemo(String rechargedemo) {
-		this.rechargedemo = rechargedemo;
+	public void setBankcardname(String bankcardname) {
+		this.bankcardname = bankcardname;
 	}
 	
-	public Boolean getEditenable() {
-		return this.editenable;
+	public String getCreateName() {
+		return this.createName;
 	}
 	
-	public void setEditenable(Boolean editenable) {
-		this.editenable = editenable;
+	public void setCreateName(String createName) {
+		this.createName = createName;
 	}
 	
+	public java.sql.Timestamp getCreateDate() {
+		return this.createDate;
+	}
+	
+	public void setCreateDate(java.sql.Timestamp createDate) {
+		this.createDate = createDate;
+	}
+	
+	public String getModifyName() {
+		return this.modifyName;
+	}
+	
+	public void setModifyName(String modifyName) {
+		this.modifyName = modifyName;
+	}
+	
+	public java.sql.Timestamp getModifyDate() {
+		return this.modifyDate;
+	}
+	
+	public void setModifyDate(java.sql.Timestamp modifyDate) {
+		this.modifyDate = modifyDate;
+	}
 }

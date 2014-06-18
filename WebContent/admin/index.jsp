@@ -78,49 +78,46 @@ var TIP=true;
 			<li><a class="bq yw_b_2" href="business/cashLog">提现记录</a></li>
 			<li><a class="bq yw_b_3" href="business/rechargeLog">充值记录</a></li>
 			<li><a class="bq yw_b_4" href="business/betLog">普通投注</a></li>
-			<li><a class="bq yw_b_5" href="business/znzLog">庄内庄抢庄</a></li>
 			<li><a class="bq yw_b_7" href="business/coinLog">帐变明细</a></li>
 		</ul>
 		<h3>开奖数据<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">
-			<li><a class="bq yw_b_1" href="data/index">重庆时时彩</a></li>
+			<li><a class="bq yw_b_1" href="business/index">重庆时时彩</a></li>
 		</ul>
 		<h3>数据统计<a>＋</a></h3>
+		
 		<ul class="toggle" style="display:none;">
-			<li><a href="countData/index" class="s_b_1 bq">统计概况</a></li>
-			<li><a href="countData/betDate" class="s_b_2 bq">综合统计</a></li>
+			<li><a href="business/betDate" class="s_b_2 bq">综合统计</a></li>
 		</ul>
+		 
 		<h3>用户管理<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">
-			<li><a href="member/add" class="yh_b_1 bq">增加会员</a></li>
-			<li><a href="member/index" class="yh_b_2 bq">用户列表</a></li>
-            <li><a href="member/bank" class="yh_b_4 bq">银行信息</a></li>
-            <li><a href="member/loginLog" class="yh_b_5 bq">登录日志</a></li>
-            <li><a href="member/userCountSetting" class="yh_b_5 bq">用户限额设置</a></li>
-            
+			<li><a href="business/add_member" class="yh_b_1 bq">增加会员</a></li>
+			<li><a href="business/index_member" class="yh_b_2 bq">用户列表</a></li>
+            <li><a href="business/bank_member" class="yh_b_4 bq">银行信息</a></li>
+            <li><a href="business/loginLog_member" class="yh_b_5 bq">登录日志</a></li>           
 		</ul>
+		
 		<h3>管理人员<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">
-			<li><a href="manage/index" class="g_b_1 bq">管理员列表</a></li>
-            <!---<li><a href="#" class="g_b_2 bq">增加管理员</a></li>--->
-            <li><a href="manage/controlLog" class="g_b_3 bq">操作日志</a></li>
-            <li><a href="manage/loginLog" class="g_b_4 bq">登录日志</a></li>
+			<li><a href="business/index_manage" class="g_b_1 bq">管理员列表</a></li>
+            <li><a href="business/login-list" class="g_b_4 bq">登录日志</a></li>
 		</ul>
+		 
 		<h3>系统设置<a>＋</a></h3>
 		<ul class="toggle" style="display:none;">
-			<li><a href="system/settings" class="bq t_b_4">系统设置</a></li>
-			<li><a href="system/notice" class="bq t_b_3">系统公告</a></li>
-			<li><a href="system/bank" class="bq t_b_5">银行设置</a></li>
-			<li><a href="system/type" class="bq t_b_8">彩种设置</a></li>
-			<li><a href="system/played" class="bq t_b_9">玩法设置</a></li>
-			<li><a href="member/level" class="yh_b_6 bq">等级设置</a></li>
-			<!---<li><a href="System/service" class="bq yw_b_1">客服中心</a></li>--->
+		
+			<li><a href="business/settings_sys" class="bq t_b_4">系统设置</a></li>
+			<li><a href="business/notice_sys" class="bq t_b_3">系统公告</a></li>		
+			<li><a href="business/bank_sys" class="bq t_b_5">银行设置</a></li>
+			<li><a href="business/played_sys" class="bq t_b_9">玩法设置</a></li>
+
 		</ul>
 		<footer>
 			<hr />
 			<p><strong>Copyright &copy; 平台</strong></p>
 		</footer>
-	</aside><!-- end of sidebar -->
+	</aside>
 
 	<section id="message-tip"></section>
 	<section id="main" class="column"></section>

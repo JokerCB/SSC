@@ -36,11 +36,7 @@ if($("#laybox",parent.parent.document).length){
 <!-- 增加模拟键盘 结束 -->
 
 <form action="../members/validsafepwd" method="post" name="updateform">
-<input name="flag" value="check" type="hidden">
-<input name="controller" value="security" type="hidden">
-<input name="action" value="checkpass" type="hidden">
-<input name="nextcon" value="user" type="hidden">
-<input name="nextact" value="userbankinfo" type="hidden">
+<input type="hidden" name="topage" value="${topage}"/>
             <table class="formTable" border="0" cellpadding="0" cellspacing="0" width="100%">
               <tbody><tr>
                 <th width="20%">输入提款密码：</th>

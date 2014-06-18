@@ -71,4 +71,6 @@ public interface AdminBankService {
 	
 	Integer findUnique(Integer id,String userName, Integer bankId, String account);
 	
+	public List<Map> findAdminBanks();
+	
 }

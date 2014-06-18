@@ -1,6 +1,7 @@
 package com.ssc.demo.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import framework.generic.annotation.Column;
 import framework.generic.annotation.Table;
@@ -148,7 +149,7 @@ public class Members implements PersistentModel {
 	 * 创建时间
 	 */
 	@Column(name = "create_date")
-	private java.sql.Timestamp createDate;
+	private Date createDate;
 	/**
 	 * 修改人
 	 */
@@ -158,7 +159,7 @@ public class Members implements PersistentModel {
 	 * 修改时间
 	 */
 	@Column(name = "modify_date")
-	private java.sql.Timestamp modifyDate;
+	private Date modifyDate;
 	
 	public Integer getUid() {
 		return this.uid;
@@ -374,11 +375,11 @@ public class Members implements PersistentModel {
 		this.createName = createName;
 	}
 	
-	public java.sql.Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 	
-	public void setCreateDate(java.sql.Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 	
@@ -390,11 +391,11 @@ public class Members implements PersistentModel {
 		this.modifyName = modifyName;
 	}
 	
-	public java.sql.Timestamp getModifyDate() {
+	public Date getModifyDate() {
 		return this.modifyDate;
 	}
 	
-	public void setModifyDate(java.sql.Timestamp modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 	

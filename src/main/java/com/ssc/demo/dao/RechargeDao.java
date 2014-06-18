@@ -1,5 +1,7 @@
 package com.ssc.demo.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ssc.demo.model.Recharge;
@@ -28,4 +30,6 @@ public interface RechargeDao {
 	PageList<Recharge> findByPage(Object parameters, PageBounds pageBounds);
 	
 	String selectMaxCode(@Param("startDate")String startDate,@Param("endDate")String endDate);
+	
+	PageList<Map> findRechargeLogByPage(Object parameters, PageBounds pageBounds);
 }

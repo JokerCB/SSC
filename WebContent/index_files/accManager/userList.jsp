@@ -82,7 +82,7 @@ if($("#laybox",parent.parent.document).length){
 </form>
 <script type="text/javascript">
 deskSearch();
-function deskSearch(pIndex,pTag){
+function deskSearch(pIndex,pTag,uid){
 	var obj = $(".formTable");
 	  var formDate = top.getFieldValues(obj);
 	  if ((pIndex != undefined)&&(pIndex.length>6))
@@ -99,7 +99,8 @@ function deskSearch(pIndex,pTag){
 	  }
 	 
 	  $(formDate).attr("pageIndex",pIndex);
-	
+	  if(uid != undefined)
+		  $(formDate).attr("uid",uid);
 	  $.ajax({
 		  type:"POST",
 		  url:"../../members/findByPage",
@@ -118,12 +119,11 @@ function deskSearch(pIndex,pTag){
 			        var cell3 = document.createElement("td");
 			        var cell4 = document.createElement("td");
 			        var cell5 = document.createElement("td");
-			        cell1.innerHTML = "<strong><a href='' target='mainFrame'>"+list.mname+"</a></strong>";
+			        cell1.innerHTML = "<strong><a style='cursor:pointer' target='mainFrame' onclick='deskSearch(1,undefined,"+list.uid+");'>"+list.mname+"</a></strong>";
 			        cell2.innerHTML = "一级代理";
 			        cell3.innerHTML = moneyFormat(list.mcoin);
 			        cell4.innerHTML = list.mfandian+"%"; //formatFloat(list.mfandian)+"%"
-			        cell5.innerHTML = "<a href=''>&nbsp;团队余额&nbsp;</a>"+
-			        					"<a href=''>&nbsp;下级充值&nbsp;</a>"+
+			        cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' onclick='checkTop("+list.uid+");'>&nbsp;团队余额&nbsp;</a>"+
 			        					"<a href=''>&nbsp;返点设定&nbsp;</a>";
 			        					
 			        row.appendChild(cell1);
@@ -142,6 +142,11 @@ function deskSearch(pIndex,pTag){
 		  }
 	  });
 	  SetWinHeight(parent.document.getElementById("mainFrame"));
+  }
+  
+  function checkTop(){
+	  console.log( $("#siderbar li"));
+	  $("#siderbar li")[5].click();
   }
 </script>
 

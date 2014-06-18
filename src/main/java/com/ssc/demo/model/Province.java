@@ -12,24 +12,22 @@ import framework.generic.model.PersistentModel;
 public class Province implements PersistentModel {
 	
 	@Column(name = "FID", pk = true, order = 0)
-	private String fid;
+	private String id;
 	@Column(name = "FNAME")
-	private String fname;
-	
-	public String getFid() {
-		return this.fid;
+	private String name;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
-	public void setFid(String fid) {
-		this.fid = fid;
-	}
 	
-	public String getFname() {
-		return this.fname;
-	}
-	
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
 	
 }

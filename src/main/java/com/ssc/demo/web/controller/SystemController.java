@@ -33,11 +33,6 @@ import framework.generic.utils.string.StringUtil;
 public class SystemController extends BaseController {
 	@Resource
 	private AdminBankService adminBankService;
-	@RequestMapping(value = "bank", method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView bankIndex(Model model,HttpSession session,HttpServletRequest request) throws Exception {
-		return new ModelAndView("../admin/system/bank");
-
-	}
 
 	@RequestMapping(value = "getBankList", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody

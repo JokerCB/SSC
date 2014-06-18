@@ -34,7 +34,7 @@ function cashTrue(){
 	//$('.cashFalseSM').val()=false;
 }
 </script>
-<article class="module width_full">
+<div class="module width_full">
 	<header><h3 class="tabs_involved">提现记录
 		<form action="/admin.php/business/cashLogList" class="submit_link wz" target="ajax" dataType="html" onajax="cashBeforeSubmit" call="cashLogList">
             用户：<input type="text" class="alt_btn" style="width:60px;" value="用户名" name="username"/>&nbsp;&nbsp;
@@ -43,6 +43,24 @@ function cashTrue(){
 			<input type="reset" value="重置条件">
 		</form>
     </h3></header>
-	<div class="tab_content">
-    	';$this->display("business/cash-log-list.php");;echo '    </div>
-</article>
+	<table class="tablesorter" cellspacing="0">
+		<thead>
+		    <tr>
+		        <th>UserID</th>
+		        <th>用户名</th>
+		        <th>提现金额</th>
+		        <th>银行类型</th>
+		        <th>开户姓名</th>
+		        <th>银行账号</th>
+		        <th>时间</th>
+		        <th>状态</th>
+		        <th>操作</th>
+		    </tr>
+		</thead>
+		<tbody>
+			<tr>
+			
+			</tr>
+		</tbody>
+	</table>
+</div>

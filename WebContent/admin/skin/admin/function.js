@@ -366,13 +366,14 @@ function cashLogDelete(err, data){
 
 // 弹出充值页
 function rechargModal(){
-	$.get(SCRIPT_NAME + 'business/rechargeModal', function(html){
+	$.get( '../business/rechargeModal', function(html){
 
 		$(html).dialog({
 			title:'用户充值',
 			width:340,
 			buttons:{
 				"确定充值":function(event, ui){
+					
 					var $this=$(this),
 					$userRid=$(':radio[name=user]:checked', this),
 					$uid=$('input[name=uid]', this),
@@ -390,16 +391,25 @@ function rechargModal(){
 						};
 						if(!amount.match(/^-?\d+(\.\d{0,2})?$/)) throw('充值金额错误');
 						amount=parseFloat(amount).toFixed(2);
-						//if(!isNaN(min) && min>amount) throw('充值金额不能少于'+min);
+						
 					}catch(err){
 						error(err);
 						return;
 					}
 					
-					$.ajax( SCRIPT_NAME + 'business/rechargeAction/' + uid + '/' + amount+ '/' + userRid, {
-						dataType:'json',
-						error:defaultError,
-						success:defaultSuccess
+					var rq_post={};
+					rq_post['uid']= uid;
+					rq_post['amount']= amount;
+					rq_post['userRid']= userRid;
+					$.ajax({
+						type : 'POST',
+						url : "../recharge/rechargeAction",
+						timeout : 30000,
+						data : rq_post,
+						success : function(result) {//成功
+							alert(result);
+							deskSearch();
+						}
 					});
 				},
 				

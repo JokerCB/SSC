@@ -11,6 +11,8 @@ public interface PlayedService {
 	
 	public List<Played> findAll();
 	
+	public List<Played> findByType(int type);
+	
 	public int getActionNum(int playedId, String actionData, String type);
 	
 	

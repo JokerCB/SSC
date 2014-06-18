@@ -133,6 +133,8 @@ public class AdminBankServiceImpl implements AdminBankService {
 		return adminBankDao.findUnique(id,userName, bankId, account);
 	}
 
-	
+	public List<Map> findAdminBanks(){
+		return adminBankDao.findAdminBanks();
+	}
 	
 }

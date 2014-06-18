@@ -1,8 +1,11 @@
 package com.ssc.demo.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
 
 
 
@@ -71,15 +74,6 @@ public class MemberBankServiceImpl implements MemberBankService {
 	public Integer removeAll(Integer... memberBankIds) {
 		return memberBankDao.delete(memberBankIds);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see qya.demo.service.ssc.MemberBankService#getByPk(Integer)
-	 */
-	@Override
-	public MemberBank getByPk(Integer id) {
-		return memberBankDao.findByPk(id);
-	}
 	
 	/*
 	 * (non-Javadoc)
@@ -88,5 +82,10 @@ public class MemberBankServiceImpl implements MemberBankService {
 	@Override
 	public MemberBank get(Integer id) {
 		return memberBankDao.find(id);
+	}
+	
+	@Override
+	public List<MemberBank> findByUid(Integer uid) {
+		return memberBankDao.findByUid(uid);
 	}
 }
