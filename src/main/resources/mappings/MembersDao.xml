@@ -12,6 +12,7 @@
 		<result property="msubcount" column="m_subCount" />
 		<result property="isVip" column="is_vip" />
 		<result property="mparentid" column="m_parentId" />
+		<result property="mfullparentid" column="m_fullparentId" />
 		<result property="mqq" column="m_qq" />
 		<result property="mmsn" column="m_msn" />
 		<result property="memail" column="m_email" />
@@ -45,6 +46,7 @@
 		 ,is_admin
 		 ,is_vip
 		 ,m_parentId
+		 ,m_fullparentId
 		 ,m_qq
 		 ,m_msn
 		 ,m_email
@@ -159,6 +161,7 @@
 				,is_admin
 				,is_vip
 				,m_parentId
+				,m_fullparentId
 				,m_qq
 				,m_msn
 				,m_email
@@ -188,6 +191,7 @@
 				,#{isAdmin}
 				,#{isVip}
 				,#{mparentid}
+				,#{mfullparentid}
 				,#{mqq}
 				,#{mmsn}
 				,#{memail}
@@ -231,6 +235,9 @@
 			</if>
 			<if test="mparentid != null and mparentid != ''">
 				m_parentId = #{mparentid,jdbcType=INTEGER},
+			</if>
+			<if test="mfullparentid != null and mfullparentid != ''">
+				m_fullparentId = #{mfullparentid,jdbcType=INTEGER},
 			</if>
 			<if test="mqq != null and mqq != ''">
 				m_qq = #{mqq,jdbcType=VARCHAR},
@@ -347,5 +354,18 @@
 		FROM	ssc_members
 		WHERE m_parentId = #{membersId,jdbcType=INTEGER}
 	</select>
+	
+	<select id="findMembersBankInfo" resultType="java.util.Map">
+	SELECT a.uid,a.m_name,c.name,b.account,b.username FROM ssc_members a
+	INNER JOIN ssc_member_bank b on a.uid=b.uid
+	INNER JOIN ssc_bank_list c ON b.bankId=c.id
+	<where>
+		<if test="mname != null and mname != ''">
+			AND m_name LIKE CONCAT('%',#{mname,jdbcType=VARCHAR},'%')
+		</if>
+
+	</where>
+	ORDER BY a.uid
+</select>
 	
 </mapper> 

@@ -6,15 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title></title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
-<script type="text/javascript" src="../jquery_006.js"></script>
-<script type="text/javascript" src="../jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
+<script type="text/javascript" src="../index_files/jquery_006.js"></script>
+<script type="text/javascript" src="../index_files/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
-<script type="text/javascript" src="../a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
 </head>
 
 <body>
@@ -25,7 +25,7 @@ if($("#laybox",parent.parent.document).length){
 }
 </script>
 <a name="topall"></a>
-<script type="text/javascript" src="../a_data/iepngfix_tilebg.js"></script>
+<script type="text/javascript" src="../index_files/a_data/iepngfix_tilebg.js"></script>
 
 <div class="right_02 d5d8de"> 请点击彩种查看数据</div>
 <div class="right_02 d5d8de" id="menus">
@@ -87,7 +87,7 @@ function testfunc(lotteryid,groupid){
     rq_post['type']= lotteryid;
 	$.ajax({
 		type:"POST",
-		url:"../../test/findByType",
+		url:"../test/findByType",
 		data:rq_post,
 		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
 		success:function(data){

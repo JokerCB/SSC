@@ -50,11 +50,16 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		return orderDao.load(orderId);
 	}
+	
+	@Override
+	public List<Order> findOrderByZhuiHaoId(String zhuiHaoId,int status){
+		return orderDao.findOrderByZhuiHaoId(zhuiHaoId, status);
+	}
 
 	
 	@Override
 	public int addOrder(Order order) {
-		order.setOrderId(this.buildOrderId());
+		order.setOrderId(this.buildOrderId(null));
 		orderDao.saveOrder(order);		
 		Members members = membersDao.load(order.getUid(),null,null);
 		List<OrderDetail> detailList = order.getOrderDetails();
@@ -70,7 +75,10 @@ public class OrderServiceImpl implements OrderService{
 			coinLog.setPlayedId(detail.getPlayId());
 			coinLog.setCoin(detail.getActionMoney().multiply(new BigDecimal("-1")));
 			coinLog.setUserCoin(members.getMcoin().add(coinLog.getCoin()));
-			coinLog.setLiqType(102);
+			if(order.getZhuiHao())
+				coinLog.setLiqType(101);
+			else
+				coinLog.setLiqType(102);
 			coinLog.setCreateDate(new Date());
 			coinLogDao.saveCoinLog(coinLog);			
 		}
@@ -80,10 +88,49 @@ public class OrderServiceImpl implements OrderService{
 		return 0;
 	}
 	
-	public String buildOrderId(){
+	public int addOrders(List<Order> orders){
+		for(int i=0; i<orders.size(); i++){
+			addOrder(orders.get(i));
+		}
+		return 0;
+	}
+	
+	public int cancel(Order order){
+		
+		order.setStatus(2);
+		orderDao.updateOrder(order);
+		Members members = membersDao.load(order.getUid(), null, null);
+		members.setMcoin(members.getMcoin().add(order.getLtTotalMoney()));
+		membersDao.updateMembersCoin(order.getUid(), members.getMcoin());
+		
+		CoinLog coinLog = new CoinLog();
+		coinLog.setUid(order.getUid());
+		coinLog.setOrderId(order.getOrderId());
+		coinLog.setType(order.getType());
+		coinLog.setCoin(order.getLtTotalMoney());
+		coinLog.setUserCoin(members.getMcoin());
+		coinLog.setLiqType(4);
+		coinLog.setCreateDate(new Date());
+		coinLogDao.saveCoinLog(coinLog);
+		
+		return 0;
+	}
+	
+	public int cancel(List<Order> orders){
+		for(int i=0; i<orders.size(); i++){
+			cancel(orders.get(i));
+		}
+		return 0;
+	}
+	
+	public String buildOrderId(String type){
 		String OrderId = null;
+		String maxId = null;
 		Date now = new Date();
-		String maxId = orderDao.selectMaxCode(DateUtil.formatDate(now)+" 00:00:00", DateUtil.formatDate(now)+" 23:59:59");
+		if("zhuiHao".equals(type))
+			maxId = orderDao.selectMaxZhuiHao(DateUtil.formatDate(now)+" 00:00:00", DateUtil.formatDate(now)+" 23:59:59");
+		else
+			maxId = orderDao.selectMaxCode(DateUtil.formatDate(now)+" 00:00:00", DateUtil.formatDate(now)+" 23:59:59");
 		if(maxId != null){
 			int index = Integer.parseInt(maxId.substring(8)) +1;
 			if(index<10)
@@ -99,7 +146,6 @@ public class OrderServiceImpl implements OrderService{
 		else{
 			OrderId = DateUtil.formatDate(now).replace("-", "")+"0001";
 		}
-		
 		return OrderId;
 	}
 	
@@ -298,6 +344,7 @@ public class OrderServiceImpl implements OrderService{
 				}				
 				orderDao.updateOrderDetail(detail);				
 			}
+			order.setStatus(1);
 			orderDao.updateOrder(order);
 			membersDao.updateMembersCoin(members.getUid(), members.getMcoin());
 			dataDao.updateData(data);

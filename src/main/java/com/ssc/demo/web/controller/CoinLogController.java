@@ -43,6 +43,9 @@ public class CoinLogController extends BaseController{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
 	
+		if(request.getParameter("ALL") == null){
+			paramMap.put("uid", session.getAttribute("uid"));
+		}
 		if (!StringUtil.isNullOrEmpty(request.getParameter("liqType"))) {
 			paramMap.put("liqType", request.getParameter("liqType"));
 		}
@@ -59,6 +62,49 @@ public class CoinLogController extends BaseController{
 		PageInfo pageInfo = new PageInfo();
 		pageRequest.setParameter(paramMap);
 		PageList<Map> list = coinLogService.findCoinLogByPage(pageRequest);
+		pageInfo.setDataList(list);
+		pageInfo.setPageSize(list.getPaginator().getLimit());
+		pageInfo.setPageIndex(list.getPaginator().getPage());
+		pageInfo.setPageCount(list.getPaginator().getTotalPages());
+		return ajaxDone(pageInfo);
+		
+	}
+	
+	/*-------------------------------综合报表页面---------------------------------*/
+
+	@RequestMapping(value = "findReportByPage", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public  Map<String, Object> findReportByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		pageRequest.setPageNo(Integer.parseInt(request
+				.getParameter("pageIndex")));
+		if (!StringUtil.isNullOrEmpty(request.getParameter("startDate"))) {
+			paramMap.put("startDate", request.getParameter("startDate"));
+		}
+		if (!StringUtil.isNullOrEmpty(request.getParameter("endDate"))) {
+			paramMap.put("endDate", request.getParameter("endDate"));
+		}
+		if (!StringUtil.isNullOrEmpty(request.getParameter("memberName"))) {
+			paramMap.put("memberName", request.getParameter("memberName"));
+		}
+		
+		if(request.getParameter("ALL") == null)
+			paramMap.put("uid", session.getAttribute("uid"));
+		
+		if (!StringUtil.isNullOrEmpty(request.getParameter("uid"))) {
+			paramMap.put("uid", request.getParameter("uid"));
+		}
+
+		PageInfo pageInfo = new PageInfo();
+		pageRequest.setParameter(paramMap);
+		PageList<Map> list = coinLogService.findReportByPage(pageRequest);
+		for (int i = 0; i < list.size(); i++) {
+			HashMap map = new HashMap();
+			int uid = Integer.parseInt(list.get(i).get("uid").toString());
+			int tdYK = coinLogService.getTDYK(uid);
+			list.get(i).put("TDYK", tdYK);
+
+		}
 		pageInfo.setDataList(list);
 		pageInfo.setPageSize(list.getPaginator().getLimit());
 		pageInfo.setPageIndex(list.getPaginator().getPage());

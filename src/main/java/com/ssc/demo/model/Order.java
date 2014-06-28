@@ -65,6 +65,24 @@ public class Order  implements PersistentModel{
 	private int status;
 	
 	/**
+	 * 追号编号
+	 */
+	@Column(name = "zhuiHaoId")
+	private String zhuiHaoId;
+	/**
+	 * 是否追号
+	 */
+	@Column(name = "zhuiHao")
+	private boolean zhuiHao;
+	/**
+	 * 中奖后停止追号
+	 */
+	@Column(name = "isStop")
+	private boolean isStop;
+	
+	
+	
+	/**
 	 * 
 	 */
 	@Column(name = "CREATEDATE")
@@ -151,6 +169,35 @@ public class Order  implements PersistentModel{
 
 	public void setStatus(int status) {
 		this.status = status;
+	}	
+
+	public String getZhuiHaoId() {
+		return zhuiHaoId;
+	}
+
+
+	public void setZhuiHaoId(String zhuiHaoId) {
+		this.zhuiHaoId = zhuiHaoId;
+	}
+
+
+	public boolean getZhuiHao() {
+		return zhuiHao;
+	}
+
+
+	public void setZhuiHao(boolean zhuiHao) {
+		this.zhuiHao = zhuiHao;
+	}
+
+
+	public boolean getIsStop() {
+		return isStop;
+	}
+
+
+	public void setIsStop(boolean isStop) {
+		this.isStop = isStop;
 	}
 
 

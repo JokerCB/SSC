@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>杏彩游戏平台  - 易宝支付充值 </title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
 
-<script type="text/javascript" src="../a_data/jquery_005.js"></script>
-<script type="text/javascript" src="../a_data/jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../index_files/a_data/jquery_005.js"></script>
+<script type="text/javascript" src="../index_files/a_data/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
-<script type="text/javascript" src="../a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
 </head>
 
 <body>
@@ -22,9 +22,9 @@
 <a name="topall"></a>
 <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
 <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div><!--消息框代码开始-->
-<script type="text/javascript" src="../a_data/jquery_005.js"></script>
-<script type="text/javascript" src="../jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../index_files/a_data/jquery_005.js"></script>
+<script type="text/javascript" src="../index_files/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
 <!--消息框代码结束-->
 
@@ -63,7 +63,7 @@
               <tbody>
               <tr>
                 <th width="20%">充值银行：</th>
-                <td><a id="bankHome" href="https://mybank.icbc.com.cn/" target="_blank"><img id="bankLogo" alt="" src="../../images/bank-icons/bank-gh.jpg" ></a></td>
+                <td><a id="bankHome" href="https://mybank.icbc.com.cn/" target="_blank"><img id="bankLogo" alt="" src="../images/bank-icons/bank-gh.jpg" ></a></td>
               </tr>
               
               <tr>
@@ -117,7 +117,7 @@ function init(){
 
 	$.ajax({
 		type:"POST",
-		url:"../../recharge/findAdminBanks",
+		url:"../recharge/findAdminBanks",
 		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
 		success:function(data){
 			var arr = data.list;
@@ -146,11 +146,10 @@ function goNext(){
     rq_post['banklistId']=$("#bank").val();
 	$.ajax({
 		type:"POST",
-		url:"../../recharge/save",
+		url:"../recharge/save",
 		data:rq_post,
 		contentType:"application/x-www-form-urlencoded;charset=UTF-8",
 		success:function(data){
-			console.log(data);
 			rechargeNo.innerHTML = data;			
 		}
 	});
@@ -161,7 +160,7 @@ function goNext(){
 	drawform.style.display = "none";
 	bankDiv.style.display = "block";
 	//bankName.innerHTML = bank.options[index].text;
-	bankLogo.src = "../"+$(bank.options[index]).attr("logo");
+	bankLogo.src = $(bank.options[index]).attr("logo");
 	bankHome.href = $(bank.options[index]).attr("home");
 	username.innerHTML = $(bank.options[index]).attr("username");
 	bankNum.innerHTML = $(bank.options[index]).attr("account");
@@ -190,6 +189,19 @@ function checkMoney(obj){
 function checkNum(num){
 	return (/^[0-9]+(.[0-9]{1,2})?$/.test(num));
 }
+
+var copyCode = function (id) {
+
+	try {
+		var clipBoardContent = jQuery("#" + id).html();
+		window.clipboardData.setData("Text", clipBoardContent);
+		var title = jQuery("#" + id).html();
+
+		alert("【" + title + "】复制成功!");
+	} catch (e) {
+		alert('您的firefox安全限制限制您进行剪贴板操作，请打开’about:config’将signed.applets.codebase_principal_support’设置为true’之后重试！');
+	}
+};
 </script>
    
  

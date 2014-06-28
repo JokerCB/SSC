@@ -9,8 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.ssc.demo.service.CoinLogService;
+
+import com.ssc.demo.model.Members;
+import com.ssc.demo.service.MembersService;
 import com.ssc.demo.web.controller.base.BaseController;
+
+import framework.generic.utils.date.DateUtil;
 
 
 /**
@@ -22,6 +26,9 @@ import com.ssc.demo.web.controller.base.BaseController;
 @RequestMapping("business/*")
 public class BusinessController extends BaseController{
 
+	@Resource
+	MembersService membersService;
+	
 	/**********************业务流水****************************/
 	
 	@RequestMapping(value = "cash", method = { RequestMethod.POST, RequestMethod.GET })
@@ -96,6 +103,31 @@ public class BusinessController extends BaseController{
 			return new ModelAndView("../admin/members/list-user");
 
 		}
+	//编辑用户
+	@RequestMapping(value = "memberModal", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView memberModal(Model model,HttpSession session,HttpServletRequest request) throws Exception {
+		String uid = request.getParameter("uid");
+		Members member = membersService.load(Integer.parseInt(uid));
+		model.addAttribute("uid", uid);
+		model.addAttribute("mname", member.getMname());
+		model.addAttribute("fanDian", member.getMfandian());
+		model.addAttribute("fanDianBdw", member.getMfandianbdw());
+		
+		model.addAttribute("fanDianMax", member.getMfandian());
+		model.addAttribute("fanDianBdwMax", member.getMfandianbdw());
+		
+		model.addAttribute("createDate", DateUtil.format(member.getCreateDate()));
+		
+		int parentId = member.getMparentid();
+		if(parentId >0){
+			Members parent = membersService.load(parentId);
+			model.addAttribute("parent", parent.getMname());
+			model.addAttribute("fanDianMax", parent.getMfandian());
+			model.addAttribute("fanDianBdwMax", parent.getMfandianbdw());
+		}
+		return new ModelAndView("../admin/members/update-modal");
+
+	}
 	
 	//银行信息
 	@RequestMapping(value = "bank_member", method = { RequestMethod.POST, RequestMethod.GET })
@@ -138,6 +170,12 @@ public class BusinessController extends BaseController{
 	@RequestMapping(value = "notice_sys", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView notice_sys(Model model,HttpSession session,HttpServletRequest request) throws Exception {
 		return new ModelAndView("../admin/system/notice");
+
+	}
+	//添加公告
+	@RequestMapping(value = "noticeModal", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView noticeModal(Model model,HttpSession session,HttpServletRequest request) throws Exception {
+		return new ModelAndView("../admin/system/notice-modal");
 
 	}
 	//银行设置

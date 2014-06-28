@@ -3,31 +3,59 @@
 	<header>
 		<h3 class="tabs_involved">玩法设置
 			<ul class="tabs" style="margin-right:25px;">
-			<li><a href="system/played/';echo $key;echo '"></a></li>
+			<li><a style="cursor: pointer;" onclick="click();">重庆时时彩</a></li>
+			<li><a style="cursor: pointer;" onclick="click();">福彩3D</a></li>
 			</ul>
 		</h3>
 	</header>
-	<table class="tablesorter" cellspacing="0">
-		<thead>
-			<tr>
-				<th colspan="5" style="text-align:left;">
-					<span style="float:right; margin-right:20px"><a href="/admin.php/system/switchPlayedGroupStatus/';echo $group['id'];echo '" target="ajax" call="reloadPlayed">';echo $this->iff($group['enable'],'关闭','开启');echo '</a></span>
-					';echo $group['groupName'];echo '&nbsp;&nbsp;&nbsp;&nbsp;
-					<span class="spn1">[状态：<span class="state1">';echo $this->iff($group['enable'],'开启','关闭');echo '</span>]</span>
-				</th>
-			</tr>
-		</thead>
+	<table id="formTab" class="tablesorter" cellspacing="0">
+
 		<tbody>
 		<tr>
-				<td width="15%"></td>
-				<td width="25%">最高奖金：<input type="text" name="bonusProp" value="';echo $played['bonusProp'];echo '"></td>
-				<td width="25%">最低奖金：<input type="text" name="bonusPropBase" value="';echo $played['bonusPropBase'];echo '"></td>
-				<td width="15%"><span class="state2">';echo $this->iff($played['enable'],'开启','关闭');echo '</span></td>
-				<td><a href="/admin.php/system/switchPlayedStatus/';echo $played['id'];echo '" target="ajax" call="reloadPlayed">';echo $this->iff($played['enable'],'关闭','开启');echo '</a> | <a href="/admin.php/system/updatePlayed/';echo $played['id'];echo '" target="ajax" method="post" onajax="sysBeforeUpdatePlayed" call="reloadPlayed">保存修改</a></td>
-			</tr>
-		<tr>
-				<td colspan="5">暂时没有玩法</td>
-			</tr>
+			<td width="15%"></td>
+			<td width="25%">最高奖金：<input type="text" name="bonusProp" value=""></td>
+			<td width="25%">最低奖金：<input type="text" name="bonusPropBase" value=""></td>
+			<td> <a href="" target="ajax" method="post" onajax="sysBeforeUpdatePlayed" call="reloadPlayed">保存修改</a></td>
+		</tr>
+
 		</tbody>
 	</table>
-	</div>
+</div>
+<script type="text/javascript">
+	init();
+	function init(){
+		var formTab = document.getElementById("formTab");
+		  while(formTab.rows.length>1)
+			  formTab.deleteRow(0);
+		 $.ajax({
+			  type:"POST",
+			  url:"../played/getPlayedList",
+			  contentType:"application/x-www-form-urlencoded",
+			  success:function(data){		
+				       for(var i=0;i<data.length;i++){
+				        var list=data[i];
+				        var row = formTab.insertRow(formTab.rows.length-1);
+				        var cell1 = document.createElement("td");
+				        var cell2 = document.createElement("td");
+				        var cell3 = document.createElement("td");
+				        var cell4 = document.createElement("td");
+				       
+				        cell1.innerHTML = list.name;
+				        cell2.innerHTML = "最高奖金：<input type='text' name='bonusProp' value='"+list.bonusPropMax+"''>";
+				        cell3.innerHTML = "最低奖金：<input type='text' name='bonusProp' value='"+list.bonusPropMin+"''>";
+				        cell4.innerHTML =  "<a style='cursor: pointer;' onclick='click();' >保存修改</a>";
+				       
+				        
+				        					
+				        row.appendChild(cell1);
+				        row.appendChild(cell2);
+				        row.appendChild(cell3);
+				        row.appendChild(cell4);
+				       
+
+				       
+				      }
+				    }
+		  });
+	}
+</script>

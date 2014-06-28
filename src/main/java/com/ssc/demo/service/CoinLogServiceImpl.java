@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssc.demo.dao.CoinLogDao;
 import com.ssc.demo.web.ui.PageRequest;
 
+import framework.generic.paginator.domain.PageBounds;
 import framework.generic.paginator.domain.PageList;
 @Service("coinLogService")
 public class CoinLogServiceImpl implements CoinLogService {
@@ -22,5 +23,18 @@ public class CoinLogServiceImpl implements CoinLogService {
 		PageList<Map> coinLogMap=coinLogDao.findCoinLogByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
 		return coinLogMap;
 	}
+	
+	@Override
+	public PageList<Map> findReportByPage(PageRequest pageRequest) {
+		PageList<Map> coinLogMap=coinLogDao.findReportByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
+		return coinLogMap;
+	}
+
+	@Override
+	public Integer getTDYK(int uid) {
+		
+		return coinLogDao.getTDYK(uid);
+	}
+
 
 }

@@ -11,14 +11,16 @@ public class OnlineListener implements HttpSessionListener
 {
 	public void sessionCreated(HttpSessionEvent event)
 	{
+		System.out.println("sessionCreated");
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event)
 	{
+		System.out.println("sessionDestroyed");
 		HttpSession session = event.getSession();
 		String corpid = (String)session.getAttribute("CORPID");
 		String userid = (String)session.getAttribute("USERID");
-		OnlineUser.logout(corpid, userid, session.getId());
+		//OnlineUser.logout(corpid, userid, session.getId());
 
 	}
 }

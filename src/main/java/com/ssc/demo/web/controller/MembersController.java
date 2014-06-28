@@ -20,14 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssc.demo.model.Bank;
-import com.ssc.demo.model.City;
 import com.ssc.demo.model.MemberBank;
 import com.ssc.demo.model.MemberCash;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.Played;
 import com.ssc.demo.service.BankService;
 import com.ssc.demo.service.MemberBankService;
 import com.ssc.demo.service.MemberCashService;
 import com.ssc.demo.service.MembersService;
+import com.ssc.demo.service.PlayedService;
 import com.ssc.demo.web.controller.base.BaseController;
 import com.ssc.demo.web.ui.PageRequest;
 import com.ssc.demo.web.util.PropertiesUtil;
@@ -35,6 +36,7 @@ import com.ssc.demo.web.util.PropertiesUtil;
 import framework.generic.memcached.MemCache;
 import framework.generic.page.PageInfo;
 import framework.generic.paginator.domain.PageList;
+import framework.generic.utils.json.JsonUtil;
 import framework.generic.utils.security.MD5;
 import framework.generic.utils.string.StringUtil;
 
@@ -53,6 +55,8 @@ public class MembersController extends BaseController {
 	private BankService bankService;
 	
 	private MemberCashService memberCashService;
+	
+	private PlayedService playedService;
 
 	@Resource
 	MemCache memCache;
@@ -75,6 +79,11 @@ public class MembersController extends BaseController {
 	public void setMemberCashService(MemberCashService memberCashService) {
 		this.memberCashService = memberCashService;
 	}
+	
+	@Resource
+	public void setPlayedService(PlayedService playedService) {
+		this.playedService = playedService;
+	}
 
 	/*-------------------------------列表显示页面---------------------------------*/
 	@RequestMapping(value = "findByPage", method = { RequestMethod.POST, RequestMethod.GET })
@@ -82,10 +91,20 @@ public class MembersController extends BaseController {
 	public Map<String, Object> findByPage(HttpSession session, PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
-		if (request.getParameter("mname") != null && request.getParameter("mname") != "")
-			paramMap.put("mname", request.getParameter("mname"));
-		else
-			paramMap.put("mparentid", session.getAttribute("uid"));
+		//前端查询
+		if(request.getParameter("ALL") == null)
+		{
+			if (request.getParameter("mname") != null && request.getParameter("mname") != "")
+				paramMap.put("mname", request.getParameter("mname"));
+			else
+				paramMap.put("mparentid", session.getAttribute("uid"));			
+			
+		}
+		//后台查询
+		else{
+			if (request.getParameter("mname") != null && request.getParameter("mname") != "")
+				paramMap.put("mname", request.getParameter("mname"));
+		}
 		
 		if (request.getParameter("uid") != null)
 			paramMap.put("mparentid", request.getParameter("uid"));
@@ -100,17 +119,27 @@ public class MembersController extends BaseController {
 
 	}
 
+	@RequestMapping(value = "userList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView userList(Model model, HttpServletRequest request) {
+		return new ModelAndView("../index_files/accManager/userList");
+	}
+	
+	/**
+	 *前端添加会员
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "addUser", method = { RequestMethod.POST, RequestMethod.GET })
-	@ResponseBody
-	public String addUser(HttpSession session, HttpServletRequest request) {
+	public ModelAndView addUser(Model model, HttpSession session, HttpServletRequest request) {
 
 		Members members = new Members();
 		String mname = request.getParameter("mname");
 		Members existMembers = membersService.load(mname);
-		String msg = "注册成功!";
 		if (existMembers != null) {
-			msg = "此用户名已存在!";
-			return "{'sMsg':'" + msg + "'}";
+			model.addAttribute("noticeWord", "此用户名已存在!");
+			return new ModelAndView("../index_files/accManager/error");
 		}
 		BigDecimal mfandian = new BigDecimal(request.getParameter("mfandian"));
 		BigDecimal mfandianbdw = new BigDecimal(request.getParameter("mfandianbdw"));
@@ -123,6 +152,7 @@ public class MembersController extends BaseController {
 		members.setMfandian(mfandian);
 		members.setMfandianbdw(mfandianbdw);
 		members.setMparentid(mparentid);
+		members.setMfullparentid(pM.getMfullparentid()+"," +mparentid);
 		members.setMtype(mtype);
 		members.setMpassword(MD5.getPasswordMD5("123456"));
 		members.setMcoin(new BigDecimal("0"));
@@ -134,7 +164,88 @@ public class MembersController extends BaseController {
 		members.setModifyDate(new Date());
 		membersService.addMembers(members);
 
-		return "{'sMsg':'" + msg + "'}";
+		model.addAttribute("noticeHref", "../members/userList");
+		model.addAttribute("noticeButton", "返回");
+		return new ModelAndView("../index_files/accManager/success");
+	}
+	/**
+	 *后台添加会员
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "addMembers", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String addMembers(Model model, HttpSession session, HttpServletRequest request) {
+
+		Members members = new Members();
+		String mname = request.getParameter("username");
+		Members existMembers = membersService.load(mname);
+		if (existMembers != null) {
+			return "{'err':'此用户名已存在!'}";
+		}
+		BigDecimal mfandian = new BigDecimal(request.getParameter("fanDian"));
+		BigDecimal mfandianbdw = new BigDecimal(request.getParameter("fanDianBdw"));
+		int mparentid = Integer.parseInt(session.getAttribute("uid").toString());
+		boolean mtype = "1".equals(request.getParameter("type")) ? true : false;
+		Members pM = (Members) memCache.getMc().get(mparentid + "_object");
+		members.setMgrade(pM.getMgrade() + 1);
+		members.setMname(mname);
+		members.setMfandian(mfandian);
+		members.setMfandianbdw(mfandianbdw);
+		members.setMtype(mtype);
+		members.setMparentid(mparentid);
+		members.setMfullparentid(pM.getMfullparentid()+"," +mparentid);
+		members.setMpassword(MD5.getPasswordMD5(request.getParameter("password")));
+		members.setMcoin(new BigDecimal("0"));
+		members.setMfcoin(new BigDecimal("0"));		
+		members.setIsAdmin(false);
+		members.setCreateName(session.getAttribute("mname").toString());
+		members.setCreateDate(new Date());
+		members.setModifyDate(new Date());
+		membersService.addMembers(members);
+
+		return "{'success':'添加用户成功!'}";
+	}
+	
+	/**
+	 *后台修改会员
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "memberUpdate", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String memberUpdate(Model model, HttpSession session, HttpServletRequest request) {
+		int uid = Integer.parseInt(request.getParameter("uid"));
+		Members members = membersService.load(uid);
+		BigDecimal mfandian = new BigDecimal(request.getParameter("fanDian"));
+		BigDecimal mfandianbdw = new BigDecimal(request.getParameter("fanDianBdw"));
+		members.setMfandian(mfandian);
+		members.setMfandianbdw(mfandianbdw);
+		members.setMpassword(MD5.getPasswordMD5(request.getParameter("password")));
+		members.setMsafepwd(MD5.getPasswordMD5(request.getParameter("coinPassword")));
+		members.setCreateName(session.getAttribute("mname").toString());
+		members.setModifyDate(new Date());
+		membersService.modify(members);
+		return null;
+	}
+	
+	/**
+	 *后台删除会员
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "delMember", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public String delMember(Model model, HttpSession session, HttpServletRequest request) {
+		int uid = Integer.parseInt(request.getParameter("uid"));
+		membersService.remove(uid);
+		return null;
 	}
 
 	/**
@@ -369,14 +480,173 @@ public class MembersController extends BaseController {
 	@ResponseBody
 	public Map<String, Object> getTotalMoney(HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		
+		Members members = null;
 		String mname = (String) session.getAttribute("mname");
-		Members members = membersService.load(mname);
+		String uid = request.getParameter("uid");
+		if (!StringUtil.isNullOrEmpty(uid)) {
+			members = membersService.load(Integer.parseInt(uid));
+		} else{
+			members = membersService.load(mname);
+		}
 		BigDecimal toatlM = membersService.getTotalMoney(members.getUid()+"", members.getMcoin());
 		
 		Map map = new HashMap();
 		map.put("totalMoney", toatlM);
-		map.put("mname", mname);
+		map.put("mname", members.getMname());
 		
 		return map;
+	}
+	
+	/*-------------------------------会员银行信息列表显示页面---------------------------------*/
+	@RequestMapping(value = "findMembersBankInfo", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public Map<String, Object> findMembersBankInfo(HttpSession session, PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
+		
+		if (!StringUtil.isNullOrEmpty(request.getParameter("mname"))) {
+			paramMap.put("mname", request.getParameter("mname"));
+		}
+		
+		PageInfo pageInfo = new PageInfo();
+		pageRequest.setParameter(paramMap);
+		PageList<Map> list = membersService.findMembersBankInfo(pageRequest);
+		pageInfo.setDataList(list);
+		pageInfo.setPageSize(list.getPaginator().getLimit());
+		pageInfo.setPageIndex(list.getPaginator().getPage());
+		pageInfo.setPageCount(list.getPaginator().getTotalPages());
+		return ajaxDone(pageInfo);
+
+	}
+	
+	/**
+	 * 进入帐变记录页面
+	 * @param model
+	 */
+	@RequestMapping(value = "coinLog", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView coinLog(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/coinLog");
+	}
+	
+	/**
+	 * 进入查询余额页面
+	 * @param model
+	 */
+	@RequestMapping(value = "coinSum", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView coinSum(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/coinSum");
+	}
+	
+	/**
+	 * 进入返点总额页面
+	 * @param model
+	 */
+	@RequestMapping(value = "fandianSum", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView fandianSum(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/fandianSum");
+	}
+
+	/**
+	 * 进入消息管理页面
+	 * @param model
+	 */
+	@RequestMapping(value = "messageList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView messageList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/messageList");
+	}
+
+	/**
+	 * 进入修改密码页面
+	 * @param model
+	 */
+	@RequestMapping(value = "modifyPassword", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView modifyPassword(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/modifyPassword");
+	}
+
+	/**
+	 * 进入购彩查询 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "orderList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView orderList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		List<Played> list = playedService.findByType(1);
+		List l = new ArrayList();
+		for(int i=0; i<list.size(); i++){
+			Map pm = new HashMap();
+			pm.put("methodid", list.get(i).getId());
+			pm.put("methodname", list.get(i).getName());
+			l.add(pm);
+		}
+		Map map = new HashMap();
+		map.put("1", l);
+		String json = JsonUtil.toJson(map);
+		model.addAttribute("data_method", json);
+		return new ModelAndView("../index_files/accManager/orderList");
+	}
+
+	/**
+	 * 进入完善资料 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "prefectData", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView prefectData(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/prefectData");
+	}
+
+	/**
+	 * 进入易宝支付充值 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "recharge", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView recharge(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/recharge");
+	}
+
+	/**
+	 * 进入报表查询 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "reportList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView reportList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/reportList");
+	}
+
+	/**
+	 * 进入我的团队 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "teamSum", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView teamSum(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		String uid = request.getParameter("uid");
+		model.addAttribute("uid", uid);
+		return new ModelAndView("../index_files/accManager/teamSum");
+	}
+
+	/**
+	 * 进入彩种信息 页面
+	 * @param model
+	 */
+	@RequestMapping(value = "typeList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView typeList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/typeList");
+	}
+
+	/**
+	 * 进入充提记录页面
+	 * @param model
+	 */
+	@RequestMapping(value = "updownList", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView updownList(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/updownList");
+	}
+
+	/**
+	 * 进入增加用户页面
+	 * @param model
+	 */
+	@RequestMapping(value = "userAdd", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView userAdd(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		return new ModelAndView("../index_files/accManager/userAdd");
 	}
 }

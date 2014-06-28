@@ -1,8 +1,11 @@
 package com.ssc.demo.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ssc.demo.model.MemberCash;
+
 import framework.generic.paginator.domain.PageBounds;
 import framework.generic.paginator.domain.PageList;
 
@@ -35,4 +38,7 @@ public interface MemberCashDao{
 	 * @return
 	 */
 	int getCountToday(@Param("uid") String uid, @Param("startDate")String startDate,@Param("endDate")String endDate);
+	
+	
+	PageList<Map> findCashByPage(Object parameters, PageBounds pageBounds);
 }

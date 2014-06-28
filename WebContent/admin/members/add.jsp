@@ -3,7 +3,7 @@
 <header><h3 class="tabs_involved">新增会员</h3></header>
 <table>
 <tr><td width="360">
-	<form action="/admin.php/member/added" method="post" target="ajax" onajax="beforeAddMember" call="addMember">
+	<form action="../members/addMembers" method="post" target="ajax" onajax="beforeAddMember" call="addMember">
 		<table class="tablesorter table2" cellspacing="0" width="100%">
 			<tr>
 				<td><span class="aq-txt">账号类型：</span></td>
@@ -28,21 +28,13 @@
 				<td><span class="aq-txt">联系 Q Q：</span></td>
 				<td><input type="text" name="qq" class="t-c" value="" /></td>
 			</tr>
-			<!--<tr>
-				<td><span class="aq-txt">人数配额：</span></td>
-				<td><input type="text" name="subCount" class="t-c" value="" /></td>
-			
-			<tr>
-				<td><span class="aq-txt">账号类型：</span></td>
-				<td><label><input type="radio" value="" checked="checked" />自由调节</label></td>
-			</tr></tr>-->
 			<tr>
 				<td><span class="aq-txt">返点%：</span></td>
-				<td><input type="text" name="fanDian" class="t-c" value="" max="';echo $this->settings['fanDianMax'];echo '" fanDianDiff=';echo $this->settings['fanDianDiff'];echo '/></td>
+				<td><input type="text" name="fanDian" class="t-c" value="" max=""/></td>
 			</tr>
 			<tr>
 				<td><span class="aq-txt">不定位返点%：</span></td>
-				<td><input type="text" name="fanDianBdw" max="';echo $this->settings['fanDianBdwMax'];echo '" class="t-c" value="" /></td>
+				<td><input type="text" name="fanDianBdw" max="" class="t-c" value="" /></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -73,3 +65,10 @@
 </tr>
 </table>
 </div>
+<script type="text/javascript">
+var fanDian = top.fanDian;
+var fanDianBdw = top.fanDianBdw;
+
+$("input[name=fanDian]").attr("max",fanDian);
+$("input[name=fanDianBdw]").attr("max",fanDianBdw);
+</script>

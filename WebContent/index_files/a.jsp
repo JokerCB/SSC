@@ -1567,10 +1567,10 @@ $(function(){
 		          	</span>
 	          	</span> &nbsp;&nbsp;&nbsp;&nbsp;
 
-	            <label style="display: none;">     
+	            <label>     
 	            <input name="lt_trace_if" id="lt_trace_if_button" value="no" type="checkbox">
 	            <span class="red">发起追号</span></label>
-	            <label  style="display: none;">
+	            <label>
 	            <input name="lt_trace_stop" value="yes" id="lt_trace_stop" disabled="disabled" type="checkbox">
 	            <span class="red">中奖后停止追号</span></label>
   
@@ -1597,7 +1597,10 @@ $(function(){
               总期数： <span class="red" id="lt_trace_count">0</span> 期 	追号总金额： <span class="red" id="lt_trace_hmoney">0.00</span> 元
             </p><p>
               <!--<p>追号计划： 起始倍数 <input name="" type="text" value="1" size="3" /> 最低收益率  <input name="" type="text" value="50" size="3" />% 追号期数: <input name="" type="text" value="10" size="3" /></p>-->
-              <span id="lt_trace_labelhtml"><span id="lt_margin_html">起始倍数&nbsp;<input size="3" class="input02" name="lt_trace_times_margin" id="lt_trace_times_margin" value="1" type="text">&nbsp;最低收益率&nbsp;<input size="3" class="input02" name="lt_trace_margin" id="lt_trace_margin" value="50" type="text">&nbsp;%&nbsp;</span><span id="lt_sametime_html" style="display:none;">起始倍数&nbsp;<input size="3" name="lt_trace_times_same" class="input022" id="lt_trace_times_same" value="1" type="text"></span><span id="lt_difftime_html" style="display:none;">隔&nbsp;<input size="3" name="lt_trace_diff" value="1" class="input02" id="lt_trace_diff" type="text">&nbsp;期　倍× <input size="3" name="lt_trace_times_diff" id="lt_trace_times_diff" value="2" class="input02" type="text"></span>追号期数:&nbsp;<input size="3" name="lt_trace_count_input" id="lt_trace_count_input" style="width:24px" value="10" type="text"><input size="3" id="lt_trace_money" name="lt_trace_money" value="0" type="hidden"></span> <span class="red" id="lt_trace_alcount" style="display:none;">120</span>
+              <span id="lt_trace_labelhtml">
+              	<span id="lt_margin_html">起始倍数&nbsp;<input size="3" class="input02" name="lt_trace_times_margin" id="lt_trace_times_margin" value="1" type="text">&nbsp;最低收益率&nbsp;<input size="3" class="input02" name="lt_trace_margin" id="lt_trace_margin" value="50" type="text">&nbsp;%&nbsp;</span><span id="lt_sametime_html" style="display:none;">起始倍数&nbsp;<input size="3" name="lt_trace_times_same" class="input022" id="lt_trace_times_same" value="1" type="text"></span><span id="lt_difftime_html" style="display:none;">隔&nbsp;<input size="3" name="lt_trace_diff" value="1" class="input02" id="lt_trace_diff" type="text">&nbsp;期　倍× <input size="3" name="lt_trace_times_diff" id="lt_trace_times_diff" value="2" class="input02" type="text"></span>追号期数:&nbsp;<input size="3" name="lt_trace_count_input" id="lt_trace_count_input" style="width:24px" value="10" type="text"><input size="3" id="lt_trace_money" name="lt_trace_money" value="0" type="hidden">
+              </span>
+              <span class="red" id="lt_trace_alcount" style="display:none;">120</span>
               <input name="" value="生成" class="formSC" id="lt_trace_ok" type="button">
           </p></div>
         </div>
@@ -1611,8 +1614,8 @@ $(function(){
     
      
  <div id="footer">
-    	<p>桌面最佳分辨率为(1366×768)，浏览器请使用IE7.0以上或务必使用谷歌Chrome或者火狐Firefox以达到最佳游戏效果</p>
-        <p>Copyright©2012-2013 SinCai 版权所有 杏彩娱乐 <a href="http://www.luckyssc.net/?controller=about">关于我们</a></p>
+    	<p>桌面最佳分辨率为(1366×768)，浏览器请使用IE9.0以上或务必使用谷歌Chrome或者火狐Firefox以达到最佳游戏效果</p>
+        <p>Copyright©2012-2014 SinCai 版权所有 好彩娱乐 <a href="http://www.baidu.com">关于我们</a></p>
         <!-- <div id="quickLink"> <a target=_blank href="#" onclick="" class="online">在线客服</a> | <a href="">常见问题</a> | <a href="">玩法介绍</a></div>
        <!-- <div id="quickLinkDark">在线客服 | 常见问题 | 玩法介绍</div>-->
  </div>

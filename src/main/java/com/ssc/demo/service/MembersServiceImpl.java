@@ -2,14 +2,18 @@ package com.ssc.demo.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.ssc.demo.dao.AreaDao;
+import com.ssc.demo.dao.CoinLogDao;
 import com.ssc.demo.dao.MembersDao;
+import com.ssc.demo.dao.OrderDao;
 import com.ssc.demo.model.City;
+import com.ssc.demo.model.CoinLog;
 import com.ssc.demo.model.Members;
 import com.ssc.demo.model.Province;
 import com.ssc.demo.web.ui.PageRequest;
@@ -23,7 +27,13 @@ public class MembersServiceImpl implements MembersService {
 	
 	private AreaDao areaDao;
 	
+	private OrderDao orderDao;
+	
+	private CoinLogDao coinLogDao;
+	
 	private static BigDecimal money;
+	
+	private static String childIds;
 	
 	@Resource
 	public void setMembersDao(MembersDao membersDao) {
@@ -35,7 +45,15 @@ public class MembersServiceImpl implements MembersService {
 		this.areaDao = areaDao;
 	}
 
+	@Resource
+	public void setOrderDao(OrderDao orderDao) {
+		this.orderDao = orderDao;
+	}
 
+	@Resource
+	public void setCoinLogDao(CoinLogDao coinLogDao) {
+		this.coinLogDao = coinLogDao;
+	}
 
 	public Members load(Integer uid){
 		return membersDao.load(uid,null,null);
@@ -63,6 +81,17 @@ public class MembersServiceImpl implements MembersService {
 		this.updateTotalMoney(membersId, this.money);
 		return this.money;
 	}
+	/**
+	 * 获取团队所有下线ID
+	 * @param membersId
+	 * @param childIds
+	 * @return
+	 */
+	public String getAllChildIds(String membersId,String childIds){
+		this.childIds = childIds;
+		this.setChildsIds(membersId, this.childIds);
+		return this.childIds;
+	}
 	
 
 	@Override
@@ -79,6 +108,11 @@ public class MembersServiceImpl implements MembersService {
 
 	@Override
 	public Integer remove(Integer uid) {
+		List<CoinLog> coins = coinLogDao.findByUid(uid);
+		String[] ids = new String[coins.size()];
+		for(int i=0; i<coins.size(); i++)
+			ids[i] = coins.get(i).getId()+"";
+		coinLogDao.deleteAll(ids);
 		return membersDao.deleteByPk(uid);
 	}
 	
@@ -106,5 +140,21 @@ public class MembersServiceImpl implements MembersService {
 			updateTotalMoney(child.getUid()+"",this.money);
 		}
 	}
+	
+	private void setChildsIds(String membersId,String childIds){
+		List<Members> childs = membersDao.findChilds(membersId);
+		for(int i=0; i<childs.size(); i++){
+			Members child = childs.get(i);
+			this.childIds = this.childIds + child.getUid();
+			setChildsIds(child.getUid()+"",this.childIds);
+		}
+	}
+
+	@Override
+	public PageList<Map> findMembersBankInfo(PageRequest pageRequest) {
+		PageList<Map> membersBankInfoMap=membersDao.findMembersBankInfo(pageRequest.getParameter(), pageRequest.getPageBounds());
+		return membersBankInfoMap;
+	}
+
 	
 }

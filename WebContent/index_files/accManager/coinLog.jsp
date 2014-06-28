@@ -5,18 +5,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>杏彩游戏平台  - 游戏账变 </title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
 
-<script type="text/javascript" src="../a_data/jquery_005.js"></script>
-<script type="text/javascript" src="../jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../index_files/a_data/jquery_005.js"></script>
+<script type="text/javascript" src="../index_files/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
-<script type="text/javascript" src="../a_data/iframe.js"></script>
-<script type="text/javascript" src="../a_data/main.js"></script>
-<script type="text/javascript" src="../a_data/page.js"></script>
+<script type="text/javascript" src="../index_files/a_data/iframe.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/page.js"></script>
 </head>
 
 <body>
@@ -29,9 +29,9 @@ if($("#laybox",parent.parent.document).length){
 <a name="topall"></a>
 <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
 <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div>
-<script type="text/javascript" src="../a_data/jquery_004.js"></script>
-<script type="text/javascript" src="../a_data/calendar-utf8.js"></script>
-<link rel="stylesheet" type="text/css" media="all" href="../a_data/calendar-win2k-cold-1.css">
+<script type="text/javascript" src="../index_files/a_data/jquery_004.js"></script>
+<script type="text/javascript" src="../index_files/a_data/calendar-utf8.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../index_files/a_data/calendar-win2k-cold-1.css">
 <script>
 function show_no(id)
 {
@@ -149,10 +149,10 @@ jQuery(document).ready(function() {
                 <th width="20%">时间：</th>
                 <td>
 				                <input value="" style="width:150px;" name="starttime" id="starttime" class="input_02" type="text">
-                <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
+                <img style="cursor:pointer" src="../index_files/a_data/icon_06.jpg" height="17" width="20">
                 至：
                 <input value="" style="width:150px;" id="endtime" name="endtime" class="input_02" type="text">
-                <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
+                <img style="cursor:pointer" src="../index_files/a_data/icon_06.jpg" height="17" width="20">
 								
                  <select name="recentproject" id="recentproject">
 					<option selected="selected" value="0">往期报表</option>
@@ -256,7 +256,7 @@ function deskSearch(pIndex,pTag){
 	
 	  $.ajax({
 		  type:"POST",
-		  url:"../../coinLog/findByPage",
+		  url:"../coinLog/findByPage",
 		  contentType:"application/x-www-form-urlencoded",
 		  data:formDate,
 		  success:function(dataMap){
@@ -280,11 +280,11 @@ function deskSearch(pIndex,pTag){
 			        cell2.innerHTML = list.createDate;
 			        cell3.innerHTML = list.fname;
 			        cell4.innerHTML = list.orderId;
-			        cell5.innerHTML = list.title;
-			        if(list.name == null)
-			        	list.name = "";
-			        cell6.innerHTML = list.name;
-			        cell7.innerHTML = list.lt_issue_start;
+			        
+			        cell5.innerHTML =list.title==undefined?"":list.title;
+			        cell6.innerHTML =list.name==undefined?"":list.name;
+			        cell7.innerHTML =list.lt_issue_start==undefined?"":list.lt_issue_start;
+			        
 			        cell8.innerHTML = moneyFormat(list.coin);
 			        cell9.innerHTML = moneyFormat(list.userCoin);
 			        					

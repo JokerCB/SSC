@@ -213,61 +213,130 @@ function checkStatus(xhr){//{{{
 //}}}
 
 /* 会员操作函数 */
-//{{{
+
+/**
+ * 会员添加验证函数
+ */
 function beforeAddMember(){
 	if(!this.username.value.match(/[a-zA-z_]\w{3,15}/)) throw('用户名由4到16位字母或数字组成，头一位不能是数字');
-	if(!this.password.value) throw('密码不能为空');
+	if(this.password.value == "") throw('密码不能为空');
 	if(this.password.value.length<6 && this.password.value) throw('密码不能少于6位');
 	if(this.password.value != $('#cpasswd',this).val()) throw('确认密码不一样');
 	//if($(':radio[name=type]:checked',this).attr('value')==1){
+	console.log($(this.fanDian));
 		if(!this.fanDian.value.match(/^[\d\.\%]{1,4}$/)) throw('请正确设置返点');
 		if(parseFloat(this.fanDian.value)>parseFloat($(this.fanDian).attr('max'))) throw('返点不能大于'+$(this.fanDian).attr('max'));
 		if(!this.fanDianBdw.value.match(/^[\d\.\%]{1,4}$/)) throw('请正确设置不定位返点');
 		if(parseFloat(this.fanDianBdw.value)>parseFloat($(this.fanDianBdw).attr('max'))) throw('不定位返点不能大于'+$(this.fanDianBdw).attr('max'));
 	// }else{
 	// }
-	var fanDianDiff= $(this.fanDian).attr('fanDianDiff');
-	if((this.fanDian.value*1000) % (fanDianDiff*1000)) throw('返点只能是'+fanDianDiff+'%的倍数');
-	if((this.fanDianBdw.value*1000) % (fanDianDiff*1000)) throw('不定位返点只能是'+fanDianDiff+'%的倍数');
+		
+//	var fanDianDiff= $(this.fanDian).attr('fanDianDiff');
+//	if((this.fanDian.value*1000) % (fanDianDiff*1000)) throw('返点只能是'+fanDianDiff+'%的倍数');
+//	if((this.fanDianBdw.value*1000) % (fanDianDiff*1000)) throw('不定位返点只能是'+fanDianDiff+'%的倍数');
 }
 
 function addMember(err, data){
+	var result = eval('(' + data + ')');
 	if(err){
 		error(err);
+	}
+	else if(result.err){
+		error(result.err);
 	}else{
-		success(data.message);
-		$('#username').val(data.username);
+		success(result.success);
+		$('#username').val(this.username.value);
 		$('#password').val(this.password.value);
 		this.reset();
 	}
 }
 
+/**
+ * 编辑用户
+ */
+function editMember(uid){
+	var rq_post={};
+    rq_post['uid']= uid;
+	$.post('../business/memberModal',rq_post, function(html){
+		$(html).dialog({
+			title:'编辑用户',
+			width:500,
+			buttons:{
+				"确定":function(event,ui){
+					var $this=$(this);
+					$this.find('form').submit();
+					$this.dialog("destroy");
+				},
+				"取消":function(event,ui){
+					$(this).dialog("destroy");
+				}
+			}
+		});
 
+	});
+}
+
+/**
+ * 编辑会员提交前置函数
+ * @param err
+ * @param data
+ */
 function userDataBeforeSubmitCode(){
-	if(this.password.value.length<6&&this.password.value)throw('密码不能少于6位');
-	if(this.coinPassword.value.length<6&&this.coinPassword.value) throw('资金密码不能少于6位');
-	if(this.password.value||this.coinPassword.value){
-		if(this.password.value==this.coinPassword.value) throw('密码和资金密码不能相同');
-	}
+
+
+	if(this.password.value == "") throw('密码不能为空');
+	if(this.password.value.length<6) throw('密码不能少于6位');
+	
+	if(this.coinPassword.value == "") throw('资金密码不能为空');
+	if(this.coinPassword.value.length<6) throw('资金密码不能少于6位');
+		
+	if(this.password.value==this.coinPassword.value) throw('密码和资金密码不能相同');
+
 	if(!this.fanDian.value.match(/^[\d\.\%]{1,4}$/)||!this.fanDianBdw.value.match(/^[\d\.\%]{1,4}$/)) throw('请正确设置返点');
+	
 	if(parseFloat(this.fanDian.value)>parseFloat($(this.fanDian).attr('max'))) throw('返点不能大于或等于'+$(this.fanDian).attr('max'));
 	if(parseFloat(this.fanDian.value)<parseFloat($(this.fanDian).attr('min'))) throw('返点不能小于'+$(this.fanDian).attr('min'));
 	if(parseFloat(this.fanDianBdw.value)>parseFloat($(this.fanDianBdw).attr('max'))) throw('不定位返点不能大于'+$(this.fanDianBdw).attr('max'));
 	if(parseFloat(this.fanDianBdw.value)<parseFloat($(this.fanDianBdw).attr('min'))) throw('不定位返点不能小于'+$(this.fanDianBdw).attr('min'));
-	var fanDianDiff= $(this.fanDian).attr('fanDianDiff');
-	if((this.fanDian.value*1000) % (fanDianDiff*1000)) throw('返点只能是'+fanDianDiff+'%的倍数');
-	if((this.fanDianBdw.value*1000) % (fanDianDiff*1000)) throw('不定位返点只能是'+fanDianDiff+'%的倍数');
+	
+//	var fanDianDiff= $(this.fanDian).attr('fanDianDiff');
+//	if((this.fanDian.value*1000) % (fanDianDiff*1000)) throw('返点只能是'+fanDianDiff+'%的倍数');
+//	if((this.fanDianBdw.value*1000) % (fanDianDiff*1000)) throw('不定位返点只能是'+fanDianDiff+'%的倍数');
 }
 
+/**
+ * 编辑会员后置函数
+ * @param err
+ * @param data
+ */
 function userDataSubmitCode(err, data){
 	if(err){
-		alert(err);
-	}else{
-		success('成功');
-		$(this).parent().dialog('destroy');
-		reload();
+		error(err);
+	}
+	else{
+		success("保存成功");
+		load('business/index_member');
 	}
 }
+
+/**
+ * 删除用户
+ */
+function delMember(uid){
+
+	 if(confirm("确认删除此用户？"))
+	 {
+		 var rq_post={};
+		    rq_post['uid']= uid;
+		    
+			$.post('../members/delMember',rq_post, function(html){
+				success("删除成功");
+				load('business/index_member');
+			});
+	 }
+
+}
+
 function nothin(err, data){
 	$(this).parent().dialog('destroy');
 	reload();
@@ -600,8 +669,8 @@ function sysSettings(err, data){
  * 添加公告
  */
 function sysAddNotice(){
-	$.get(SCRIPT_NAME + 'system/noticeModal', function(html){
-
+	
+	$.get('../business/noticeModal', function(html){
 		$(html).dialog({
 			title:'添加公告',
 			width:500,
@@ -620,12 +689,13 @@ function sysAddNotice(){
 	});
 }
 
+
 function sysReloadNotice(err, data){
 	if(err){
-		error(err);
+		error("保存失败");
 	}else{
-		success(data);
-		load('system/notice');
+		success("保存成功");
+		load('business/notice_sys');
 	}
 }
 

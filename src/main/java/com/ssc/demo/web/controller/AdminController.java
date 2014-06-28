@@ -51,8 +51,11 @@ public class AdminController {
 		String mname = session.getAttribute("mname")!=null?session.getAttribute("mname").toString():null;
 		if(mname!= null && mname.equals(memCache.getMc().get(mname))){
 			Members members = (Members) memCache.getMc().get(session.getAttribute("uid")+"_object");
-			if(members.isAdmin())
+			if(members.isAdmin()){
+				model.addAttribute("fanDian", members.getMfandian());
+				model.addAttribute("fanDianBdw", members.getMfandianbdw());
 				return new ModelAndView("index");
+			}
 		}
 		return new ModelAndView("login");
 
@@ -78,6 +81,11 @@ public class AdminController {
 			session.removeAttribute("mname");
 			sMsg = "此用户并非管理员, 请重新登陆";
 		}
+//		else if(members.getMname().equals(memCache.getMc().get(members.getMname()))){
+//			session.removeAttribute("uid");
+//			session.removeAttribute("mname");
+//			sMsg = "此用户已在别处登录, 请确认";
+//		}
 		else{
 			
 			session.setAttribute("uid", members.getUid());
@@ -85,6 +93,8 @@ public class AdminController {
 			
 			memCache.getMc().set(members.getMname(), members.getMname());
 			memCache.getMc().set(members.getUid()+"_object", members);
+			memCache.getMc().set(members.getUid()+"_loginTime", new Date());
+			memCache.getMc().set(members.getUid()+"_loginIP", "10.0.0.16");
 			
 		}
 		json = "{'sError':0,'sMsg':'"+sMsg+"','aLinks':[{'url':'login'}]}";
@@ -101,13 +111,15 @@ public class AdminController {
 	public ModelAndView logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		if(session.getAttribute("mname") != null){
-			memCache.getMc().set(session.getAttribute("mname").toString(), null);
-			memCache.getMc().set(session.getAttribute("uid").toString()+"_object", null);
-		}
+			memCache.getMc().delete(session.getAttribute("mname").toString());
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_object");
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_loginTime");
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_loginIP");
+			}
 			
 		session.removeAttribute("uid");
 		session.removeAttribute("mname");
-		
+		session.invalidate();
 		return new ModelAndView("login");
 
 	}

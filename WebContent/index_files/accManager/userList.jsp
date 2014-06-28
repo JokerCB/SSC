@@ -5,17 +5,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>游戏平台 </title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
 
-<script type="text/javascript" src="../a_data/jquery.js"></script>
-<script type="text/javascript" src="../a_data/jquery_002.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="../a_data/iframe.js"></script>
-<script type="text/javascript" src="../a_data/main.js"></script>
-<script type="text/javascript" src="../a_data/page.js"></script>
+<script type="text/javascript" src="../index_files/a_data/jquery.js"></script>
+<script type="text/javascript" src="../index_files/a_data/jquery_002.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../index_files/a_data/iframe.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/page.js"></script>
 
 
 </head>
@@ -103,7 +103,7 @@ function deskSearch(pIndex,pTag,uid){
 		  $(formDate).attr("uid",uid);
 	  $.ajax({
 		  type:"POST",
-		  url:"../../members/findByPage",
+		  url:"../members/findByPage",
 		  contentType:"application/x-www-form-urlencoded",
 		  data:formDate,
 		  success:function(dataMap){
@@ -123,8 +123,9 @@ function deskSearch(pIndex,pTag,uid){
 			        cell2.innerHTML = "一级代理";
 			        cell3.innerHTML = moneyFormat(list.mcoin);
 			        cell4.innerHTML = list.mfandian+"%"; //formatFloat(list.mfandian)+"%"
-			        cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' onclick='checkTop("+list.uid+");'>&nbsp;团队余额&nbsp;</a>"+
-			        					"<a href=''>&nbsp;返点设定&nbsp;</a>";
+			        //cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' onclick='checkTop("+list.uid+");'>&nbsp;团队余额&nbsp;</a>"+
+			        cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' href='../members/teamSum?uid="+list.uid+"'>&nbsp;团队余额&nbsp;</a>"+
+			        					"<a onclick=''>&nbsp;返点设定&nbsp;</a>";
 			        					
 			        row.appendChild(cell1);
 			        row.appendChild(cell2);
@@ -145,7 +146,6 @@ function deskSearch(pIndex,pTag,uid){
   }
   
   function checkTop(){
-	  console.log( $("#siderbar li"));
 	  $("#siderbar li")[5].click();
   }
 </script>

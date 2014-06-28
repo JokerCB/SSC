@@ -2,6 +2,7 @@ package com.ssc.demo.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -49,4 +50,11 @@ public interface MembersDao extends GenericDao<Members, Integer> {
 	 * @return
 	 */
 	List<Members> findChilds(@Param("membersId") String membersId);
+	/**
+	 * 会员银行信息
+	 * @param parameters
+	 * @param pageBounds
+	 * @return
+	 */
+	PageList<Map> findMembersBankInfo(Object parameters, PageBounds pageBounds);
 }

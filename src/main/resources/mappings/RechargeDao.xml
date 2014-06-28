@@ -92,7 +92,7 @@
 SELECT a.id,a.uid,b.m_name,a.rechargeNo,a.amount,a.rechargeAmount,a.coin,c.name,
 case a.state when 0 then '申请' when 1 then '成功到账' else '失败' end state ,a.info,a.create_date from ssc_member_recharge a 
 INNER JOIN ssc_members b on a.uid=b.uid
-LEFT JOIN ssc_bank_list c on a.banklistid=c.id
+INNER JOIN ssc_bank_list c on a.banklistid=c.id
 
    <where>
 		<if test="username!=null and username!=''">

@@ -2,6 +2,7 @@ package com.ssc.demo.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 import framework.generic.annotation.Column;
 import framework.generic.model.PersistentModel;
@@ -101,20 +102,39 @@ public class OrderDetail   implements PersistentModel{
 	private Date createDate;
 	
 	
+	/***************前端显示数据用**********************/
 	/*****订单记录展示用******/
-	/**
-	 * 期号
-	 */
-	private String issue;
-	/**
-	 * 玩法
-	 */
-	private String playedName;
 	
-	/**
-	 * 用户
-	 */
-	private String mName;
+	private Map map;
+
+//	/**
+//	 * 期号
+//	 */
+//	private String issue;
+//	/**
+//	 * 玩法
+//	 */
+//	private String playedName;
+//	
+//	/**
+//	 * 用户
+//	 */
+//	private String mName;
+//	
+//	/**
+//	 * 用户
+//	 */
+//	private String zhuiHaoId;
+//	
+//	/**
+//	 * 用户
+//	 */
+//	private boolean zhuiHao;
+//	
+//	/**
+//	 * 用户
+//	 */
+//	private boolean isStop;
 	
 	
 
@@ -230,6 +250,16 @@ public class OrderDetail   implements PersistentModel{
 		this.createDate = createDate;
 	}
 
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
+	
+/**
 	public String getIssue() {
 		return issue;
 	}
@@ -253,6 +283,30 @@ public class OrderDetail   implements PersistentModel{
 	public void setmName(String mName) {
 		this.mName = mName;
 	}
-	
+
+	public String getZhuiHaoId() {
+		return zhuiHaoId;
+	}
+
+	public void setZhuiHaoId(String zhuiHaoId) {
+		this.zhuiHaoId = zhuiHaoId;
+	}
+
+	public boolean getZhuiHao() {
+		return zhuiHao;
+	}
+
+	public void setZhuiHao(boolean zhuiHao) {
+		this.zhuiHao = zhuiHao;
+	}
+
+	public boolean getIsStop() {
+		return isStop;
+	}
+
+	public void setIsStop(boolean isStop) {
+		this.isStop = isStop;
+	}
+	**/
 	
 }

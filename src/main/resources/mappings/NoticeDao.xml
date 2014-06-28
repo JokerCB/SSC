@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ssc.demo.dao.NoticeDao">
+	<resultMap id="NoticeResultMap" type="com.ssc.demo.model.Notice">
+		<id property="id" column="ID" />
+		<result property="content" column="content" />
+		<result property="visible" column="visible" />
+		<result property="createDate" column="createDate" />
+	</resultMap>
+	
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="notice_column">
+		 ID
+		 ,content
+		 ,visible
+		 ,createDate
+	</sql>
+
+	
+	<select id="load" resultMap="NoticeResultMap">	
+		SELECT	*
+		FROM	ssc_notice WHERE id = #{id,jdbcType=INTEGER}		
+	</select>
+	
+	<select id="findAll" resultMap="NoticeResultMap">	
+		SELECT	*
+		FROM	ssc_notice
+	</select>
+	
+	<insert id="insert" parameterType="com.ssc.demo.model.Notice">
+	
+		INSERT INTO ssc_notice
+				(id
+				,content
+				,visible
+				,createDate			
+				)
+		VALUES	(#{id,jdbcType=INTEGER}
+				,#{content}
+				,#{visible}
+				,#{createDate}			
+				)
+				
+	</insert>
+	
+	<update id="update" parameterType="com.ssc.demo.model.Notice">
+	
+		UPDATE	ssc_notice
+		<set>
+			<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="content != null and content != ''">
+				content = #{content,jdbcType=INTEGER},
+			</if>
+
+			visible = #{visible},
+	
+		</set>
+		WHERE	id = #{id,jdbcType=INTEGER}		  
+	</update>
+	
+	<select id="findByPage" resultMap="NoticeResultMap">
+
+		SELECT	<include refid="notice_column" />
+		FROM	ssc_notice		
+
+	</select>
+	
+	<delete id="deleteByPk">
+	
+		DELETE	FROM ssc_notice
+		WHERE	id = #{id,jdbcType=INTEGER}
+		  
+	</delete>
+	
+</mapper> 

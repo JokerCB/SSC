@@ -10,18 +10,22 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ssc.demo.model.MemberCash;
 import com.ssc.demo.model.Members;
 import com.ssc.demo.service.MemberCashService;
 import com.ssc.demo.service.MembersService;
 import com.ssc.demo.web.controller.base.BaseController;
 import com.ssc.demo.web.ui.PageRequest;
+
 import framework.generic.page.PageInfo;
 import framework.generic.paginator.domain.PageList;
+import framework.generic.utils.string.StringUtil;
 
 @Controller
 @RequestMapping("memberCash/*")
@@ -95,6 +99,60 @@ public class MemberCashController extends BaseController{
 		pageInfo.setPageIndex(list.getPaginator().getPage());
 		pageInfo.setPageCount(list.getPaginator().getTotalPages());
 		return ajaxDone(pageInfo);
+	}
+	
+	/*-------------------------------提现请求列表显示页面---------------------------------*/
+
+	@RequestMapping(value = "findCashByPage", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public  Map<String, Object> findCashByPage(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		pageRequest.setPageNo(Integer.parseInt(request.getParameter("pageIndex")));
+	
+		if (!StringUtil.isNullOrEmpty(request.getParameter("username"))) {
+			paramMap.put("username", request.getParameter("username"));
+		}
+	
+		if (!StringUtil.isNullOrEmpty(request.getParameter("state"))) {
+			paramMap.put("state", request.getParameter("state"));
+		}
+		if (!StringUtil.isNullOrEmpty(request.getParameter("states"))) {
+			paramMap.put("states", request.getParameter("states"));
+		}
+		if (!StringUtil.isNullOrEmpty(request.getParameter("fromTime"))) {
+			paramMap.put("startDate", request.getParameter("fromTime"));
+		}
+		if (!StringUtil.isNullOrEmpty(request.getParameter("toTime"))) {
+			paramMap.put("endDate", request.getParameter("toTime"));
+		}
+		
+		
+        PageInfo pageInfo = new PageInfo();
+    	pageRequest.setParameter(paramMap);
+		PageList<Map> list = memberCashService.findCashByPage(pageRequest);
+		pageInfo.setDataList(list);
+		pageInfo.setPageSize(list.getPaginator().getLimit());
+		pageInfo.setPageIndex(list.getPaginator().getPage());
+		pageInfo.setPageCount(list.getPaginator().getTotalPages());
+		return ajaxDone(pageInfo);
+	}
+	
+	@RequestMapping(value = "updateCash", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+	public  String updateCash(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
+	     try
+	     {
+	    	 
+	    	 memberCashService.updateCash(Integer.parseInt(request.getParameter("dataId")),Integer.parseInt(request.getParameter("state")),Integer.parseInt(request.getParameter("uid")));
+	    	return "处理成功！";
+	     }catch(Exception ex)
+	     {
+	    	 ex.printStackTrace();
+	    	 return "处理失败！";
+	     }
+	
+		
+		
 	}
 }
 

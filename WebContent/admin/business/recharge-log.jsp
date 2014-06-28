@@ -152,10 +152,9 @@ function deskSearch(pIndex,pTag){
 						cell9.innerHTML = list.info;
 						cell10.innerHTML = list.create_date;
 						if(list.state == "申请")
-					    cell11.innerHTML = "<strong><a style='cursor: pointer;' onclick='updateCoin("
-							+ list.id + ");' >处理</a></strong>";
+					    cell11.innerHTML ="<strong><a onclick='updateCoin("+list.id+",1)'  >受理</a> | <a onclick='updateCoin("+list.id+",2)'>拒绝</a></strong>";
 					
-
+							
 						row.appendChild(cell1);
 						row.appendChild(cell2);
 						row.appendChild(cell3);
@@ -179,12 +178,15 @@ function deskSearch(pIndex,pTag){
 
 	}
 
-	function updateCoin(id) {
+	function updateCoin(id,state) {
+		var rq_post={};
+		rq_post['dataId']= id;
+		rq_post['state']= state;
 		$.ajax({
 			type : 'POST',
 			url : "../recharge/updateCoin",
 			timeout : 30000,
-			data : "dataId=" + id + "",
+			data : rq_post,
 			success : function(result) {//成功
 				alert(result);
 				deskSearch();

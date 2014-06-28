@@ -12,6 +12,9 @@
 		<result property="ltTotalMoney" column="LT_TOTAL_MONEY" />
 		<result property="totalActionNum" column="TOTALACTIONNUM" />
 		<result property="status" column="STATUS" />
+		<result property="zhuiHaoId" column="zhuiHaoId" />
+		<result property="zhuiHao" column="zhuiHao" />
+		<result property="isStop" column="isStop" />
 		<result property="createDate" column="CREATEDATE" />
 	</resultMap>
 	<resultMap id="OrderDetailResultMap" type="com.ssc.demo.model.OrderDetail">
@@ -41,6 +44,9 @@
 		 ,LT_TOTAL_MONEY
 		 ,totalActionNum
 		 ,status
+		 ,zhuiHaoId
+		 ,zhuiHao
+		 ,isStop
 		 ,createDate		
 	</sql>
 	<sql id="order_detail_column">
@@ -66,6 +72,12 @@
 		</if>
 		<if test="uid != null and uid != ''">
 			AND a.uid = #{uid,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null and type != ''">
+			AND a.type = #{type}
+		</if>
+		<if test="playedId != null and playedId != ''">
+			AND b.playId = #{playedId}
 		</if>
 		<if test="orderId != null and orderId != ''">
 			AND b.orderId = #{orderId,jdbcType=VARCHAR}
@@ -97,6 +109,9 @@
 				 ,LT_TOTAL_MONEY
 				 ,totalActionNum
 				 ,status
+				 ,zhuiHaoId
+				 ,zhuiHao
+				 ,isStop
 				 ,createDate)
 		VALUES	(#{oid}
 				,#{orderId}
@@ -106,6 +121,9 @@
 				,#{ltTotalMoney}
 				,#{totalActionNum}
 				,#{status}
+				,#{zhuiHaoId}
+				,#{zhuiHao}
+				,#{isStop}
 				,#{createDate}				
 				)
 				
@@ -145,10 +163,13 @@
 	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
 		select max(orderId) from ssc_order WHERE createDate &gt;= #{startDate} AND createDate &lt;= #{endDate}
 	</select>
+	<select id="selectMaxZhuiHao" resultType="java.lang.String" parameterType="java.lang.String">
+		select max(zhuiHaoId) from ssc_order WHERE createDate &gt;= #{startDate} AND createDate &lt;= #{endDate}
+	</select>
 	
 		<select id="findDetailsByPage" resultMap="OrderDetailResultMap">
 		<choose>
-			<when test="mname != null and mname != '' or uid != null and uid != ''  or issue != null and issue != ''">
+			<when test="mname != null and mname != '' or uid != null and uid != ''  or issue != null and issue != '' or type != null and type != ''">
                 <if test="mname != null and mname != ''">
 				 SELECT b.* from ssc_order a INNER JOIN ssc_order_detail b on a.orderId=b.orderId 
 				 LEFT JOIN ssc_members c on a.uid=c.uid 
@@ -179,6 +200,11 @@
 		FROM ssc_order WHERE lt_issue_start=#{ltIssueStart,jdbcType=VARCHAR} AND status=0
 	</select>
 	
+	<select id="findOrderByZhuiHaoId" resultMap="OrderResultMap" parameterType="java.util.Map">
+		SELECT <include refid="order_column"/>
+		FROM ssc_order WHERE zhuiHaoId=#{zhuiHaoId,jdbcType=VARCHAR} AND status=#{status}
+	</select>
+	
 	<select id="findOrderDetail" resultMap="OrderDetailResultMap" parameterType="java.util.Map">
 		SELECT <include refid="order_detail_column"/>
 		FROM ssc_order_detail WHERE orderId=#{orderId,jdbcType=VARCHAR} ORDER BY seq
@@ -187,7 +213,7 @@
 	<update id="updateOrder" parameterType="com.ssc.demo.model.Order">
 		UPDATE  ssc_order 
 		<set>
-		status=1
+		status=#{status}
 		</set>
 		WHERE  orderId=#{orderId,jdbcType=VARCHAR}
 	</update>

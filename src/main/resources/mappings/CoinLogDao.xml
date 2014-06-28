@@ -70,6 +70,21 @@
 				
 	</insert>
 	
+	<select id="findByUid" resultMap="CoinLogResultMap">
+		select * from ssc_coin_log where uid = #{uid}
+	</select>
+	
+	<delete id="deleteAll">
+	
+		DELETE	FROM ssc_coin_log
+		WHERE	id
+		   IN
+    	<foreach item="id" index="index" collection="array" open="(" separator="," close=")">
+	  		#{id} 
+		</foreach>
+		  
+	</delete>
+	
 	<select id="findCoinLogByPage" resultType="java.util.Map">
 		SELECT
 		b.m_name,a.createDate,c.fname,a.orderId,d.title,e.`name`,f.lt_issue_start,a.coin,a.userCoin,case
@@ -88,6 +103,9 @@
 		a.orderId=g.orderId and a.playedId=g.playId
 		
 		<where>
+		 <if test="uid!=null and uid!=''">
+	       AND a.uid = #{uid}
+	     </if>
 		<if test="lt_issue_start!=null and lt_issue_start!=''">
 	       AND f.lt_issue_start LIKE CONCAT('%',#{lt_issue_start},'%')
 	     </if>
@@ -106,6 +124,67 @@
 			
 		</where>
 		ORDER BY a.uid,a.createDate DESC
+	</select>
+	
+	<select id="findReportByPage" resultType="java.util.Map">
+		SELECT a.uid, a.m_name,a.m_coin,(SUM(a.`中奖`)-SUM(a.`投注`))
+		as'YK',SUM(a.`中奖`)as 'JJ',SUM(a.`返点`)as 'FD'
+		,SUM(a.`充值`)as 'CZ'
+		,SUM(a.`提现`)as 'TX'
+		,SUM(a.`撤单资金`)as 'CD'
+		,SUM(a.`投注`)as 'TZ' from
+		(
+		SELECT a.uid, b.m_name,b.m_coin,IFNULL(case a.liqType when 102 then
+		sum(a.coin) end,0) as '投注',
+		IFNULL(case a.liqType when 5 then
+		sum(a.coin) end,0) as '中奖'
+		,IFNULL(case a.liqType when 2 then
+		sum(a.coin) end,0) as '返点'
+		,IFNULL(case a.liqType when 1 then sum(a.coin) end,0) as '充值'
+		,IFNULL(case
+		a.liqType when 101 then sum(a.coin) end,0) as '提现'
+		,IFNULL(case
+		a.liqType when 4 then sum(a.coin) end,0) as '撤单资金'
+		From ssc_coin_log a
+		INNER JOIN ssc_members b on a.uid=b.uid
+		<where>
+			<if test="memberName!=null and memberName!=''">
+				AND b.m_name LIKE CONCAT('%',#{memberName},'%')
+			</if>
+			<if test="startDate!=null and startDate!=''">
+				AND date_format(a.createDate,'%Y-%m-%d') &gt;=
+				#{startDate!=,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				AND date_format(a.createDate,'%Y-%m-%d') &lt;=
+				#{endDate!=,jdbcType=VARCHAR}
+			</if>
+			<if test="uid!=null and uid!=''">
+				and b.m_fullparentid LIKE CONCAT(#{uid},'.','%')  or b.uid=#{uid}
+			</if>
+		</where>
+		GROUP BY liqType
+		) a GROUP BY m_name
+
+	</select>
+
+	<select id="getTDYK" resultType="java.lang.Integer">
+		SELECT IFNULL(SUM(a.`中奖`)-SUM(a.`投注`),0) as'TDYK' from
+		(
+		SELECT a.uid,
+		b.m_name,b.m_coin,IFNULL(case a.liqType when 102 then
+		sum(a.coin)
+		end,0) as '投注',
+		IFNULL(case a.liqType when 5 then sum(a.coin) end,0) as
+		'中奖'
+		From ssc_coin_log a INNER JOIN ssc_members b on a.uid=b.uid
+		<where>
+			<if test="uid!=null and uid!=''">
+				and b.m_fullparentid LIKE CONCAT(#{uid},'.','%') or b.uid=#{uid}
+			</if>
+		</where>
+		GROUP BY liqType
+		) a
 	</select>
 	
 </mapper> 

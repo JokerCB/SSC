@@ -56,6 +56,11 @@ public class Members implements PersistentModel {
 	@Column(name = "m_parentId")
 	private Integer mparentid;
 	/**
+	 * 会员上级 所有 ID（包括自己的ID）
+	 */
+	@Column(name = "m_fullparentId")
+	private String mfullparentid;
+	/**
 	 * 会员QQ
 	 */
 	@Column(name = "m_qq")
@@ -140,6 +145,19 @@ public class Members implements PersistentModel {
 	 */
 	@Column(name = "m_address")
 	private String maddress;
+	
+	/**
+	 * 在线状态状态
+	 * (0:离线；1：在线)
+	 */
+	@Column(name = "m_state")
+	private int mstate;
+	
+	/**
+	 * 最后登录IP
+	 */
+	@Column(name = "actionIP")
+	private String actionIP;
 	/**
 	 * 创建人
 	 */
@@ -227,6 +245,14 @@ public class Members implements PersistentModel {
 		return this.mparentid;
 	}
 	
+	public String getMfullparentid() {
+		return mfullparentid;
+	}
+
+	public void setMfullparentid(String mfullparentid) {
+		this.mfullparentid = mfullparentid;
+	}
+
 	public void setMparentid(Integer mparentid) {
 		this.mparentid = mparentid;
 	}
@@ -367,6 +393,22 @@ public class Members implements PersistentModel {
 		this.maddress = maddress;
 	}
 	
+	public int getMstate() {
+		return mstate;
+	}
+
+	public void setMstate(int mstate) {
+		this.mstate = mstate;
+	}
+
+	public String getActionIP() {
+		return actionIP;
+	}
+
+	public void setActionIP(String actionIP) {
+		this.actionIP = actionIP;
+	}
+
 	public String getCreateName() {
 		return this.createName;
 	}

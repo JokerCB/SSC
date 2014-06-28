@@ -170,6 +170,7 @@
             var mins     = t_nowpos;//开始处理的位置[初始为上次变更的位置]
             var maxe     = t_nowpos;//结束处理的位置[初始为上次变更的位置]
             $.each($.lt_issues.today,function(i,n){
+            	n = eval("("+n+")");
                 loop++;
                 if( isshow == false && st_issue == n.issue ){//如果选择的期数为当前期，则开始显示
                     isshow = true;

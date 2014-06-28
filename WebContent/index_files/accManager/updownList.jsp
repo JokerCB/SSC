@@ -5,16 +5,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>杏彩游戏平台  - 充提记录 </title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
 
-<script type="text/javascript" src="../a_data/jquery_005.js"></script>
-<script type="text/javascript" src="../jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../index_files/a_data/jquery_005.js"></script>
+<script type="text/javascript" src="../index_files/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 
-<script type="text/javascript" src="../a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
 </head>
 
 <body>
@@ -27,9 +27,9 @@ if($("#laybox",parent.parent.document).length){
 <a name="topall"></a>
 <div style="display:none;"><a href="http://www.live800.com/">客服</a></div>
 <div style="display:none;"><a href="http://en.live800.com/">live chat</a></div>
-<script src="../a_data/jquery_004.js" type="text/javascript"></script>
-<script src="../a_data/calendar-utf8.js" type="text/javascript"></script>
-<link href="../a_data/calendar-win2k-cold-1.css" media="all" type="text/css" rel="stylesheet">
+<script src="../index_files/a_data/jquery_004.js" type="text/javascript"></script>
+<script src="../index_files/a_data/calendar-utf8.js" type="text/javascript"></script>
+<link href="../index_files/a_data/calendar-win2k-cold-1.css" media="all" type="text/css" rel="stylesheet">
 <script>
 function checkForm(obj)
 {
@@ -76,10 +76,10 @@ function checkForm(obj)
 						<option value="22">特殊金额整理</option>
 					</select>
                     <input value="" style="width:150px;" name="ordertime_min" id="starttime" class="input_02" type="text">
-                    <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
+                    <img style="cursor:pointer" src="../index_files/a_data/icon_06.jpg" height="17" width="20">
                     至：
                     <input value="" style="width:150px;" id="endtime" name="ordertime_max" class="input_02" type="text">
-                    <img style="cursor:pointer" src="../a_data/icon_06.jpg" height="17" width="20">
+                    <img style="cursor:pointer" src="../index_files/a_data/icon_06.jpg" height="17" width="20">
                 </td>
               </tr>
               <tr>

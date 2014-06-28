@@ -24,11 +24,20 @@ public interface OrderDao {
 	void saveOrderDetail(OrderDetail detail);
 	
 	/**
-	 * 根据期号查询订单主表数据
+	 * 根据期号查询订单主表数据(未开奖)
 	 * @param lt_issue_start
 	 * @return
 	 */
 	List<Order> findOrder(@Param("ltIssueStart") String ltIssueStart);
+	
+	
+	/**
+	 * 根据追号单号查询订单主表数据(未开奖)
+	 * @param zhuiHaoId
+	 * @param status
+	 * @return
+	 */
+	List<Order> findOrderByZhuiHaoId(@Param("zhuiHaoId") String zhuiHaoId,@Param("status") int status);
 	
 	
 	/**
@@ -53,6 +62,7 @@ public interface OrderDao {
 	
 	
 	String selectMaxCode(@Param("startDate")String startDate,@Param("endDate")String endDate);
+	String selectMaxZhuiHao(@Param("startDate")String startDate,@Param("endDate")String endDate);
 	
 	/**
 	 * 分页查询，必须是传递一个pagination

@@ -5,24 +5,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=9">
 <title>杏彩游戏平台 - 增加用户</title>
-<link href="../a_data/base.css" rel="stylesheet" type="text/css" media="all">
-<link href="../a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
-<script type="text/javascript" src="../a_data/jquery-1.js"></script>
-<script type="text/javascript" src="../a_data/tab.js"></script>
-<script type="text/javascript" src="../a_data/jquery_005.js"></script>
-<script type="text/javascript" src="../a_data/jquery_003.js"></script>
-<link href="../a_data/dialogUI.css" media="all" type="text/css"
+<link href="../index_files/a_data/base.css" rel="stylesheet" type="text/css" media="all">
+<link href="../index_files/a_data/subpage.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="../index_files/a_data/jquery-1.js"></script>
+<script type="text/javascript" src="../index_files/a_data/tab.js"></script>
+<script type="text/javascript" src="../index_files/a_data/jquery_005.js"></script>
+<script type="text/javascript" src="../index_files/a_data/jquery_003.js"></script>
+<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css"
 	rel="stylesheet">
-<script type="text/javascript" src="../a_data/main.js"></script>
+<script type="text/javascript" src="../index_files/a_data/main.js"></script>
 </head>
 <body>
 	<a name="topall"></a>
 	<!--消息框代码开始-->
-	<script type="text/javascript" src="../a_data/jquery_002.js"></script>
-	<script type="text/javascript" src="../jquery_003.js"></script>
-	<link href="../a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="../index_files/a_data/jquery_002.js"></script>
+	<script type="text/javascript" src="../index_files/jquery_003.js"></script>
+	<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 	<!--消息框代码结束-->
-	 <form action="" method="post" name="updateform" style="height: auto;">
+	 <form action="../members/addUser" method="post" name="updateform" onsubmit="return checkRapid();">
 		<input name="flag" value="insert" type="hidden">
 		<input name="controller" value="user" type="hidden">
 		<input name="action" value="adduser" type="hidden">
@@ -62,7 +62,7 @@
 								onchange="clearNoNum(this)" onblur="checkNum(this)"-->
 							(自身最高保留 <span style="display: none" id="keeppoint_min">0.1</span>
 							<span style="display: none" id="keeppoint_max">9.6</span> )
-							<input type="button" onclick="checkRapid();" class="formWord" value="确认返点" id="keeppoint_submit" />
+							<input type="submit" class="formWord" value="确认返点" id="keeppoint_submit" />
 								<!-- onclick="return(onekey_keeppoint());" > -->
 						</td>
 					</tr>
@@ -163,8 +163,9 @@ function checkRapid(){
     rq_post['mname']= $("#mname").val();
     rq_post['mfandian']=$("#mfandian_cqssc").val();
     rq_post['mfandianbdw']=$("#mfandianbdw_cqssc").val();
-	rq_post['Submit']='json'; 
-	$.ajax({
+	rq_post['Submit']='json';
+	
+	/* $.ajax({
 		type:"POST",
 		url:"../../members/addUser",
 		data:rq_post,
@@ -173,10 +174,13 @@ function checkRapid(){
 			console.log(data);
 			var json = eval('(' + data + ')');
 			
-			if($.confirm(json['sMsg'])){
-				 $("body",window.parent.document).find("#siderbar li")[0].click();
-			}
 
+			$.confirm(json['sMsg'],function(){//确定
+				$("body",window.parent.document).find("#siderbar li")[0].click();
+			},function(){//取消
+				
+			});
+		
 			
 			$("#mname").val("");
 		    $("#mfandian_cqssc").val("");
@@ -184,7 +188,7 @@ function checkRapid(){
 		    
 		   
 		}
-	});
+	}); */
 }
 
 // 验证用户名

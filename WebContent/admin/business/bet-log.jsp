@@ -19,8 +19,9 @@
 				期号<input type="text" class="alt_btn" id="issue" style="width:70px;"/>&nbsp;&nbsp;
 				会员<input type="text" class="alt_btn" id="mname" style="width:70px;"/>&nbsp;&nbsp;
 				时间从 <input type="date" class="alt_btn" id="starttime"/> 到 <input type="date" id="endtime" class="alt_btn"/>&nbsp;&nbsp;
-				<select style="width:90px;" name="type">
-					<option value="">全部彩种</option>
+				<select style="width:90px;" name="lotteryid" id="lotteryid">
+					<option selected="selected" value="0">全部彩种</option>
+					<option value="1">重庆时时彩</option>	
 				</select>&nbsp;&nbsp;
 
 				<input type="button" value="查询" class="alt_btn" onclick="deskSearch();">
@@ -33,20 +34,23 @@
 		<thead>
 			<tr>	
 			<th width="150">会员名</th>
-				<th width="150">投注时间</th>
-					<th class="line_03" align="center">订单编号</th>
-					<th class="line_03" align="center" width="150">玩法</th>
-					<th class="line_03" align="center" width="130">投注期号</th>
-					<th class="line_03" align="center" width="80">投注内容</th>
-					<th class="line_03" align="center" width="80">投注金额</th>
-					<th class="line_03" align="center" width="80">奖金</th>
-					<th class="line_03" align="center" width="80">开奖号码</th>
-					<th class="line_03" align="center" width="60">状态</th>
+			<th width="150">投注时间</th>
+			<th class="line_03" align="center">订单编号</th>
+			<th class="line_03" align="center" width="150">玩法</th>
+			<th class="line_03" align="center" width="130">投注期号</th>
+			<th class="line_03" align="center" width="80">投注内容</th>
+			<th class="line_03" align="center" width="80">投注金额</th>
+			<th class="line_03" align="center" width="80">奖金</th>
+			<th class="line_03" align="center" width="80">开奖号码</th>
+			<th class="line_03" align="center" width="60">状态</th>
+			<th class="line_03" align="center" width="80">追号订单</th>
+			<th class="line_03" align="center" width="80">追号编号</th>
+			<th class="line_03" align="center" width="80">中奖后停止</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-	            <td colspan="10" height="20">
+	            <td colspan="13" height="20">
 	            	<div class="pages_o" id="pageDiv"></div>
 	            </td>
 	        </tr>
@@ -82,6 +86,7 @@
     	 formDate["all"] = "all";
     	 formDate['mname'] = mname.value;
 		 formDate['orderId'] = orderId.value;
+		 formDate['lotteryid'] = lotteryid.value;
 		 formDate['issue'] = issue.value;
 		 formDate['starttime'] = starttime.value;
 		 formDate['endtime'] = endtime.value;
@@ -97,6 +102,7 @@
     			    if(queryList!=undefined){
     			      for(var i=0;i<queryList.length;i++){
     			        var list=queryList[i];
+    			        var mdata = list.map;
     			        var row = orderManager.insertRow(orderManager.rows.length-1);
     			        var cell1 = document.createElement("td");
     			        var cell2 = document.createElement("td");
@@ -108,12 +114,15 @@
     			        var cell8 =  document.createElement("td");
     			        var cell9 =  document.createElement("td");
     			        var cell10 =  document.createElement("td");
+    			        var cell11 =  document.createElement("td");
+    			        var cell12 =  document.createElement("td");
+    			        var cell13 =  document.createElement("td");
     			        
-    			        cell1.innerHTML = list.mName;
+    			        cell1.innerHTML = mdata.mname;
     			        cell2.innerHTML = list.createDate;
     			        cell3.innerHTML = list.orderId;
-    			        cell4.innerHTML = list.playedName;
-    			        cell5.innerHTML = list.issue;
+    			        cell4.innerHTML = mdata.playedName;
+    			        cell5.innerHTML = mdata.issue;
     			        cell6.title = list.actionData;
     			        cell6.innerHTML = "<div class='subLength' >"+list.actionData+"</span>";   			       
     			        cell7.innerHTML = moneyFormat(list.actionMoney);
@@ -122,13 +131,11 @@
     			        cell8.innerHTML = moneyFormat(list.bonus);
     			        if(list.lotteryNo == null)
     			        	list.lotteryNo = "";
-    			        cell9.innerHTML = list.lotteryNo;
-    			        if(list.bonus > 0)
-    			        	cell10.innerHTML = "已中奖";
-    			        else if(list.lotteryNo == "")
-    			        	cell10.innerHTML = "未开奖";
-    			        else
-    			        	cell10.innerHTML = "未中奖";
+    			        cell9.innerHTML = list.lotteryNo;    			
+    			        cell10.innerHTML = mdata.state;
+    			        cell11.innerHTML = mdata.zhuiHao==1?"是":"否";
+    			        cell12.innerHTML = mdata.zhuiHaoId;
+    			        cell13.innerHTML = mdata.isStop==1?"是":"否";
     			        
     			        
     			        row.appendChild(cell1);
@@ -140,6 +147,10 @@
     			        row.appendChild(cell7);
     			        row.appendChild(cell8);
     			        row.appendChild(cell9);
+    			        row.appendChild(cell10);
+    			        row.appendChild(cell11);
+    			        row.appendChild(cell12);
+    			        row.appendChild(cell13);
     			      }
     			    }
     			    if(pTag == undefined)

@@ -117,6 +117,8 @@ public class LoginController {
 			
 			memCache.getMc().set(members.getMname(), members.getMname());
 			memCache.getMc().set(members.getUid()+"_object", members);
+			memCache.getMc().set(members.getUid()+"_loginTime", new Date());
+			memCache.getMc().set(members.getUid()+"_loginIP", "10.0.0.16");
 
 			json = "{'sError':0,'sMsg':'您本次登陆的IP和上次不同 您上次登陆的时间是 2014-04-14 20:22:57','aLinks':[{'url':'login'}]}";
 		}
@@ -134,8 +136,10 @@ public class LoginController {
 	@RequestMapping(value = "/logout", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(session.getAttribute("mname") != null){
-			memCache.getMc().set(session.getAttribute("mname").toString(), null);
-			memCache.getMc().set(session.getAttribute("uid").toString()+"_object", null);
+			memCache.getMc().delete(session.getAttribute("mname").toString());
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_object");
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_loginTime");
+			memCache.getMc().delete(session.getAttribute("uid").toString()+"_loginIP");
 		}
 			
 		session.removeAttribute("uid");

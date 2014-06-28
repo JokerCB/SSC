@@ -123,3 +123,10 @@ var TIP=true;
 	<section id="main" class="column"></section>
 </body>
 </html>
+
+<script>
+var fanDian = "${fanDian}";
+var fanDianBdw = "${fanDianBdw}";
+
+
+</script>

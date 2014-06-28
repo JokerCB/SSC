@@ -2,6 +2,7 @@ package com.ssc.demo.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.ssc.demo.model.City;
 import com.ssc.demo.model.Members;
@@ -30,6 +31,14 @@ public interface MembersService {
 	 * @return
 	 */
 	public BigDecimal getTotalMoney(String membersId,BigDecimal money);
+	
+	/**
+	 * 获取团队所有下线ID
+	 * @param membersId
+	 * @param childIds
+	 * @return
+	 */
+	public String getAllChildIds(String membersId,String childIds);
 	
 	
 	/**
@@ -68,4 +77,11 @@ public interface MembersService {
 	 * @return
 	 */
 	List<City> getCity(String provinceId);
+	
+	/**
+	 * 会员银行信息
+	 * @param pageRequest
+	 * @return
+	 */
+	public PageList<Map> findMembersBankInfo(PageRequest pageRequest);
 }

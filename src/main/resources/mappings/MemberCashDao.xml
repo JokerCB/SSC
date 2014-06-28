@@ -91,6 +91,32 @@
 
 	</select>
 	
+<select id="findCashByPage" resultType="java.util.Map">
+	SELECT a.id,a.uid,b.m_name,a.amount,c.name,d.username,d.account,a.createDate from ssc_member_cash a 
+   INNER JOIN ssc_members b on a.uid=b.uid
+   INNER  JOIN ssc_bank_list c on a.membersBankId=c.id
+  INNER JOIN ssc_member_bank d on a.uid=d.uid
+ 
+ <where>
+     <if test="states!=null and states!=''">
+	   AND a. state &gt;= #{states,jdbcType=INTEGER}
+	     </if>
+		<if test="username!=null and username!=''">
+	   AND    b.m_name=#{username,jdbcType=VARCHAR}
+	     </if>
+	     <if test="state!=null and state!=''">
+	     AND  a.state=#{state,jdbcType=INTEGER}
+	     </if>
+		<if test="startDate!=null and startDate!=''">
+	     AND date_format(a.createDate,'%Y-%m-%d') &gt;= #{startDate,jdbcType=VARCHAR}  
+	    </if>
+	   		<if test="endDate!=null and endDate!=''">
+	      AND date_format(a.createDate,'%Y-%m-%d') &lt;= #{endDate,jdbcType=VARCHAR}
+	     </if>		
+		</where>
+		ORDER BY a.uid,a.createDate DESC
+	</select>
+	
 	<select id="selectMaxCode" resultType="java.lang.String" parameterType="java.lang.String">
 		select max(cashNo) from ssc_member_cash WHERE createDate &gt;= #{startDate} AND createDate &lt;= #{endDate}
 	</select>

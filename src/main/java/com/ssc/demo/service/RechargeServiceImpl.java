@@ -15,8 +15,6 @@ import com.ssc.demo.model.CoinLog;
 import com.ssc.demo.model.Members;
 import com.ssc.demo.model.Recharge;
 import com.ssc.demo.web.ui.PageRequest;
-
-import framework.generic.paginator.domain.PageBounds;
 import framework.generic.paginator.domain.PageList;
 import framework.generic.utils.date.DateUtil;
 
@@ -97,7 +95,7 @@ public class RechargeServiceImpl implements RechargeService {
 	}
 
 	@Override
-	public void addCoinLog(String uId) {
+	public void addCoinLog(String uId,int state) {
 		
 		Recharge recharge = rechargeDao.load(uId);
 		Members members = membersDao.load(recharge.getUid(), null, null);
@@ -107,13 +105,14 @@ public class RechargeServiceImpl implements RechargeService {
 		coinLog.setOrderId(recharge.getRechargeNo());
 		coinLog.setType(1);
 		coinLog.setPlayedId(0);
-		coinLog.setCoin(recharge.getCoin());
+		coinLog.setCoin(recharge.getAmount());
 		coinLog.setUserCoin(members.getMcoin());
-		coinLog.setLiqType(102);
+		coinLog.setLiqType(1);
 		coinLog.setCreateDate(new Date());
 		coinLogDao.saveCoinLog(coinLog);
+		members.setMcoin(members.getMcoin().add(recharge.getAmount()));
 		membersDao.updateMembersCoin(recharge.getUid(), members.getMcoin());
-		recharge.setState(1);
+		recharge.setState(state);
 		rechargeDao.update(recharge);
 	}
 
@@ -138,9 +137,10 @@ public class RechargeServiceImpl implements RechargeService {
 			coinLog.setPlayedId(0);
 			coinLog.setCoin(new BigDecimal(amount));
 			coinLog.setUserCoin(members.getMcoin());
-			coinLog.setLiqType(102);
+			coinLog.setLiqType(1);
 			coinLog.setCreateDate(new Date());
 			coinLogDao.saveCoinLog(coinLog);
+			members.setMcoin(members.getMcoin().add(coinLog.getCoin()));
 			membersDao.updateMembersCoin(members.getUid(), members.getMcoin());
 			recharge.setState(1);
 			recharge.setAmount(new BigDecimal(amount));

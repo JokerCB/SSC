@@ -1,5 +1,7 @@
 package com.ssc.demo.service;
 
+import java.util.List;
+
 import com.ssc.demo.model.Data;
 import com.ssc.demo.model.Order;
 import com.ssc.demo.model.OrderDetail;
@@ -13,7 +15,13 @@ public interface OrderService {
 
 	public int addOrder(Order order);
 	
-	public String buildOrderId();
+	public int addOrders(List<Order> orders);
+	
+	public int cancel(Order order);
+	
+	public int cancel(List<Order> orders);
+	
+	public String buildOrderId(String type);
 	
 	public PageList<OrderDetail> findDetailsByPage(PageRequest pageRequest);
 	
@@ -22,4 +30,6 @@ public interface OrderService {
 	public void addBonus(String dataId);
 	
 	public void addBonus(Data data);
+	
+	List<Order> findOrderByZhuiHaoId(String zhuiHaoId,int status);
 }

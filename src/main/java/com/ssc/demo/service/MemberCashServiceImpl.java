@@ -2,32 +2,15 @@ package com.ssc.demo.service;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.Map;
 import javax.annotation.Resource;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.ssc.demo.dao.CoinLogDao;
 import com.ssc.demo.dao.MemberCashDao;
-import com.ssc.demo.dao.RechargeDao;
+import com.ssc.demo.dao.MembersDao;
 import com.ssc.demo.model.CoinLog;
 import com.ssc.demo.model.MemberCash;
 import com.ssc.demo.model.Members;
-import com.ssc.demo.model.Recharge;
-import com.ssc.demo.web.ui.DataGrid;
 import com.ssc.demo.web.ui.PageRequest;
 
 import framework.generic.paginator.domain.PageList;
@@ -41,7 +24,8 @@ public class MemberCashServiceImpl implements MemberCashService {
 	private MembersService membersService;
 	
 	private CoinLogDao coinLogDao;
-	
+	@Resource
+	private MembersDao membersDao;
 	@Resource
 	public void setMemberCashDao(MemberCashDao memberCashDao) {
 		this.memberCashDao = memberCashDao;
@@ -133,4 +117,36 @@ public class MemberCashServiceImpl implements MemberCashService {
 		coinLogDao.saveCoinLog(coinLog);	
 	}
 
+	@Override
+	public PageList<Map> findCashByPage(PageRequest pageRequest) {
+		PageList<Map> cashMap=memberCashDao.findCashByPage(pageRequest.getParameter(), pageRequest.getPageBounds());
+		return cashMap;
+	}
+
+	@Override
+	public void updateCash(int id, int state,int uid) {
+		if (state==2)//拒绝，更新ssc_coin_log
+		{
+			MemberCash memberCash =memberCashDao.load(id+"");
+	        Members		members=	membersDao.load(uid, null, null);
+			CoinLog coinLog = new CoinLog();
+			coinLog.setUid(uid);
+			coinLog.setOrderId(memberCash.getCashNo());
+			coinLog.setType(1);
+			coinLog.setPlayedId(0);
+			coinLog.setCoin(memberCash.getAmount());
+			coinLog.setUserCoin(memberCash.getAmount().add(members.getMcoin()));
+			coinLog.setLiqType(3);
+			coinLog.setCreateDate(new Date());
+			coinLogDao.saveCoinLog(coinLog);	
+			members.setMcoin(memberCash.getAmount().add(members.getMcoin()));
+			membersDao.updateMembersCoin(uid, members.getMcoin());
+		}
+		MemberCash memberCash=new MemberCash();
+		memberCash.setState(state);
+		memberCash.setId(id);
+		memberCashDao.update(memberCash);
+	}
+
+	
 }

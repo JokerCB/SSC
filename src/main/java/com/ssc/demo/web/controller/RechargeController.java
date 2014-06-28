@@ -153,7 +153,7 @@ public class RechargeController extends BaseController {
 	public  String updateCoin(HttpSession session,PageRequest pageRequest, HttpServletRequest request, HttpServletResponse response) {
 	     try
 	     {
-	    	 rechargeService.addCoinLog(request.getParameter("dataId"));
+	    	 rechargeService.addCoinLog(request.getParameter("dataId"),Integer.parseInt(request.getParameter("state")));
 	    	return "处理成功！";
 	     }catch(Exception ex)
 	     {

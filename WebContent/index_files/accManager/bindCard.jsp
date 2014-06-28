@@ -70,7 +70,7 @@ function changeCity() {
 			$("#city").empty();
 			var cityhtml="";
 			$.each(data.pageInfo.dataList, function(i, v){
-				cityhtml += "<option value='"+v.fid+"'>"+v.fname+"</option>";
+				cityhtml += "<option value='"+v.id+"'>"+v.name+"</option>";
 			});
 			$("#city").html(cityhtml);
 		}
@@ -231,7 +231,7 @@ function checkform2(obj) {
 								<select name="provinceid" id="province" onchange="changeCity();">
 									<option selected="selected" value="">请选择</option>
 									<c:forEach var="provinceList" items="${provinceList}">
-										<option value="${provinceList.fid }">${provinceList.fname }</option>
+										<option value="${provinceList.id }">${provinceList.name }</option>
 									</c:forEach>
 								</select> &nbsp;&nbsp;
 								<span style="color: red;" id="province_msg"></span>

@@ -31,7 +31,7 @@ public interface RechargeService {
 	
 	public PageList<Map> findRechargeLogByPage(PageRequest pageRequest);
 	
-	public void addCoinLog(String uId);
+	public void addCoinLog(String uId,int state);
 	
 	public String  actionCoinLog(Integer id,String uid,String amount);
 

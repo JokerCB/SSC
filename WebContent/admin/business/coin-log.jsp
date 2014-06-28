@@ -70,7 +70,7 @@
 <script type="text/javascript" src="../index_files/a_data/main.js"></script>
 <script type="text/javascript" src="../index_files/a_data/page.js"></script>
 <script type="text/javascript">
-/* deskSearch(); */
+deskSearch(); 
 function getFieldValues(obj){
 	var $obj = $(obj);
 	var field=$obj.find("input[type!=submit][type!=button][type!=image],textarea,select");
@@ -97,6 +97,7 @@ function deskSearch(pIndex,pTag){
 	  }
 	 
 	  $(formDate).attr("pageIndex",pIndex);
+	  $(formDate).attr("ALL","ALL");
 	  var coinloglistTab = document.getElementById("coinloglistTab");
 	  while(coinloglistTab.rows.length>2)
 		  coinloglistTab.deleteRow(1);
@@ -127,9 +128,9 @@ function deskSearch(pIndex,pTag){
 			        cell2.innerHTML = list.m_name;
 			        cell3.innerHTML =list.fname; //moneyFormat(list.mcoin);
 			        cell4.innerHTML =list.orderId; //list.mfandian+"%"; //formatFloat(list.mfandian)+"%"
-			        cell5.innerHTML =list.title;
-			        cell6.innerHTML =list.name;
-			        cell7.innerHTML =list.lt_issue_start;
+			        cell5.innerHTML =list.title==undefined?"":list.title;
+			        cell6.innerHTML =list.name==undefined?"":list.name;
+			        cell7.innerHTML =list.lt_issue_start==undefined?"":list.lt_issue_start;
 			        cell8.innerHTML =list.mode;
 			        cell9.innerHTML =moneyFormat(list.coin);
 			        cell10.innerHTML =moneyFormat(list.userCoin);

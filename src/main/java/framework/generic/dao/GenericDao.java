@@ -94,6 +94,9 @@ public interface GenericDao<T extends PersistentModel, PK extends Serializable> 
 	 */
 	abstract Integer deleteAll(List<T> parameters);
 	
+	
+	abstract Integer deleteAll(String[] ids);
+	
 
 	/**
 	 * 查询整表总记录数
