@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import com.ssc.demo.dao.AreaDao;
 import com.ssc.demo.dao.CoinLogDao;
 import com.ssc.demo.dao.MembersDao;
+import com.ssc.demo.dao.NoticeDao;
 import com.ssc.demo.dao.OrderDao;
 import com.ssc.demo.model.City;
 import com.ssc.demo.model.CoinLog;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.Notice;
 import com.ssc.demo.model.Province;
 import com.ssc.demo.web.ui.PageRequest;
 
@@ -30,6 +32,8 @@ public class MembersServiceImpl implements MembersService {
 	private OrderDao orderDao;
 	
 	private CoinLogDao coinLogDao;
+	
+	private NoticeDao noticeDao;
 	
 	private static BigDecimal money;
 	
@@ -55,6 +59,11 @@ public class MembersServiceImpl implements MembersService {
 		this.coinLogDao = coinLogDao;
 	}
 
+	@Resource
+	public void setNoticeDao(NoticeDao noticeDao) {
+		this.noticeDao = noticeDao;
+	}
+
 	public Members load(Integer uid){
 		return membersDao.load(uid,null,null);
 	}
@@ -63,6 +72,9 @@ public class MembersServiceImpl implements MembersService {
 	}
 	public Members load(String mname,String mpassword) {
 		return membersDao.load(null,mname, mpassword);
+	}
+	public Members load(Integer uid,String mname) {
+		return membersDao.load(uid,mname, null);
 	}
 	
 	public PageList<Members> findByPage(PageRequest pageRequest) {
@@ -154,6 +166,11 @@ public class MembersServiceImpl implements MembersService {
 	public PageList<Map> findMembersBankInfo(PageRequest pageRequest) {
 		PageList<Map> membersBankInfoMap=membersDao.findMembersBankInfo(pageRequest.getParameter(), pageRequest.getPageBounds());
 		return membersBankInfoMap;
+	}
+
+	@Override
+	public List<Notice> getNotice() {
+		return noticeDao.findAll();
 	}
 
 	

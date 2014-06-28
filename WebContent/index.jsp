@@ -27,8 +27,7 @@
             <li><a class="show" title="账户管理" url-data="index/userMain?type=1" href="javascript:void(0)">账户管理</a></li>
             <li><a class="show" title="投注记录" url-data="index/userMain?type=2" href="javascript:void(0)">投注记录</a></li>
             <li><a class="show" title="报表管理" url-data="index/userMain?type=3" href="javascript:void(0)">报表管理</a></li>
-            <li><a class="show" title="网站公告" url-data="/?nav=notice" href="javascript:void(0)">网站公告</a></li>
-            <li><a class="show" title="热门活动" url-data="/?controller=promotions&amp;action=main" href="javascript:void(0)">热门活动</a></li>
+            <li><a class="show" title="网站公告" url-data="index/userMain?type=6">网站公告</a></li>
         </ul>
 		</div>
 	</div>
@@ -45,7 +44,7 @@
         
         <!--/foreach-->
         
-    <li><a url-data="/?nav=notice&amp;tag=notice&amp;nid=" class="show" href="javascript:void(0)" title="网站公告">杏彩四月活动火爆出击：踏青迎春心情爽，精</a></li></ul>
+    <li><a url-data="" class="show" href="javascript:void(0)" title="网站公告"></a></li></ul>
     </div></div>
     <div class="left_detail">
     	<div class="detail_left"><img src="index_files/detail_ico.jpg"> <p>[ <a href="logout">退出</a> ]</p></div>
@@ -53,8 +52,8 @@
         	<ul>
             	<li><label>您好，</label><span>${mname}</span></li>
                 <li><label>余额：</label><span class="bal" id="availabalances"><a class="sx" id="refff" href="#" title="刷新余额">0.0000</a></span></li>
-                <li><a url-data="/?controller=user&amp;action=main&amp;tag=messages" class="show" href="javascript:void(0)" title="账户管理"><img src="index_files/emailNone.gif"></a>
-                <span class="mail"><a url-data="/?controller=user&amp;action=main&amp;tag=messages" class="show" href="javascript:void(0)" title="账户管理">( <strong class="white">0</strong> )</a></span> 
+                <li><a url-data="" class="show" href="javascript:void(0)" title="账户管理"><img src="index_files/emailNone.gif"></a>
+                <span class="mail"><a url-data="" class="show" href="javascript:void(0)" title="账户管理">( <strong class="white">0</strong> )</a></span> 
                 <span class="addMoney"><a url-data="index/userMain?type=4" class="show" href="javascript:void(0)" title="账户充提">充值</a></span> 
                 <span class="decMoney"><a url-data="index/userMain?type=5" class="show" href="javascript:void(0)" title="账户充提">提款</a></span>               
                 </li>

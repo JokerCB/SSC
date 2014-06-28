@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,7 +23,7 @@
 	<script type="text/javascript" src="../index_files/jquery_003.js"></script>
 	<link href="../index_files/a_data/dialogUI.css" media="all" type="text/css" rel="stylesheet">
 	<!--消息框代码结束-->
-	 <form action="../members/addUser" method="post" name="updateform" onsubmit="return checkRapid();">
+	 <form action="${action}" method="post" name="updateform" onsubmit="return checkRapid();">
 		<input name="flag" value="insert" type="hidden">
 		<input name="controller" value="user" type="hidden">
 		<input name="action" value="adduser" type="hidden">
@@ -33,15 +34,22 @@
 				<tr>
 					<td colspan="2">
 						用户类型：
-						<input name="mtype" value="1" checked="checked" type="radio">代理 &nbsp; &nbsp; &nbsp;
-						<input name="mtype" value="0" type="radio">会员用户
+						<c:choose>
+							<c:when test="${not empty members}">
+								<input name="mtype" value="1" <c:if test="${members.mtype}">checked="checked"</c:if> type="radio">代理 &nbsp; &nbsp; &nbsp;
+								<input name="mtype" value="0" <c:if test="${members.mtype}">checked="checked"</c:if> type="radio">会员用户
+							</c:when>
+							<c:otherwise>
+								<input name="mtype" value="1" checked="checked" type="radio">代理 &nbsp; &nbsp; &nbsp;
+								<input name="mtype" value="0" type="radio">会员用户
+							</c:otherwise>
+						</c:choose>
 					</td>
-
 				</tr>
 				<tr>
 					<td width="11%">用户名：</td>
 					<td colspan="2">
-						<input name="mname" id="mname" onblur="checkUser(this.value)" onclick="$('#userchk').html('')" type="text">
+						<input name="mname" id="mname" value="${members.mname }" onblur="checkUser(this.value)" onclick="$('#userchk').html('')" type="text">
 						<span class="red">(由字母或数字组成的6-16个字符,不能连续四位相同的字符,首字不能以0或者o开头)</span>
 					<p id="userchk"></p></td>
 				</tr>
@@ -106,11 +114,11 @@
 								value="37" type="hidden"> 1800
 							</td>
 							<td class="left_noindent">&nbsp;
-								<input style="border: none;" size="20" onblur="checkFandian(this);" id="mfandian_cqssc" name="mfandian" type="text">%
+								<input value="${members.mfandian }" style="border: none;" size="20" onblur="checkFandian(this);" id="mfandian_cqssc" name="mfandian" type="text">%
 								<span id="fd_span_cqssc"></span>
 							</td>
 							<td class="left_noindent" style="padding: 3px;" bgcolor="#CCCCCC">&nbsp;
-								<input style="border: none; size="20" onblur="checkFandian(this);" id="mfandianbdw_cqssc" name="mfandianbdw" type="text">%
+								<input value="${members.mfandianbdw }" style="border: none; size="20" onblur="checkFandian(this);" id="mfandianbdw_cqssc" name="mfandianbdw" type="text">%
 								<span id="fdbdw_span_cqssc"></span>
 
 							</td>

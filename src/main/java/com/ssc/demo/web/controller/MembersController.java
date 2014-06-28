@@ -23,6 +23,7 @@ import com.ssc.demo.model.Bank;
 import com.ssc.demo.model.MemberBank;
 import com.ssc.demo.model.MemberCash;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.Notice;
 import com.ssc.demo.model.Played;
 import com.ssc.demo.service.BankService;
 import com.ssc.demo.service.MemberBankService;
@@ -168,6 +169,40 @@ public class MembersController extends BaseController {
 		model.addAttribute("noticeButton", "返回");
 		return new ModelAndView("../index_files/accManager/success");
 	}
+	
+	@RequestMapping(value = "updateUser", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView updateUser(Model model, HttpSession session, HttpServletRequest request) {
+		
+		Members members = new Members();
+		String mname = request.getParameter("mname");
+		BigDecimal mfandian = new BigDecimal(request.getParameter("mfandian"));
+		BigDecimal mfandianbdw = new BigDecimal(request.getParameter("mfandianbdw"));
+		int mparentid = Integer.parseInt(session.getAttribute("uid").toString());
+		boolean mtype = "1".equals(request.getParameter("mtype")) ? true : false;
+		
+		Members pM = (Members) memCache.getMc().get(mparentid + "_object");
+		members.setMgrade(pM.getMgrade() + 1);
+		members.setMname(mname);
+		members.setMfandian(mfandian);
+		members.setMfandianbdw(mfandianbdw);
+		members.setMparentid(mparentid);
+		members.setMfullparentid(pM.getMfullparentid()+"," +mparentid);
+		members.setMtype(mtype);
+		members.setMpassword(MD5.getPasswordMD5("123456"));
+		members.setMcoin(new BigDecimal("0"));
+		members.setMfcoin(new BigDecimal("0"));
+		
+		members.setIsAdmin(false);
+		members.setCreateName(session.getAttribute("mname").toString());
+		members.setCreateDate(new Date());
+		members.setModifyDate(new Date());
+		membersService.modify(members);
+		
+		model.addAttribute("noticeHref", "../members/userList");
+		model.addAttribute("noticeButton", "用户列表");
+		return new ModelAndView("../index_files/accManager/success");
+	}
+	
 	/**
 	 *后台添加会员
 	 * @param model
@@ -642,11 +677,32 @@ public class MembersController extends BaseController {
 	}
 
 	/**
-	 * 进入增加用户页面
+	 * 进入增加用户页面/返点设定
 	 * @param model
 	 */
 	@RequestMapping(value = "userAdd", method = { RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView userAdd(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		String flag = request.getParameter("flag");
+		String uid = request.getParameter("uid");
+		String mname = request.getParameter("mname");
+		String action = "../members/addUser";
+		if ("modify".equals(flag)) {
+			Members members = membersService.load(Integer.parseInt(uid), mname);
+			model.addAttribute("members", members);
+			action = "../members/updateUser";
+		}
+		model.addAttribute("action", action);
 		return new ModelAndView("../index_files/accManager/userAdd");
+	}
+	
+	/**
+	 * 进入网站公告页面
+	 * @param model
+	 */
+	@RequestMapping(value = "notice", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView notice(Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		List<Notice> list = membersService.getNotice();
+		model.addAttribute("list", list);
+		return new ModelAndView("../index_files/accManager/notice");
 	}
 }

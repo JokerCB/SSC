@@ -112,7 +112,6 @@ function deskSearch(pIndex,pTag,uid){
 			    if(queryList!=undefined){			    	
 			      for(var i=0;i<queryList.length;i++){
 			        var list=queryList[i];
-			        //alert(userlistTab.rows.length);
 			        var row = userlistTab.insertRow(userlistTab.rows.length-1);
 			        var cell1 = document.createElement("td");
 			        var cell2 = document.createElement("td");
@@ -125,7 +124,7 @@ function deskSearch(pIndex,pTag,uid){
 			        cell4.innerHTML = list.mfandian+"%"; //formatFloat(list.mfandian)+"%"
 			        //cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' onclick='checkTop("+list.uid+");'>&nbsp;团队余额&nbsp;</a>"+
 			        cell5.innerHTML = "<a style='cursor:pointer' target='mainFrame' href='../members/teamSum?uid="+list.uid+"'>&nbsp;团队余额&nbsp;</a>"+
-			        					"<a onclick=''>&nbsp;返点设定&nbsp;</a>";
+			        				  "<a style='cursor:pointer' target='mainFrame' href='../members/userAdd?uid="+list.uid+"&mname="+list.mname+"&flag=modify'>&nbsp;返点设定&nbsp;</a>";
 			        					
 			        row.appendChild(cell1);
 			        row.appendChild(cell2);

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.ssc.demo.model.City;
 import com.ssc.demo.model.Members;
+import com.ssc.demo.model.Notice;
 import com.ssc.demo.model.Province;
 import com.ssc.demo.web.ui.PageRequest;
 
@@ -19,7 +20,8 @@ public interface MembersService {
 	 */
 	public Members load(Integer uid);
 	public Members load(String mname);
-	public Members load(String mname,String mpassword);	
+	public Members load(String mname,String mpassword);
+	public Members load(Integer uid,String mname);
 	
 	
 	public PageList<Members> findByPage(PageRequest pageRequest);
@@ -84,4 +86,10 @@ public interface MembersService {
 	 * @return
 	 */
 	public PageList<Map> findMembersBankInfo(PageRequest pageRequest);
+	
+	/**
+	 * 获取网站公告
+	 * @return
+	 */
+	public List<Notice> getNotice(); 
 }
